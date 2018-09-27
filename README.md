@@ -1,2 +1,6 @@
-# auth-graphql-starter
-Starter project from a GraphQL course on Udemy.com - Section 3!
+npm install
+npm run dev
+
+localhost:4000
+
+localhost:4000/graphql for GraphiQL interface
