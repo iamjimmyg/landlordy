@@ -1,5 +1,52 @@
-import React from 'react'
+import React, { Component } from 'react'
+import AddCompanyForm from './AddCompanyForm'
 
-export default () => {
-  return <div>You are logged in.</div>
+import { graphql } from 'react-apollo'
+import mutation from '../mutations/addCompany'
+import query from '../queries/CurrentUser'
+
+class Dashboard extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      errors: [],
+    }
+  }
+
+  onSubmit({name, userId}){
+    this.props.mutate({
+      variables: {
+        name, userId
+      },
+      refetchQueries: [{query}]
+    }).catch(res => {
+      const errors = res.graphQLErrors.map(error => error.message)
+      this.setState({ errors: errors })
+    })
+  }
+
+  render(){
+    const { loading, user } = this.props.data
+
+    return (
+      <div>
+        { !user ? <div>
+          loading
+        </div> : ((user.company === null) ? <div>
+          <AddCompanyForm
+            onSubmit={this.onSubmit.bind(this)}
+            errors={this.state.errors}
+            {...this.props}/>
+        </div> : <div>
+          {`hello ${this.props.data.user.company.name}`}
+        </div> ) }
+      </div>
+
+
+    )
+  }
 }
+
+export default graphql(query)(
+ graphql(mutation)(Dashboard)
+)

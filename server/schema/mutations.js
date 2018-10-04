@@ -1,11 +1,16 @@
 const graphql = require('graphql');
 const {
   GraphQLObjectType,
-  GraphQLString
+  GraphQLString,
+  GraphQLInt,
+  GraphQLNonNull,
+  GraphQLList
 } = graphql;
 
 const UserType = require('./types/user_type');
+const CompanyType = require('./types/company_type');
 const AuthService = require('../services/auth');
+const CompanyService = require('../services/company')
 
 const mutation = new GraphQLObjectType({
   name: 'Mutation',
@@ -13,8 +18,9 @@ const mutation = new GraphQLObjectType({
     signup: {
       type: UserType,
       args: {
-        email: { type: GraphQLString },
-        password: { type: GraphQLString }
+        email: { type: new GraphQLNonNull(GraphQLString) },
+        password: { type: new GraphQLNonNull(GraphQLString) },
+        companyId: {type: GraphQLString }
       },
       resolve(parentValue, { email, password }, req){
         return AuthService.signup({ email, password, req})
@@ -31,14 +37,24 @@ const mutation = new GraphQLObjectType({
     login: {
       type: UserType,
       args: {
-        email: { type: GraphQLString },
-        password: { type: GraphQLString }
+        email: { type: new GraphQLNonNull(GraphQLString) },
+        password: { type: new GraphQLNonNull(GraphQLString) }
       },
       resolve(parentValue, { email, password }, req){
         return AuthService.login({ email, password, req})
       }
-    }
+    },
+    addCompany: {
+      type: CompanyType,
+      args: {
+        name: { type: new GraphQLNonNull(GraphQLString) },
+        userId: { type: new GraphQLNonNull(GraphQLString) }
+      },
+      resolve(parentValue, { name, userId }, req) {
 
+        return CompanyService.addCompany({name, userId, req});
+      }
+    }
   }
 });
 

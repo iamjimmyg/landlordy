@@ -1,5 +1,6 @@
-npm install
-npm run dev
+`npm install`
+
+`npm run dev`
 
 localhost:4000
 

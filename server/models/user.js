@@ -7,7 +7,8 @@ const Schema = mongoose.Schema;
 // plain text - see the authentication helpers below.
 const UserSchema = new Schema({
   email: String,
-  password: String
+  password: String,
+  companyId: String,
 });
 
 // The user's password is never saved in plain text.  Prior to saving the
@@ -39,4 +40,4 @@ UserSchema.methods.comparePassword = function comparePassword(candidatePassword,
   });
 };
 
-mongoose.model('user', UserSchema);
+module.exports = mongoose.model('user', UserSchema);

@@ -5,6 +5,9 @@ export default gql`
     user {
       id
       email
+      company {
+        name
+      }
     }
   }
 `
