@@ -9,8 +9,13 @@ const {
 
 const UserType = require('./types/user_type');
 const CompanyType = require('./types/company_type');
+const PropertyType = require('./types/property_type');
+
+const mongoose = require('mongoose');
+const Company = mongoose.model('company');
+
 const AuthService = require('../services/auth');
-const CompanyService = require('../services/company')
+const Helper = require('../services/helper');
 
 const mutation = new GraphQLObjectType({
   name: 'Mutation',
@@ -52,7 +57,23 @@ const mutation = new GraphQLObjectType({
       },
       resolve(parentValue, { name, userId }, req) {
 
-        return CompanyService.addCompany({name, userId, req});
+        return Helper.addCompany({name, userId, req});
+      }
+    },
+    addProperty: {
+      type: PropertyType,
+      args: {
+        name: { type: new GraphQLNonNull(GraphQLString) },
+        address: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      resolve(parent, { name, address }, req){
+        return Company.findById(req.user.companyId)
+          .then(company => {
+            //let property = { name, address }
+            company.properties.push({name: name, address: address})
+            //now save to db
+          })
+
       }
     }
   }

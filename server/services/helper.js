@@ -3,12 +3,6 @@ const mongoose = require('mongoose');
 const Company = mongoose.model('company');
 const User = mongoose.model('user')
 
-// function updateCompanyRequest(){
-//   Company.findById(id, (err, company) => {
-//     done(err, company);
-//   });
-// }
-
 function updateUser(company){
   return User.findById(company.userId)
     .then(user => {
@@ -35,15 +29,25 @@ function addCompany({name, userId, req} ) {
         })
         updateUser(newCompany)
         return newCompany
-        // return new Promise((resolve, reject) => {
-        //   resolve(newCompany);
-        // });
+
       }else if(company.name === name) {
         throw new Error('This company already exists')
       }
     })
 }
 
-
+// function addProperty({name, address, companyId, req}){
+//   console.log('add property function ------->')
+//   console.log([name, address, companyId])
+//
+//   return Company.findById(companyId)
+//     .then(company => {
+//       console.log(company)
+//       // company.properties = []
+//       return { name, address, companyId }
+//     })
+//
+//   //
+// }
 
 module.exports = { addCompany };

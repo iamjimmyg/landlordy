@@ -5,11 +5,11 @@ const {
   GraphQLID,
   GraphQLList
 } = graphql;
-
-const UserType = require('./user_type')
-const passport = require('passport');
-const User = require("../../models/user")
-
+const PropertyType = require('./property_type')
+//const UserType = require('./user_type')
+// const passport = require('passport');
+// const User = require('../../models/user')
+const Company = require('../../models/company')
 
 const CompanyType = new GraphQLObjectType({
   name: 'CompanyType',
@@ -19,8 +19,13 @@ const CompanyType = new GraphQLObjectType({
     user: {
       type: GraphQLID,
       resolve(parent, args, req){
-        console.log(User)
         return parent.userId
+      }
+    },
+    properties: {
+      type: new GraphQLList(PropertyType),
+      resolve(parent, args, req){
+        console.log("in company type-->property resolver :",parent)
       }
     }
   })
