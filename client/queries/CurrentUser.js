@@ -6,7 +6,7 @@ export default gql`
       id
       email
       company {
-        name
+        companyName
       }
     }
   }

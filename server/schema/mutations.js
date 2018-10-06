@@ -52,26 +52,27 @@ const mutation = new GraphQLObjectType({
     addCompany: {
       type: CompanyType,
       args: {
-        name: { type: new GraphQLNonNull(GraphQLString) },
+        companyName: { type: new GraphQLNonNull(GraphQLString) },
         userId: { type: new GraphQLNonNull(GraphQLString) }
       },
-      resolve(parentValue, { name, userId }, req) {
+      resolve(parentValue, { companyName, userId }, req) {
 
-        return Helper.addCompany({name, userId, req});
+        return Helper.addCompany({companyName, userId, req});
       }
     },
     addProperty: {
       type: PropertyType,
       args: {
-        name: { type: new GraphQLNonNull(GraphQLString) },
+        propertyName: { type: new GraphQLNonNull(GraphQLString) },
         address: { type: new GraphQLNonNull(GraphQLString) },
       },
-      resolve(parent, { name, address }, req){
+      resolve(parent, { propertyName, address }, req){
         return Company.findById(req.user.companyId)
           .then(company => {
-            //let property = { name, address }
-            company.properties.push({name: name, address: address})
-            //now save to db
+            company.properties.push({propertyName: propertyName, address: address})
+            company.save()
+            let property = company.properties.find(prop => {return prop.propertyName === propertyName})
+            return property
           })
 
       }

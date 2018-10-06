@@ -4,7 +4,7 @@ class AddCompanyForm extends Component {
   constructor(props){
     super(props)
     this.state = {
-      name: '',
+      companyName: '',
       userId: this.props.data.user.id
     }
   }
@@ -25,8 +25,8 @@ class AddCompanyForm extends Component {
           <div className='input-field'>
             <input
               placeholder='Company Name'
-              value={this.state.name}
-              onChange={e => this.setState({ name: e.target.value })}
+              value={this.state.companyName}
+              onChange={e => this.setState({ companyName: e.target.value })}
             />
           </div>
           <div style={{color: 'red', marginBottom: '7px'}}>

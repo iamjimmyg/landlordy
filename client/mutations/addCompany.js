@@ -1,10 +1,10 @@
 import gql from 'graphql-tag'
 
 export default gql`
-  mutation addCompany($name: String!, $userId: String!){
-    addCompany(name: $name, userId: $userId){
+  mutation addCompany($companyName: String!, $userId: String!){
+    addCompany(companyName: $companyName, userId: $userId){
       id
-      name
+      companyName
     }
   }
 `

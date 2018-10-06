@@ -13,16 +13,16 @@ function updateUser(company){
     })
 }
 
-function addCompany({name, userId, req} ) {
-  if(!name) {
+function addCompany({companyName, userId, req} ) {
+  if(!companyName) {
     throw new Error('You must provide a company name.');
   }
   //check if company exists, if it doesnt, create a new one and save to db
-  return Company.findOne({name})
+  return Company.findOne({companyName})
     .then(company => {
 
       if(company === null){
-        const newCompany = new Company({name, userId})
+        const newCompany = new Company({companyName, userId})
 
         newCompany.save(function (err){
           if(err) throw new Error('Company did not save')
@@ -30,7 +30,7 @@ function addCompany({name, userId, req} ) {
         updateUser(newCompany)
         return newCompany
 
-      }else if(company.name === name) {
+      }else if(company.companyName === companyName) {
         throw new Error('This company already exists')
       }
     })

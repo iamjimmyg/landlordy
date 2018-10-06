@@ -13,10 +13,10 @@ class Dashboard extends Component {
     }
   }
 
-  onSubmit({name, userId}){
+  onSubmit({companyName, userId}){
     this.props.mutate({
       variables: {
-        name, userId
+        companyName, userId
       },
       refetchQueries: [{query}]
     }).catch(res => {
@@ -38,7 +38,7 @@ class Dashboard extends Component {
             errors={this.state.errors}
             {...this.props}/>
         </div> : <div>
-          {`hello ${this.props.data.user.company.name}`}
+          {`hello ${this.props.data.user.company.companyName}`}
         </div> ) }
       </div>
 

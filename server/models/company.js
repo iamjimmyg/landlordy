@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const CompanySchema = new Schema({
-  name: String,
+  companyName: String,
   userId: String,
   properties: [{
-    name: String,
+    propertyName: String,
     address: String
   }]
-});
+}, {usePushEach: true});
 
 module.exports = mongoose.model('company', CompanySchema);
