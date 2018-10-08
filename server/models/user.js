@@ -9,6 +9,7 @@ const UserSchema = new Schema({
   email: String,
   password: String,
   companyId: String,
+  isAdmin: Boolean,
 });
 
 // The user's password is never saved in plain text.  Prior to saving the

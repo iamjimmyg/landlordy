@@ -3,10 +3,18 @@ const Schema = mongoose.Schema;
 
 const CompanySchema = new Schema({
   companyName: String,
-  userId: String,
+  users: [String],
   properties: [{
     propertyName: String,
-    address: String
+    address: String,
+    units: [{
+      tenantName: String,
+      cellNumber: String,
+      email: String,
+      rentAmount: Number,
+      dueDate: Number,
+      paidStatus: String,
+    }]
   }]
 }, {usePushEach: true});
 

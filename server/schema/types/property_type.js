@@ -5,11 +5,8 @@ const {
   GraphQLID,
   GraphQLList
 } = graphql;
-//const PropertyType = require('./property_type')
-//const UserType = require('./user_type')
-// const passport = require('passport');
-// const User = require('../../models/user')
 
+const UnitType = require('./unit_type')
 
 const PropertyType = new GraphQLObjectType({
   name: 'PropertyType',
@@ -17,6 +14,12 @@ const PropertyType = new GraphQLObjectType({
     id: {type: GraphQLID },
     propertyName: { type: GraphQLString },
     address: { type: GraphQLString },
+    units: {
+      type: new GraphQLList(UnitType),
+      resolve(parent, args, req){
+        return parent.units
+      }
+    }
   })
 });
 

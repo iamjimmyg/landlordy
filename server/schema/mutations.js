@@ -10,6 +10,7 @@ const {
 const UserType = require('./types/user_type');
 const CompanyType = require('./types/company_type');
 const PropertyType = require('./types/property_type');
+const UnitType = require('./types/unit_type')
 
 const mongoose = require('mongoose');
 const Company = mongoose.model('company');
@@ -67,14 +68,22 @@ const mutation = new GraphQLObjectType({
         address: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve(parent, { propertyName, address }, req){
-        return Company.findById(req.user.companyId)
-          .then(company => {
-            company.properties.push({propertyName: propertyName, address: address})
-            company.save()
-            let property = company.properties.find(prop => {return prop.propertyName === propertyName})
-            return property
-          })
-
+        return Helper.addProperty({propertyName, address, companyId: req.user.companyId})
+      }
+    },
+    addUnit: {
+      type: UnitType,
+      args: {
+        propertyId: { type: GraphQLString },
+        tenantName: { type: GraphQLString },
+        cellNumber: { type: GraphQLString },
+        email: { type: GraphQLString },
+        rentAmount: { type: GraphQLInt },
+        dueDate:{ type: GraphQLInt },
+        paidStatus: { type: GraphQLString },
+      },
+      resolve(parent, { propertyId, tenantName, cellNumber, email, rentAmount, dueDate, paidStatus }, req){
+        return Helper.addUnit({ propertyId, tenantName, cellNumber, email, rentAmount, dueDate, paidStatus, companyId: req.user.companyId })
       }
     }
   }
