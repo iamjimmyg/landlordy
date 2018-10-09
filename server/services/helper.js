@@ -52,7 +52,7 @@ function addUnit({ propertyId, tenantName, cellNumber, email, rentAmount, dueDat
       company.properties.forEach(property => {
         if(property.id === propertyId){
           property.units.forEach(unit => {
-            if(unit.email === email) throw new Error('This tenant already exists')
+            if(unit.email === email && unit.tenantName === tenantName) throw new Error('This tenant already exists')
           })
           property.units.push(newUnit)
         }

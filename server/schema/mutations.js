@@ -85,6 +85,17 @@ const mutation = new GraphQLObjectType({
       resolve(parent, { propertyId, tenantName, cellNumber, email, rentAmount, dueDate, paidStatus }, req){
         return Helper.addUnit({ propertyId, tenantName, cellNumber, email, rentAmount, dueDate, paidStatus, companyId: req.user.companyId })
       }
+    },
+    signupAssistant: {
+      type: UserType,
+      args: {
+        email: { type: new GraphQLNonNull(GraphQLString) },
+        password: { type: new GraphQLNonNull(GraphQLString) },
+        companyId: {type: GraphQLString }
+      },
+      resolve(parent, { email, password, companyId}, req){
+        return AuthService.signupAssistant({ email, password, companyId, req })
+      }
     }
   }
 });

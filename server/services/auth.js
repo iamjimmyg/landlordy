@@ -3,6 +3,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 const User = mongoose.model('user');
+const Company = mongoose.model('company')
 
 // SerializeUser is used to provide some identifying token that can be saved
 // in the users session.  We traditionally use the 'ID' for this.
@@ -40,9 +41,30 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, (email, password, don
   });
 }));
 
-// function addAssistantAccount({ email, password, req }) {
-//
-// }
+function updateCompany(companyId, userId){
+  return Company.findById(companyId)
+    .then(company => {
+      console.log([company, userId])
+      company.users.push(userId)
+      company.save()
+    })
+}
+
+function signupAssistant({ email, password, companyId, req }) {
+  const user = new User({ email, password, req })
+  if(!email || !password) { throw new Error('You must provide an email and password') }
+  return User.findOne({ email })
+    .then(existingUser => {
+      if(existingUser) { throw new Error('Email in use') }
+      user.companyId = companyId
+      user.isAdmin = false
+      updateCompany(companyId, user.id)
+      console.log('oh snap new assistant acount created!')
+      return user.save()
+    })
+
+
+}
 
 // Creates a new user account.  We first check to see if a user already exists
 // with this email address to avoid making multiple accounts with identical addresses
@@ -85,4 +107,4 @@ function login({ email, password, req }) {
   });
 }
 
-module.exports = { signup, login };
+module.exports = { signup, login, signupAssistant };
