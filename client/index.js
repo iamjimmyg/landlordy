@@ -7,6 +7,8 @@ import App from './components/App'
 import LoginForm from './components/LoginForm'
 import SignupForm from './components/SignupForm'
 import Dashboard from './components/Dashboard'
+import Properties from './components/main_pages/Properties'
+import Tenants from './components/main_pages/Tenants'
 import requireAuth from './components/requireAuth'
 import './styles/app.scss'
 
@@ -30,6 +32,8 @@ const Root = () => {
           <Route path='/login' component={LoginForm}/>
           <Route path='/signup' component={SignupForm}/>
           <Route path='/dashboard' component={requireAuth(Dashboard)} />
+          <Route path='/properties' component={requireAuth(Properties)} />
+          <Route path='/tenants' component={requireAuth(Tenants)} />
         </Route>
       </Router>
     </ApolloProvider>

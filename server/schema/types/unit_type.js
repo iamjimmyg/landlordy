@@ -3,7 +3,8 @@ const {
   GraphQLObjectType,
   GraphQLString,
   GraphQLID,
-  GraphQLInt
+  GraphQLInt,
+  GraphQLBoolean
 } = graphql;
 
 const UnitType = new GraphQLObjectType({
@@ -15,7 +16,7 @@ const UnitType = new GraphQLObjectType({
     email: { type: GraphQLString },
     rentAmount: { type: GraphQLInt },
     dueDate: { type: GraphQLInt },
-    paidStatus: { type: GraphQLString },
+    paidStatus: { type: GraphQLBoolean },
   })
 });
 

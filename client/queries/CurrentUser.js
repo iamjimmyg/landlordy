@@ -7,7 +7,22 @@ export default gql`
       email
       isAdmin
       company {
+        id
         companyName
+        properties{
+          id
+          propertyName
+          address
+          units {
+            id
+            tenantName
+            cellNumber
+            email
+            rentAmount
+            dueDate
+            paidStatus
+          }
+        }
       }
     }
   }

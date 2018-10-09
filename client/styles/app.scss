@@ -1,1 +1,26 @@
-$green: #15b78f;
+@import 'overview_component';
+@import 'default_colors';
+
+* {
+  font-size: 16px;
+}
+body {
+  background: $lightgrey;
+}
+
+.main-container{
+  .main-section{
+  }
+}
+
+.title {
+  font-weight: 500;
+
+}
+
+
+//-------> Materialize over-ride <----------//
+
+nav {
+  background-color: $primary;
+}

@@ -4,6 +4,8 @@ import AddCompanyForm from './AddCompanyForm'
 import { graphql } from 'react-apollo'
 import mutation from '../mutations/addCompany'
 import query from '../queries/CurrentUser'
+import PropertiesOverview from './dashboard_components/PropertiesOverview'
+import TenantsOverview from './dashboard_components/TenantsOverview'
 
 class Dashboard extends Component {
   constructor(props){
@@ -38,7 +40,13 @@ class Dashboard extends Component {
             errors={this.state.errors}
             {...this.props}/>
         </div> : <div>
-          {`hello ${this.props.data.user.company.companyName}`}
+          {/* {`hello ${this.props.data.user.company.companyName}`} */}
+          <PropertiesOverview
+            {...this.props}
+          />
+          <TenantsOverview
+            {...this.props}
+          />
         </div> ) }
       </div>
 

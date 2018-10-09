@@ -3,6 +3,7 @@ const {
   GraphQLObjectType,
   GraphQLString,
   GraphQLInt,
+  GraphQLBoolean,
   GraphQLNonNull,
   GraphQLList
 } = graphql;
@@ -80,7 +81,7 @@ const mutation = new GraphQLObjectType({
         email: { type: GraphQLString },
         rentAmount: { type: GraphQLInt },
         dueDate:{ type: GraphQLInt },
-        paidStatus: { type: GraphQLString },
+        paidStatus: { type: GraphQLBoolean },
       },
       resolve(parent, { propertyId, tenantName, cellNumber, email, rentAmount, dueDate, paidStatus }, req){
         return Helper.addUnit({ propertyId, tenantName, cellNumber, email, rentAmount, dueDate, paidStatus, companyId: req.user.companyId })
