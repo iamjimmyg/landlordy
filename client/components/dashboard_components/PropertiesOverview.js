@@ -4,16 +4,18 @@ import { Link } from 'react-router'
 class PropertiesOverview extends Component {
 
   render(){
-    let properties = this.props.data.user.company.properties.map(property => {
-      return <div key={property.id} className='overview-list'>
-        {property.propertyName}
-      </div>
+    let properties = this.props.data.user.company.properties.map((property, i) => {
+      if(i < 5){
+        return <div key={property.id} className='overview-list'>
+          {property.propertyName}
+        </div>
+      }
     })
 
     let seeAllOrAddLink = this.props.data.user.company.properties.length !== 0 ? (<div className='overview-list'>
       <Link to='/properties'>See All</Link>
     </div>) : (<div className='overview-list'>
-      <Link to='/properties'>Add Property</Link>
+      <Link to='/properties/add-property'>Add Property</Link>
     </div>)
 
     return (

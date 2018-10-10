@@ -32,7 +32,9 @@ const Root = () => {
           <Route path='/login' component={LoginForm}/>
           <Route path='/signup' component={SignupForm}/>
           <Route path='/dashboard' component={requireAuth(Dashboard)} />
-          <Route path='/properties' component={requireAuth(Properties)} />
+          <Route path='/properties' component={requireAuth(Properties)}>
+            <Route path='/properties/add-property' component={requireAuth(Properties)}/>
+          </Route>
           <Route path='/tenants' component={requireAuth(Tenants)} />
         </Route>
       </Router>

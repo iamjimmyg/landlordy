@@ -11,9 +11,16 @@ class TenantsOverview extends Component {
       })
     })
 
-    let listUnits = units.map(units => {
-      return <div key={units.id} className='overview-list'>{units.tenantName}</div>
+    let listUnits = units.map((unit, i) => {
+      if(i < 5){
+        return <div key={unit.id} className='overview-list'>{unit.tenantName}</div>
+      }
     })
+
+    let seeAllOrNone = units.length === 0 ? (<div className='overview-list'>
+      None</div>) : ( <div className='overview-list'>
+      <Link to='/tenants'>See All</Link>
+    </div>)
 
     return (
       <div className='overview-component'>
@@ -22,9 +29,8 @@ class TenantsOverview extends Component {
           <div className='right'>{units.length}</div>
         </div>
         {listUnits}
-        <div className='overview-list'>
-          <Link to='/tenants'>See All</Link>
-        </div>
+
+        {seeAllOrNone}
       </div>
     )
   }
