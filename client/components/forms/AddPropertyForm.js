@@ -1,18 +1,34 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 
+import mutation from '../../mutations/addProperty'
+import { graphql } from 'react-apollo'
+import query from '../../queries/CurrentUser'
+
 class AddPropertyForm extends Component {
   constructor(props){
     super(props)
     this.state = {
       propertyName: '',
-      address: ''
+      address: '',
+      errors: []
     }
   }
 
   onSubmit(event){
     event.preventDefault()
-    this.props.onSubmit(this.state)
+    const companyId = this.props.companyId
+    const propertyName = this.state.propertyName
+    const address = this.state.address
+    this.props.mutate({
+      variables: { companyId, propertyName, address },
+      refetchQueries: [{query}]
+    }).then(res => {
+      this.props.updateModalDisplay()
+    }).catch(res => {
+      const errors = res.graphQLErrors.map(error => error.message)
+      this.setState({ errors })
+    })
   }
 
   updateModalDisplay(event){
@@ -22,9 +38,7 @@ class AddPropertyForm extends Component {
 
   render(){
     return (
-      <div
-        // id="properties/add-property"
-        className="modal" style={{display: `${this.props.modalDisplay}`, zIndex: '1002'}}>
+      <div className="modal" style={{display: `${this.props.modalDisplay}`, zIndex: '1002'}}>
         <div className="modal-content">
           <form>
             <div className="row">
@@ -49,15 +63,18 @@ class AddPropertyForm extends Component {
               </div>
             </div>
           </form>
+          <div style={{color: 'red', marginBottom: '7px'}}>
+            {this.state.errors.map(error => <div key={error}>{error}</div>)}
+          </div>
         </div>
         <div className="modal-footer">
           <button
-             onClick={this.onSubmit.bind(this)}
-            className="modal-close waves-effect waves-green btn-flat"
-            >Submit</button>
-          {/* <Link to='/properties'> */}
-            <button onClick={this.updateModalDisplay.bind(this)} className="modal-close waves-effect waves-green btn-flat">Cancel</button>
-          {/* </Link> */}
+            onClick={this.onSubmit.bind(this)}
+            className="modal-close waves-effect waves-green btn-flat">Submit
+          </button>
+          <button onClick={this.updateModalDisplay.bind(this)}
+            className="modal-close waves-effect waves-green btn-flat">Cancel
+          </button>
         </div>
       </div>
 
@@ -65,4 +82,6 @@ class AddPropertyForm extends Component {
   }
 }
 
-export default AddPropertyForm
+export default graphql(query)(
+  graphql(mutation)(AddPropertyForm)
+)

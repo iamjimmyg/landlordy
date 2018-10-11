@@ -36,11 +36,16 @@ function addCompany({companyName, userId, req} ) {
 }
 
 function addProperty({propertyName, address, companyId}){
-  // if(!companyName) throw new Error('You must provide a property name')
-  // if(!address) throw new Error('You must provide an address')
+  if(!propertyName) throw new Error('You must provide a property name')
+  if(!address) throw new Error('You must provide an address')
 
   return Company.findById(companyId)
     .then(company => {
+      company.properties.forEach(prop => {
+        if(prop.propertyName === propertyName){
+          throw new Error('This property name already exists')
+        }
+      })
       company.properties.push({propertyName: propertyName, address: address})
       company.save()
       let property = company.properties.find(prop => {return prop.propertyName === propertyName})
