@@ -66,6 +66,7 @@ const mutation = new GraphQLObjectType({
     addProperty: {
       type: PropertyType,
       args: {
+        companyId: { type: new GraphQLNonNull(GraphQLString) },
         propertyName: { type: new GraphQLNonNull(GraphQLString) },
         address: { type: new GraphQLNonNull(GraphQLString) },
       },

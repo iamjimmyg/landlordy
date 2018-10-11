@@ -36,6 +36,9 @@ function addCompany({companyName, userId, req} ) {
 }
 
 function addProperty({propertyName, address, companyId}){
+  // if(!companyName) throw new Error('You must provide a property name')
+  // if(!address) throw new Error('You must provide an address')
+
   return Company.findById(companyId)
     .then(company => {
       company.properties.push({propertyName: propertyName, address: address})

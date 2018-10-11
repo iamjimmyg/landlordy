@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
+import AddPropertyForm from '../forms/AddPropertyForm'
 import { Link } from 'react-router'
-import {Modal, Button, Icon} from 'react-materialize'
+
+import mutation from '../../mutations/addProperty'
+import { graphql } from 'react-apollo'
+import query from '../../queries/CurrentUser'
 
 class Properties extends Component {
   constructor(props){
@@ -19,6 +23,19 @@ class Properties extends Component {
   updateModalDisplay(){
     if(this.state.modalDisplay === 'none') this.setState({ modalDisplay: 'block' })
     else if(this.state.modalDisplay === 'block') this.setState({ modalDisplay: 'none' })
+    this.props.router.push('/properties')
+  }
+
+  onSubmit({propertyName, address}){
+    const companyId = this.props.data.user.company.id
+    this.props.mutate({
+      variables: { propertyName, address, companyId },
+      refetchQueries: [{query}]
+    }).catch(res => {
+      const errors = res.graphQLErrors.map(error => error.message)
+      this.setState({ errors })
+    })
+    this.setState({ modalDisplay: 'none' })
   }
 
   render(){
@@ -29,43 +46,37 @@ class Properties extends Component {
     }else if(user) {
       properties = this.props.data.user.company.properties.map(property => {
         return <div key={property.id} className='overview-component'>
-          {property.propertyName}
+          <div className='overview-list title'>{property.propertyName}</div>
+          <div className='overview-list'>{property.address}</div>
         </div>
       })
     }
     return (
       <div id='properties'>
-        <h4>Properties page</h4>
+        <h4 className='center'>Properties page</h4>
         <Link to='/dashboard' className="waves-effect waves-light btn-small">
           <i className="material-icons left">arrow_back</i>
         </Link>
 
-        {/* <a onClick={this.updateModalDisplay.bind(this)}
-          className="btn-floating btn waves-effect waves-light red right modal-trigger"
-          href="#properties/add-property">
-          <i className="material-icons">add</i>
-        </a>
+        <Link to='/properties/add-property'><button onClick={this.updateModalDisplay.bind(this)}
+          className="btn-floating btn waves-effect waves-light red right modal-trigger">
 
-        <div id="properties/add-property" className="modal" style={{display: `${this.state.modalDisplay}`}}>
-          <div className="modal-content">
-            <h4>Modal Header</h4>
-            <p>A bunch of text</p>
-          </div>
-          <div className="modal-footer">
-            <a href="#properties" className="modal-close waves-effect waves-green btn-flat">Submit</a>
-            <a onClick={this.updateModalDisplay.bind(this)} href="#properties" className="modal-close waves-effect waves-green btn-flat">Cancel</a>
-          </div>
-        </div> */}
-        {/* <Modal
-          header='Modal Header'
-          trigger={<Button waves='light'>OR ME!<Icon right>insert_chart</Icon></Button>}>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua.</p>
-        </Modal> */}
+          <i className="material-icons">add</i>
+        </button></Link>
+        <AddPropertyForm
+          modalDisplay={this.state.modalDisplay}
+          updateModalDisplay={this.updateModalDisplay.bind(this)}
+          onSubmit={this.onSubmit.bind(this)}
+        />
+
+        <div onClick={this.updateModalDisplay.bind(this)} className="modal-overlay" style={{ display: `${this.state.modalDisplay}`, zIndex: '1001', opacity: '0.5'}}></div>
+
         {properties}
       </div>
     )
   }
 }
 
-export default Properties
+export default graphql(query)(
+  graphql(mutation)(Properties)
+)
