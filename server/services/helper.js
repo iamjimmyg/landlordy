@@ -68,6 +68,22 @@ function updateProperty({propertyName, address, companyId, propertyId}){
     })
 }
 
+function deleteProperty({ companyId, propertyId }){
+  return Company.findById(companyId)
+    .then(company => {
+      var propertyIndex;
+      company.properties.forEach((prop, i) => {
+        if(prop.id === propertyId){
+          propertyIndex = i
+        }
+      })
+      let property = company.properties.splice(propertyIndex, 1)
+      company.save()
+
+      return property[0]
+    })
+}
+
 function addUnit({ propertyId, tenantName, cellNumber, email, rentAmount, dueDate, paidStatus, companyId }){
   let newUnit = { tenantName, cellNumber, email, rentAmount, dueDate, paidStatus }
   return Company.findById(companyId)
@@ -99,7 +115,6 @@ function addUnit({ propertyId, tenantName, cellNumber, email, rentAmount, dueDat
 function updateUnit({ unitId, propertyId, tenantName, cellNumber, email, rentAmount, dueDate, paidStatus, companyId }){
   return Company.findById(companyId)
     .then(company => {
-
       company.properties.forEach(property => {
         if(property.id === propertyId){
           property.units.forEach(unit => {
@@ -129,4 +144,30 @@ function updateUnit({ unitId, propertyId, tenantName, cellNumber, email, rentAmo
     })
 }
 
-module.exports = { addCompany, addProperty, updateProperty, addUnit, updateUnit };
+function deleteUnit({ unitId, propertyId, companyId }){
+  return Company.findById(companyId)
+    .then(company => {
+      let unitIndex;
+      company.properties.forEach(property => {
+        if(property.id === propertyId){
+          property.units.forEach((unit, i) => {
+            if(unit.id === unitId){
+              unitIndex = i
+            }
+          })
+
+        }
+      })
+      let returnUnit;
+      company.properties.forEach(property => {
+        if(property.id === propertyId){
+          returnUnit = property.units.splice(unitIndex, 1)
+        }
+      })
+      company.save()
+
+      return returnUnit[0]
+    })
+}
+
+module.exports = { addCompany, addProperty, updateProperty, deleteProperty, addUnit, updateUnit, deleteUnit };

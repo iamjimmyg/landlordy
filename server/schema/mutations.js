@@ -76,13 +76,6 @@ const mutation = new GraphQLObjectType({
         return Helper.addCompany({companyName, userId, req});
       }
     },
-    // updateCompany: {
-    //   type: CompanyType,
-    //   args: {
-    //     companyName: { type: GraphQLString },
-    //   },
-    //
-    // },
     addProperty: {
       type: PropertyType,
       args: {
@@ -102,7 +95,16 @@ const mutation = new GraphQLObjectType({
         address: { type: GraphQLString },
       },
       resolve(parent, { propertyName, address, propertyId }, req){
-        return Helper.updateProperty({propertyName, address, companyId: req.user.companyId, propertyId })
+        return Helper.updateProperty({ propertyName, address, companyId: req.user.companyId, propertyId })
+      }
+    },
+    deleteProperty: {
+      type: PropertyType,
+      args: {
+        propertyId: { type: GraphQLString }
+      },
+      resolve(parent, { propertyId }, req){
+        return Helper.deleteProperty({ propertyId, companyId: req.user.companyId })
       }
     },
     addUnit: {
@@ -134,6 +136,16 @@ const mutation = new GraphQLObjectType({
       },
       resolve(parent, { unitId, propertyId, tenantName, cellNumber, email, rentAmount, dueDate, paidStatus }, req){
         return Helper.updateUnit({ unitId, propertyId, tenantName, cellNumber, email, rentAmount, dueDate, paidStatus, companyId: req.user.companyId })
+      }
+    },
+    deleteUnit: {
+      type: UnitType,
+      args: {
+        unitId: { type: GraphQLString },
+        propertyId: { type: GraphQLString },
+      },
+      resolve(parent, { unitId, propertyId }, req){
+        return Helper.deleteUnit({ unitId, propertyId, companyId: req.user.companyId })
       }
     },
   }
