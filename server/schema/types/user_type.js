@@ -12,7 +12,8 @@ const Company = require('../../models/company')
 const UserType = new GraphQLObjectType({
   name: 'UserType',
   fields: () => ({
-    id: {type: GraphQLID },
+    id: { type: GraphQLID },
+    fullName: { type: GraphQLString },
     email: { type: GraphQLString },
     isAdmin: { type: GraphQLBoolean },
     company: {

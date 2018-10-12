@@ -1,1 +1,18 @@
 @import 'default_colors';
+
+#properties {
+  .collapsible {
+    box-shadow: none;
+    border-left: none;
+    border-right: none;
+    margin: 0 0 0 0;
+    .collapsible-header {
+
+
+    }
+    .collapsible-body {
+      padding: 0;
+
+    }
+  }
+}

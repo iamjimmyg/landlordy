@@ -50,8 +50,8 @@ function updateCompany(companyId, userId){
     })
 }
 
-function signupAssistant({ email, password, companyId, req }) {
-  const user = new User({ email, password, req })
+function signupAssistant({ fullName, email, password, companyId, req }) {
+  const user = new User({ fullName, email, password, req })
   if(!email || !password) { throw new Error('You must provide an email and password') }
   return User.findOne({ email })
     .then(existingUser => {
@@ -62,8 +62,6 @@ function signupAssistant({ email, password, companyId, req }) {
       console.log('oh snap new assistant acount created!')
       return user.save()
     })
-
-
 }
 
 // Creates a new user account.  We first check to see if a user already exists
@@ -73,8 +71,8 @@ function signupAssistant({ email, password, companyId, req }) {
 // Notice the Promise created in the second 'then' statement.  This is done
 // because Passport only supports callbacks, while GraphQL only supports promises
 // for async code!  Awkward!
-function signup({ email, password, req }) {
-  const user = new User({ email, password, isAdmin: true });
+function signup({ fullName, email, password, req }) {
+  const user = new User({ fullName, email, password, isAdmin: true });
   if (!email || !password) { throw new Error('You must provide an email and password.'); }
 
   return User.findOne({ email })

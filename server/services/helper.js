@@ -53,6 +53,21 @@ function addProperty({propertyName, address, companyId}){
     })
 }
 
+function updateProperty({propertyName, address, companyId, propertyId}){
+  return Company.findById(companyId)
+    .then(company => {
+      company.properties.forEach(prop => {
+        if(prop.id === propertyId){
+          prop.propertyName = propertyName === undefined ? prop.propertyName : propertyName
+          prop.address = address === undefined ? prop.address : address
+        }
+      })
+      company.save()
+      let property = company.properties.find(prop => {return prop.id === propertyId})
+      return property
+    })
+}
+
 function addUnit({ propertyId, tenantName, cellNumber, email, rentAmount, dueDate, paidStatus, companyId }){
   let newUnit = { tenantName, cellNumber, email, rentAmount, dueDate, paidStatus }
   return Company.findById(companyId)
@@ -81,4 +96,37 @@ function addUnit({ propertyId, tenantName, cellNumber, email, rentAmount, dueDat
     })
 }
 
-module.exports = { addCompany, addProperty, addUnit };
+function updateUnit({ unitId, propertyId, tenantName, cellNumber, email, rentAmount, dueDate, paidStatus, companyId }){
+  return Company.findById(companyId)
+    .then(company => {
+
+      company.properties.forEach(property => {
+        if(property.id === propertyId){
+          property.units.forEach(unit => {
+            if(unit.id === unitId){
+              unit.tenantName = tenantName === undefined ? unit.tenantName : tenantName
+              unit.cellNumber = cellNumber === undefined ? unit.cellNumber : cellNumber
+              unit.email      = email === undefined ? unit.email : email
+              unit.rentAmount = rentAmount === undefined ? unit.rentAmount : rentAmount
+              unit.dueDate    = dueDate === undefined ? unit.dueDate : dueDate
+              unit.paidStatus = paidStatus === undefined ? unit.paidStatus : paidStatus
+            }
+          })
+        }
+      })
+      company.save()
+      let findUnit;
+      company.properties.forEach(property => {
+        if(property.id === propertyId){
+          property.units.forEach(unit => {
+            if(unit.id === unitId){
+              findUnit = unit
+            }
+          })
+        }
+      })
+      return findUnit
+    })
+}
+
+module.exports = { addCompany, addProperty, updateProperty, addUnit, updateUnit };

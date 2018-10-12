@@ -4,6 +4,7 @@ export default gql`
   {
     user {
       id
+      fullName
       email
       isAdmin
       company {

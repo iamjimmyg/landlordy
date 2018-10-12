@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import AddPropertyForm from '../forms/AddPropertyForm'
 import { Link, Redirect } from 'react-router'
+import { Collapsible, CollapsibleItem } from 'react-materialize'
 
 import { graphql } from 'react-apollo'
 import query from '../../queries/CurrentUser'
@@ -36,10 +37,21 @@ class Properties extends Component {
       properties = <div>loading...</div>
     }else if(user) {
       properties = this.props.data.user.company.properties.map(property => {
+        let units = property.units.map(unit => {
+          return <div key={unit.id} className='overview-unit'>
+            {unit.tenantName}
+          </div>
+        })
         return <div key={property.id} className='overview-component'>
-          <div className='overview-list title'>{property.propertyName}</div>
-          <div className='overview-list'>{property.address}</div>
-          <div></div>
+          <div className='overview-list title'>
+            <div>{property.propertyName}</div>
+            <div className='right floating' style={{top: '-23px'}}>{property.address}</div>
+          </div>
+          <Collapsible>
+            <CollapsibleItem header={`Units (${property.units.length})`} icon='keyboard_arrow_down' >
+              {units}
+            </CollapsibleItem>
+          </Collapsible>
         </div>
       })
     }

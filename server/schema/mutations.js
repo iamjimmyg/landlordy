@@ -25,12 +25,25 @@ const mutation = new GraphQLObjectType({
     signup: {
       type: UserType,
       args: {
+        fullName: { type: new GraphQLNonNull(GraphQLString) },
         email: { type: new GraphQLNonNull(GraphQLString) },
         password: { type: new GraphQLNonNull(GraphQLString) },
         companyId: {type: GraphQLString }
       },
-      resolve(parentValue, { email, password }, req){
-        return AuthService.signup({ email, password, req})
+      resolve(parentValue, { fullName, email, password }, req){
+        return AuthService.signup({ fullName, email, password, req})
+      }
+    },
+    signupAssistant: {
+      type: UserType,
+      args: {
+        fullName: { type: new GraphQLNonNull(GraphQLString) },
+        email: { type: new GraphQLNonNull(GraphQLString) },
+        password: { type: new GraphQLNonNull(GraphQLString) },
+        companyId: {type: GraphQLString }
+      },
+      resolve(parent, { fullName, email, password, companyId}, req){
+        return AuthService.signupAssistant({ email, password, companyId, req })
       }
     },
     logout: {
@@ -63,6 +76,13 @@ const mutation = new GraphQLObjectType({
         return Helper.addCompany({companyName, userId, req});
       }
     },
+    // updateCompany: {
+    //   type: CompanyType,
+    //   args: {
+    //     companyName: { type: GraphQLString },
+    //   },
+    //
+    // },
     addProperty: {
       type: PropertyType,
       args: {
@@ -72,6 +92,17 @@ const mutation = new GraphQLObjectType({
       },
       resolve(parent, { propertyName, address }, req){
         return Helper.addProperty({propertyName, address, companyId: req.user.companyId})
+      }
+    },
+    updateProperty: {
+      type: PropertyType,
+      args: {
+        propertyId: { type: GraphQLString },
+        propertyName: { type: GraphQLString },
+        address: { type: GraphQLString },
+      },
+      resolve(parent, { propertyName, address, propertyId }, req){
+        return Helper.updateProperty({propertyName, address, companyId: req.user.companyId, propertyId })
       }
     },
     addUnit: {
@@ -89,17 +120,22 @@ const mutation = new GraphQLObjectType({
         return Helper.addUnit({ propertyId, tenantName, cellNumber, email, rentAmount, dueDate, paidStatus, companyId: req.user.companyId })
       }
     },
-    signupAssistant: {
-      type: UserType,
+    updateUnit: {
+      type: UnitType,
       args: {
-        email: { type: new GraphQLNonNull(GraphQLString) },
-        password: { type: new GraphQLNonNull(GraphQLString) },
-        companyId: {type: GraphQLString }
+        unitId: { type: GraphQLString },
+        propertyId: { type: GraphQLString },
+        tenantName: { type: GraphQLString },
+        cellNumber: { type: GraphQLString },
+        email: { type: GraphQLString },
+        rentAmount: { type: GraphQLInt },
+        dueDate:{ type: GraphQLInt },
+        paidStatus: { type: GraphQLBoolean },
       },
-      resolve(parent, { email, password, companyId}, req){
-        return AuthService.signupAssistant({ email, password, companyId, req })
+      resolve(parent, { unitId, propertyId, tenantName, cellNumber, email, rentAmount, dueDate, paidStatus }, req){
+        return Helper.updateUnit({ unitId, propertyId, tenantName, cellNumber, email, rentAmount, dueDate, paidStatus, companyId: req.user.companyId })
       }
-    }
+    },
   }
 });
 
