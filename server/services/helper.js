@@ -4,7 +4,6 @@ const Company = mongoose.model('company');
 const User = mongoose.model('user')
 
 function updateUser(company){
-
   return User.findById(company.users[0])
     .then(user => {
       user.companyId = company.id
@@ -18,7 +17,6 @@ function addCompany({companyName, userId, req} ) {
   if(!companyName) {
     throw new Error('You must provide a company name.');
   }
-  //check if company exists, if it doesnt, create a new one and save to db
   return Company.findOne({companyName})
     .then(company => {
       if(company === null){
@@ -95,7 +93,6 @@ function addUnit({ propertyId, tenantName, cellNumber, email, rentAmount, dueDat
           })
           property.units.push(newUnit)
         }
-
       })
       company.save()
       let findUnit;
@@ -155,7 +152,6 @@ function deleteUnit({ unitId, propertyId, companyId }){
               unitIndex = i
             }
           })
-
         }
       })
       let returnUnit;
@@ -165,7 +161,6 @@ function deleteUnit({ unitId, propertyId, companyId }){
         }
       })
       company.save()
-
       return returnUnit[0]
     })
 }

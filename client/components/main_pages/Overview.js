@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router'
 
-class Tenants extends Component {
+class Overview extends Component {
 
   render(){
     // let units = []
@@ -21,18 +20,18 @@ class Tenants extends Component {
     // }
 
     return (
-      <div id='tenants'>
-        {/* <h4>Tenants page</h4>
+      <div id='overview'>
+        {/* <h4>Overview page</h4>
 
         <Link to='/dashboard' className="waves-effect waves-light btn-medium">
           <i className="material-icons left">arrow_back</i>
         </Link>
 
         {tenants} */}
-        tenants
+        overview
       </div>
     )
   }
 }
 
-export default Tenants
+export default Overview

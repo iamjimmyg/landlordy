@@ -1,0 +1,26 @@
+
+@media (max-width: 500px) {
+  .sidenav---sidenav---_2tBP{
+    left: -240px;
+    position: 'relative';
+    transition: all .15s;
+  }
+  .toggle-button {
+    display: none;
+  }
+  .sidebar-button{
+    display: block !important;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+  }
+  .sidebar-div{
+    display: block !important;
+  }
+  .brand-logo {
+    display: none !important;
+  }
+  main {
+    margin-left: 15px !important;
+  }
+}

@@ -18,16 +18,16 @@ class Header extends Component {
 
     if(user) {
       return (
-        <li><a onClick={this.onLogoutClick.bind(this)}>Logout</a></li>
+        <li className='nav-item'><a href='#' className='nav-link' onClick={this.onLogoutClick.bind(this)}>Logout</a></li>
       )
     }else {
       return (
-        <div >
-          <li>
-            <Link to='/signup'>Signup</Link>
+        <div className='nav'>
+          <li className='nav-item'>
+            <Link to='/signup' className='nav-link'>Signup</Link>
           </li>
-          <li>
-            <Link to='/login'>Login</Link>
+          <li className='nav-item'>
+            <Link to='/login' className='nav-link'>Login</Link>
           </li>
         </div>
       )
@@ -37,12 +37,13 @@ class Header extends Component {
   render(){
 
     return (
-      <nav>
-        <div className='nav-wrapper container'>
-          <Link to='/' className='brand-logo left'>Home</Link>
-          <ul className='right'>
+      <nav className='navbar nav'>
+        <div className='container-fluid'>
+          <div className='sidebar-div'></div>
+          <Link to='/' className='brand-logo left nav-link'>Home</Link>
+          <div className=''>
             {this.renderButtons()}
-          </ul>
+          </div>
         </div>
       </nav>
     )
