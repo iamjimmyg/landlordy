@@ -16,6 +16,7 @@ const UserType = new GraphQLObjectType({
     fullName: { type: GraphQLString },
     email: { type: GraphQLString },
     isAdmin: { type: GraphQLBoolean },
+    companyName: { type: GraphQLString },
     company: {
       type: CompanyType,
       resolve(parent, args){

@@ -10,6 +10,7 @@ const UserSchema = new Schema({
   email: String,
   password: String,
   companyId: String,
+  companyName: String,
   isAdmin: Boolean,
 });
 

@@ -50,6 +50,34 @@ function updateCompany(companyId, userId){
     })
 }
 
+// function updateUser(company){
+//   return User.findById(company.users[0])
+//     .then(user => {
+//       user.companyId = company.id
+//       user.save(function(err){
+//         if(err) throw new Error('user did not update company')
+//       })
+//     })
+// }
+
+function addCompany(companyName, userId){
+  //const company = new Company({companyName, userId})
+  return Company.findOne({companyName})
+    .then(company => {
+      if(company === null){
+        const newCompany = new Company({companyName, userId})
+        newCompany.users.push(userId)
+        newCompany.save(function (err){
+          if(err) throw new Error('Company did not save')
+        })
+        //updateUser(newCompany)
+        return newCompany
+      }else if(company.companyName === companyName) {
+        throw new Error('This company already exists')
+      }
+    })
+}
+
 function signupAssistant({ fullName, email, password, companyId, req }) {
   const user = new User({ fullName, email, password, req })
   if(!email || !password) { throw new Error('You must provide an email and password') }
@@ -71,13 +99,20 @@ function signupAssistant({ fullName, email, password, companyId, req }) {
 // Notice the Promise created in the second 'then' statement.  This is done
 // because Passport only supports callbacks, while GraphQL only supports promises
 // for async code!  Awkward!
-function signup({ fullName, email, password, req }) {
+function signup({ fullName, email, password, companyName, req }) {
   const user = new User({ fullName, email, password, isAdmin: true });
-  if (!email || !password) { throw new Error('You must provide an email and password.'); }
+  if (!email || !password || !companyName ) { throw new Error('You must provide an email, password, and company name.'); }
 
+
+  //console.log(company)
   return User.findOne({ email })
     .then(existingUser => {
       if (existingUser) { throw new Error('Email in use'); }
+      const newCompany = new Company({companyName, userId: user.id})
+      newCompany.users.push(user.id)
+      user.companyId = newCompany.id
+      user.companyName = companyName
+      newCompany.save()
       return user.save();
     })
     .then(user => {
