@@ -21,15 +21,8 @@ class Tenants extends Component {
     // }
 
     return (
-      <div id='tenants'>
-        {/* <h4>Tenants page</h4>
-
-        <Link to='/dashboard' className="waves-effect waves-light btn-medium">
-          <i className="material-icons left">arrow_back</i>
-        </Link>
-
-        {tenants} */}
-        tenants
+      <div id='tenants' className='container-fluid'>
+        <h4>Tenants</h4>
       </div>
     )
   }

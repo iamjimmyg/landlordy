@@ -23,59 +23,55 @@ class AddPropertyForm extends Component {
     this.props.mutate({
       variables: { companyId, propertyName, address },
       refetchQueries: [{query}]
-    }).then(res => {
-      this.props.updateModalDisplay()
+    }).then(res=>{
+      this.setState({ propertyName: '', address: '' })
     }).catch(res => {
       const errors = res.graphQLErrors.map(error => error.message)
+      alert(errors[0])
       this.setState({ errors })
     })
   }
 
-  updateModalDisplay(event){
-    event.preventDefault()
-    this.props.updateModalDisplay()
-  }
-
   render(){
     return (
-      <div className="modal" style={{display: `${this.props.modalDisplay}`, zIndex: '1002'}}>
-        <div className="modal-content">
-          <form>
-            <div className="row">
-              <div className="input-field">
-                <input id="property_name"
-                  type="text"
-                  value={this.state.propertyName}
-                  onChange={e => this.setState({ propertyName: e.target.value })}
-                />
-                <label htmlFor="property_name">Property Name</label>
-              </div>
+      <div className=''>
+        <form>
+          <div className='row'>
+            <div className="form-group col-md-6">
+              <label htmlFor="propertyName">Property Name</label>
+              <input type="email"
+                className="form-control"
+                id="propertyName"
+                value={this.state.propertyName}
+                onChange={e => this.setState({ propertyName: e.target.value })}
+                placeholder="Enter property name" />
             </div>
-            <div className="row">
-              <div className="input-field">
-                <input id="address"
-                  type="text"
-                  className="validate"
-                  value={this.state.address}
-                  onChange={e => this.setState({ address: e.target.value })}
-                />
-                <label htmlFor="address">Address</label>
-              </div>
+
+            <div className="form-group col-md-6">
+              <label htmlFor="address">Address</label>
+              <input type="email"
+                className="form-control"
+                id="address"
+                value={this.state.address}
+                onChange={e => this.setState({ address: e.target.value })}
+                placeholder="Enter address" />
             </div>
-          </form>
-          <div style={{color: 'red', marginBottom: '7px'}}>
-            {this.state.errors.map(error => <div key={error}>{error}</div>)}
           </div>
-        </div>
-        <div className="modal-footer">
+
+
+        </form>
+        <div className='row'>
           <button
             onClick={this.onSubmit.bind(this)}
-            className="modal-close waves-effect waves-green btn-flat">Submit
+            className="btn btn-primary">Submit
           </button>
-          <button onClick={this.updateModalDisplay.bind(this)}
-            className="modal-close waves-effect waves-green btn-flat">Cancel
-          </button>
+
+          {/* <div style={{color: 'red', marginBottom: '7px'}} className=''>
+            {this.state.errors.map(error => <div key={error}>{error}</div>)}
+          </div> */}
         </div>
+
+
       </div>
 
     )

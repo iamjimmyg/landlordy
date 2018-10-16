@@ -3,16 +3,12 @@ import Header from './Header'
 import SideNav, { Toggle, Nav, NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 const mql = window.matchMedia(`(min-width: 1200px)`);
-const mqlSmall = window.matchMedia(`(max-width: 700px)`);
+const mqlMed = window.matchMedia(`(min-width: 767px)`);
 
 import { Router, hashHistory, Route, Link } from 'react-router'
 import Overview from './main_pages/Overview'
 import Properties from './main_pages/Properties'
 import Tenants from './main_pages/Tenants'
-
-import { graphql } from 'react-apollo'
-import mutation from '../mutations/addCompany'
-import query from '../queries/CurrentUser'
 
 class Dashboard extends Component {
   constructor(props){
@@ -21,8 +17,8 @@ class Dashboard extends Component {
       errors: [],
       expanded: mql.matches,
       selected: 'overview',
-      selectedComponent: <Overview />,
       hamburgerMenu: false,
+      mediumView: mqlMed.matches
     }
     this.hamburgerClick = this.hamburgerClick.bind(this)
     this.onToggle = this.onToggle.bind(this)
@@ -34,30 +30,27 @@ class Dashboard extends Component {
     const checkWindow = () =>{
       if(window.innerWidth < 1200) this.setState({ expanded: false, mobileView: false })
       else this.setState({ expanded: true, mobileView: false })
-      if(window.innerWidth < 500) this.setState({ hamburgerMenu: false, expanded: true, mobileView: true })
+      if(window.innerWidth < 502) this.setState({ hamburgerMenu: false, expanded: true, mobileView: true })
     }
     checkWindow()
     window.onresize=()=>{
       checkWindow()
     }
-
-    const { loading, user } = this.props.data
-    if(!loading){
-      if(this.props.location.pathname === '/dashboard/overview'){
-        this.setState({ selectedComponent: <Overview {...this.props}/>, selected: 'overview' })
-      }else if(this.props.location.pathname === '/dashboard/properties'){
-        this.setState({ selectedComponent: <Properties {...this.props}/>, selected: 'properties' })
-      }else if(this.props.location.pathname === '/dashboard/tenants'){
-        this.setState({ selectedComponent: <Tenants {...this.props}/>, selected: 'tenants' })
-      }
+    if(this.props.location.pathname === '/dashboard/overview' || this.props.location.pathname === '/dashboard'){
+      this.setState({ selectedComponent: <Overview />, selected: 'overview' })
+    }else if(this.props.location.pathname === '/dashboard/properties'){
+      this.setState({ selectedComponent: <Properties mediumView={this.state.mediumView}/>, selected: 'properties' })
+    }else if(this.props.location.pathname === '/dashboard/tenants'){
+      this.setState({ selectedComponent: <Tenants />, selected: 'tenants' })
     }
   }
+
 
   mountComponent(selected){
     const { loading, user } = this.props.data
     if(!loading){
       if(selected === 'overview') this.setState({ selectedComponent: <Overview {...this.props}/> })
-      if(selected === 'properties') this.setState({ selectedComponent: <Properties {...this.props}/> })
+      if(selected === 'properties') this.setState({ selectedComponent: <Properties {...this.props} mediumView={this.state.mediumView}/> })
       if(selected === 'tenants') this.setState({ selectedComponent: <Tenants {...this.props}/> })
     }
   }
@@ -66,22 +59,11 @@ class Dashboard extends Component {
     this.setState({ expanded: !this.state.expanded })
   }
 
-  onSubmit({companyName, userId}){
-    this.props.mutate({
-      variables: {
-        companyName, userId
-      },
-      refetchQueries: [{query}]
-    }).catch(res => {
-      const errors = res.graphQLErrors.map(error => error.message)
-      this.setState({ errors: errors })
-    })
-  }
-
   onSelect(selected){
     this.setState({ selected: selected });
     this.props.router.push(`/dashboard/${selected}`)
     this.mountComponent(selected)
+    if(this.state.mobileView) this.setState({ hamburgerMenu: false })
   }
 
   hamburgerClick(event) {
@@ -113,11 +95,11 @@ class Dashboard extends Component {
           expanded={this.state.expanded}
           onToggle={()=>{this.onToggle()}}
           onSelect={(selected) => {
-              this.onSelect(selected)
+            this.onSelect(selected)
           }}>
           <SideNav.Toggle className='toggle-button'/>
           <SideNav.Nav selected={this.state.selected}>
-              <NavItem eventKey="overview">
+              <NavItem eventKey="overview" >
                 <NavIcon>
                   <i className="material-icons" style={{ fontSize: '1.75em', top: '8px', position: 'relative' }} >desktop_windows</i>
                 </NavIcon>
@@ -145,7 +127,9 @@ class Dashboard extends Component {
         </SideNav>
 
         <main style={{
-          marginLeft: `${this.state.expanded === true ? '258' : '83'}px`,
+          height: 'calc(100vh - 58px)',
+          overflow: 'auto',
+          marginLeft: `${(this.state.mobileView) ? '0' : (this.state.expanded === true ? '238' : '64')}px`,
           position: 'relative',
           transition: 'all .15s'
         }}>
@@ -155,12 +139,9 @@ class Dashboard extends Component {
             {this.state.selectedComponent}
           </div>  }
         </main>
-
       </div>
     )
   }
 }
 
-export default graphql(query)(
- graphql(mutation)(Dashboard)
-)
+export default Dashboard

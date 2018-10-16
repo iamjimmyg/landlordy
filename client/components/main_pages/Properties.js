@@ -1,95 +1,88 @@
 import React, { Component } from 'react'
-// import AddPropertyForm from '../forms/AddPropertyForm'
-// import { Link, Redirect } from 'react-router'
-//
-// import { graphql } from 'react-apollo'
-// import query from '../../queries/CurrentUser'
+import AddPropertyForm from '../forms/AddPropertyForm'
 
+import { graphql } from 'react-apollo'
+import query from '../../queries/CurrentUser'
 
 class Properties extends Component {
   constructor(props){
     super(props)
     this.state = {
-      modalDisplay: 'none',
+      addPropertyDisplay: false,
+      width: window.innerWidth
+    }
+    this.updateDimensions = this.updateDimensions.bind(this);
+  }
+  componentWillUpdate(nextProps){
+    if(this.props.data.user !== nextProps.data.user){
+      this.setState({ addPropertyDisplay: false })
     }
   }
 
-  // componentWillMount(){
-  //   if(this.props.location.pathname === '/properties/add-property'){
-  //     this.setState({ modalDisplay: 'block' })
-  //   }
-  // }
-  //
-  // updateModalDisplay(){
-  //   if(this.state.modalDisplay === 'none') {
-  //     this.setState({ modalDisplay: 'block' })
-  //   }else if(this.state.modalDisplay === 'block'){
-  //     this.setState({ modalDisplay: 'none' })
-  //     this.props.router.push('/properties')
-  //   }
-  // }
+  componentDidMount() {
+    window.addEventListener("resize", this.updateDimensions);
+  }
+  updateDimensions() {
+    this.setState({
+      width: window.innerWidth
+    });
+  }
+
+  addPropertyDisplay(){
+    this.setState({ addPropertyDisplay: !this.state.addPropertyDisplay })
+  }
 
   render(){
-    // const { loading, user } = this.props.data
-    // let properties;
-    // if(loading){
-    //   properties = <div>loading...</div>
-    // }else if(user) {
-    //   properties = this.props.data.user.company.properties.map(property => {
-    //     let units = property.units.map(unit => {
-    //       return <div key={unit.id} className='overview-unit'>
-    //         {unit.tenantName}
-    //       </div>
-    //     })
-    //     return <div key={property.id} className='overview-component'>
-    //       <div className='overview-list title'>
-    //         <div>{property.propertyName}</div>
-    //         <div className='right floating' style={{top: '-23px'}}>{property.address}</div>
-    //       </div>
-    //       <Collapsible>
-    //         <CollapsibleItem header={`Units (${property.units.length})`} icon='keyboard_arrow_down' >
-    //           {units}
-    //         </CollapsibleItem>
-    //       </Collapsible>
-    //     </div>
-    //   })
-    // }
+    const { loading, user } = this.props.data
+    let properties;
+
+    if(loading){
+      properties = <div>loading...</div>
+    }else if(user) {
+      properties = user.company.properties.map(property => {
+        let units = property.units.map(unit => {
+          return <div key={unit.id} className='overview-unit'>
+            {unit.tenantName}
+          </div>
+        })
+        return <div key={property.id} className='overview-component'>
+          <div className='overview-list title'>
+            <div>{property.propertyName}</div>
+            <div className='right floating' style={{top: '-23px'}}>{property.address}</div>
+          </div>
+
+        </div>
+      })
+    }
 
     return (
-      <div id='properties'>
-        hello properties
-        {/* <div className='row'>
-          <Link to='/dashboard'
-          className="col s2 waves-effect waves-light btn-small"
-          style={{top: '21px'}}>
-            <i className="material-icons left">arrow_back</i>
-          </Link>
-          <h4 className='center col s8'>Properties</h4>
-          <Link to='/properties/add-property'
-          className='col s2'
-          style={{top: '21px', position: 'relative'}}>
-            <button onClick={this.updateModalDisplay.bind(this)}
-              className="btn-floating btn waves-effect waves-light red right modal-trigger"
+      <div id='properties' className='container-fluid'>
+        <div className='section-card'>
+            <h4 className=''>Properties</h4>
+            <i className="material-icons float-right"
+              onClick={this.addPropertyDisplay.bind(this)}>
+              add_circle_outline
+            </i>
+            <div className={this.state.addPropertyDisplay ? 'show-content' : 'hide-content'}
+              id='collapse-content'
+              style={{ position: 'relative',
+              transition: 'all ease-in-out .15s',
+              height:`${ this.state.addPropertyDisplay ? (this.state.width < 768 ? '220px' : '130px') : '0px' }`,
+              overflow: `${this.state.addPropertyDisplay ? (()=>{setTimeout(function(){return ''}), 100}) : 'hidden'}`
+             }}
               >
-              <i className="material-icons">add</i>
-            </button>
-          </Link>
+              <div className="" >
+                <AddPropertyForm
+                  companyId={user ? this.props.data.user.company.id : ''}
+                />
+              </div>
+            </div>
         </div>
 
-        <AddPropertyForm
-          companyId={user ? this.props.data.user.company.id : ''}
-          errors={this.state.errors}
-          modalDisplay={this.state.modalDisplay}
-          updateModalDisplay={this.updateModalDisplay.bind(this)}
-        />
-
-        <div onClick={this.updateModalDisplay.bind(this)} className="modal-overlay" style={{ display: `${this.state.modalDisplay}`, zIndex: '1001', opacity: '0.5'}}></div>
-
-        {properties} */}
+         {properties}
       </div>
     )
   }
 }
 
-// export default graphql(query)(Properties)
-export default Properties
+export default graphql(query)(Properties)
