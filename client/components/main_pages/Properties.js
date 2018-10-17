@@ -39,20 +39,25 @@ class Properties extends Component {
     if(loading){
       properties = <div>loading...</div>
     }else if(user) {
-      properties = user.company.properties.map(property => {
-        let units = property.units.map(unit => {
-          return <div key={unit.id} className='overview-unit'>
-            {unit.tenantName}
+      if(user.company.properties === undefined || user.company.properties.length === 0){
+        properties = <div>No properties yet</div>
+      }else if(user.company.properties.length !== 0){
+        properties = user.company.properties.map(property => {
+          let units = property.units.map(unit => {
+            return <div key={unit.id} className='overview-unit'>
+              {unit.tenantName}
+            </div>
+          })
+          return <div key={property.id} className='overview-component'>
+            <div className='overview-list title'>
+              <div>{property.propertyName}</div>
+              <div className='right floating' style={{top: '-23px'}}>{property.address}</div>
+            </div>
           </div>
         })
-        return <div key={property.id} className='overview-component'>
-          <div className='overview-list title'>
-            <div>{property.propertyName}</div>
-            <div className='right floating' style={{top: '-23px'}}>{property.address}</div>
-          </div>
+      }
 
-        </div>
-      })
+
     }
 
     return (

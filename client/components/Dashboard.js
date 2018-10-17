@@ -77,7 +77,6 @@ class Dashboard extends Component {
 
   render(){
     const { loading, user } = this.props.data
-
     return (
       <div className=''>
         <button onClick={this.hamburgerClick} className="navbar-toggler sidebar-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded='false' aria-label="Toggle navigation">
