@@ -125,7 +125,8 @@ class Dashboard extends Component {
           </SideNav.Nav>
         </SideNav>
 
-        <main style={{
+        <main className=''
+          style={{
           height: 'calc(100vh - 58px)',
           overflow: 'auto',
           marginLeft: `${(this.state.mobileView) ? '0' : (this.state.expanded === true ? '238' : '64')}px`,

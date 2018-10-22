@@ -60,7 +60,7 @@ class AddPropertyForm extends Component {
 
 
         </form>
-        <div className='row'>
+        {/* <div > */}
           <button
             onClick={this.onSubmit.bind(this)}
             className="btn btn-primary">Submit
@@ -69,7 +69,7 @@ class AddPropertyForm extends Component {
           {/* <div style={{color: 'red', marginBottom: '7px'}} className=''>
             {this.state.errors.map(error => <div key={error}>{error}</div>)}
           </div> */}
-        </div>
+        {/* </div> */}
 
 
       </div>

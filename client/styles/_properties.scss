@@ -1,34 +1,69 @@
 @import 'default_colors';
 
 #properties {
-  .section-card {
-
-    // .hide-content{
-    //   transition: all .15s;
-    //   display: none;
-    //   height: 0px;
-    // }
-    .row {
-      margin-left: 0px;
-      margin-right: 0px;
-    }
-    .form-group {
-      padding-right: 0px;
-      padding-left: 0px;
-    }
-    .form-control {
-      width: 98%;
-    }
+  .title-section {
     background: white;
     margin-top: 15px;
     border: 1px solid lightgrey;
     border-radius: 5px;
     padding: 20px;
-    i {
+    .add-property-icon {
       color: $red;
       font-size: 32px;
+      position: absolute;
+      top: 37px;
+      right: 34px;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+  .property-section {
+    background: white;
+    margin-top: 15px;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    padding: 20px;
+    .units-icon {
+      margin-left: auto;
+      margin-right: auto;
+      width: 50px;
+      height: 50px;
+      background: grey;
+      padding: 3px;
+      i {
+        position: relative;
+        top: -21px;
+        left: 0px;
+        font-size: 40px;
+        color: white;
+      }
+    }
+    .icon-count {
       position: relative;
-      top: -37px;
+      left: 34px;
+      text-align: center;
+      width: 25px;
+      background: $primary;
+      .number {
+        text-align: center;
+        color: white;
+        font-weight: bold;
+      }
+    }
+    .small-text {
+      position: relative;
+      font-size: 13px;
+      color: grey;
+    }
+    .view-property-button {
+      background: $primary;
+      margin-top: 10px;
+      padding: 5px;
+      color: white;
+      width: 100%;
+      border-radius: 5px;
+      border: 1px solid $primary;
       &:hover {
         cursor: pointer;
       }
