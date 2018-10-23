@@ -5,9 +5,10 @@ import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 const mql = window.matchMedia(`(min-width: 1200px)`);
 const mqlMed = window.matchMedia(`(min-width: 767px)`);
 
-import { Router, hashHistory, Route, Link } from 'react-router'
+import { BrowserRouter, Router, hashHistory, Route, Link } from 'react-router'
 import Overview from './main_pages/Overview'
 import Properties from './main_pages/Properties'
+import Property from './main_pages/Property'
 import Tenants from './main_pages/Tenants'
 
 class Dashboard extends Component {
@@ -24,6 +25,24 @@ class Dashboard extends Component {
     this.onToggle = this.onToggle.bind(this)
     this.onSelect = this.onSelect.bind(this)
     this.mountComponent = this.mountComponent.bind(this)
+    this.checkMount = this.checkMount.bind(this)
+  }
+
+  componentWillUpdate(nextProps){
+    if(nextProps !== this.props) {
+      if(nextProps.location.pathname === '/dashboard/overview' || nextProps.location.pathname === '/dashboard'){
+        this.setState({ selectedComponent: <Overview {...nextProps}/>, selected: 'overview' })
+      }else if(nextProps.location.pathname === '/dashboard/properties'){
+        this.setState({ selectedComponent: <Properties viewProperty={this.viewProperty.bind(this)} mediumView={this.state.mediumView} {...nextProps}/>, selected: 'properties' })
+      }else if(nextProps.location.pathname === '/dashboard/tenants'){
+        this.setState({ selectedComponent: <Tenants {...nextProps}/>, selected: 'tenants' })
+      }else {
+        let path = nextProps.location.pathname.split('/')
+        if(nextProps.location.pathname.includes('properties')){
+          this.setState({ selectedComponent: <Property propertyId={path[3]} {...nextProps}/>, selected: 'properties' })
+        }
+      }
+    }
   }
 
   componentDidMount(){
@@ -36,13 +55,28 @@ class Dashboard extends Component {
     window.onresize=()=>{
       checkWindow()
     }
+    this.checkMount()
+  }
+
+  checkMount(){
     if(this.props.location.pathname === '/dashboard/overview' || this.props.location.pathname === '/dashboard'){
-      this.setState({ selectedComponent: <Overview />, selected: 'overview' })
+      this.setState({ selectedComponent: <Overview {...this.props}/>, selected: 'overview' })
     }else if(this.props.location.pathname === '/dashboard/properties'){
-      this.setState({ selectedComponent: <Properties mediumView={this.state.mediumView}/>, selected: 'properties' })
+      this.setState({ selectedComponent: <Properties viewProperty={this.viewProperty.bind(this)} mediumView={this.state.mediumView} {...this.props}/>, selected: 'properties' })
     }else if(this.props.location.pathname === '/dashboard/tenants'){
-      this.setState({ selectedComponent: <Tenants />, selected: 'tenants' })
+      this.setState({ selectedComponent: <Tenants {...this.props}/>, selected: 'tenants' })
+    }else {
+      let path = this.props.location.pathname.split('/')
+      if(this.props.location.pathname.includes('properties')){
+        this.setState({ selectedComponent: <Property propertyId={path[3]} {...this.props}/>, selected: 'properties' })
+      }
     }
+  }
+
+  viewProperty(property){
+    this.setState({ selectedComponent: <Property propertyId={property.id} {...this.props} /> })
+    this.props.router.push(`/dashboard/properties/${property.id}`)
+    //console.log('property yooo', property)
   }
 
 
@@ -50,7 +84,7 @@ class Dashboard extends Component {
     const { loading, user } = this.props.data
     if(!loading){
       if(selected === 'overview') this.setState({ selectedComponent: <Overview {...this.props}/> })
-      if(selected === 'properties') this.setState({ selectedComponent: <Properties {...this.props} mediumView={this.state.mediumView}/> })
+      if(selected === 'properties') this.setState({ selectedComponent: <Properties viewProperty={this.viewProperty.bind(this)} {...this.props} mediumView={this.state.mediumView}/> })
       if(selected === 'tenants') this.setState({ selectedComponent: <Tenants {...this.props}/> })
     }
   }
@@ -136,7 +170,10 @@ class Dashboard extends Component {
           { !user ? <div>
             loading
           </div> :  <div>
-            {this.state.selectedComponent}
+            {/* <BrowserRouter> */}
+              {this.state.selectedComponent}
+            {/* </BrowserRouter> */}
+
           </div>  }
         </main>
       </div>

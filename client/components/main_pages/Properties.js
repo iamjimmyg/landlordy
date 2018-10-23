@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import AddPropertyForm from '../forms/AddPropertyForm'
+import { Redirect } from 'react-router'
 
 import { graphql } from 'react-apollo'
 import query from '../../queries/CurrentUser'
@@ -16,6 +17,7 @@ class Properties extends Component {
     this.updateDimensions = this.updateDimensions.bind(this);
     this.mapPropertiesToState = this.mapPropertiesToState.bind(this)
     this.collapseProperty = this.collapseProperty.bind(this)
+    this.viewProperty = this.viewProperty.bind(this)
   }
   componentWillUpdate(nextProps){
     if(this.props.data.user !== nextProps.data.user){
@@ -53,6 +55,10 @@ class Properties extends Component {
 
   addPropertyDisplay(){
     this.setState({ addPropertyDisplay: !this.state.addPropertyDisplay })
+  }
+
+  viewProperty(property){
+    this.props.viewProperty(property)
   }
 
   render(){
@@ -105,7 +111,11 @@ class Properties extends Component {
                 </div>
 
               </div>
-              <button type="button" className='view-property-button'>View Property</button>
+              <button type="button"
+                onClick={()=>{this.viewProperty(property)}}
+                className='view-property-button'>
+                View Property
+              </button>
 
 
             </div>
