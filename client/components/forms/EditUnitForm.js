@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 
-import mutation from '../../mutations/updateUnit'
+import updateUnit from '../../mutations/updateUnit'
+import deleteUnit from '../../mutations/deleteUnit'
 import { graphql } from 'react-apollo'
 import query from '../../queries/CurrentUser'
 
@@ -31,6 +32,25 @@ class EditUnitForm extends Component {
     }
   }
 
+  deleteUnit(event){
+    console.log('delete')
+    event.preventDefault()
+    if(confirm('Are you sure you want to delete this unit?')){
+      const unitId = this.props.unit.id
+      const propertyId = this.props.propertyId
+      this.props.deleteUnit({
+        variables: { unitId, propertyId },
+        refetchQueries: [{query}]
+      }).then(res=>{
+        this.setState({ tenantName: '', cellNumber: '', email: '', rentAmount: '', dueDate: '', errors: [] })
+      }).catch(res => {
+        const errors = res.graphQLErrors.map(error => error.message)
+        alert(errors[0])
+        this.setState({ errors })
+      })
+    }
+  }
+
   onSubmit(event){
     console.log('submit')
     event.preventDefault()
@@ -42,9 +62,9 @@ class EditUnitForm extends Component {
     const rentAmount = this.state.rentAmount
     const dueDate = this.state.dueDate
 
-    this.props.mutate({
+    this.props.updateUnit({
       variables: { unitId, propertyId, tenantName, cellNumber, email, rentAmount, dueDate },
-      refetchQueries: [{query}]
+      //refetchQueries: [{query}]
     }).then(res=>{
       this.setState({ tenantName: '', cellNumber: '', email: '', rentAmount: '', dueDate: '', errors: [] })
     }).catch(res => {
@@ -110,11 +130,11 @@ class EditUnitForm extends Component {
 
 
         <div className="modal-footer">
-          {/* <button
+          <button
             data-dismiss="modal"
-            onClick={this.onSubmit.bind(this)}
+            onClick={this.deleteUnit.bind(this)}
             className="btn btn-danger">Delete
-          </button> */}
+          </button>
           <button
             data-dismiss="modal"
             onClick={this.onSubmit.bind(this)}
@@ -128,6 +148,8 @@ class EditUnitForm extends Component {
   }
 }
 
-export default graphql(query)(
-  graphql(mutation)(EditUnitForm)
+const ComponentWithMutations = graphql(updateUnit, {name: 'updateUnit'})(
+  graphql(deleteUnit, {name: 'deleteUnit'})(EditUnitForm)
 )
+
+export default ComponentWithMutations
