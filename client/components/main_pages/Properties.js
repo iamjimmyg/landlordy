@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import AddPropertyForm from '../forms/AddPropertyForm'
-import { Redirect } from 'react-router'
 
-import { graphql } from 'react-apollo'
-import query from '../../queries/CurrentUser'
+// import { graphql } from 'react-apollo'
+// import query from '../../queries/CurrentUser'
 
 class Properties extends Component {
   constructor(props){
@@ -11,40 +10,18 @@ class Properties extends Component {
     this.state = {
       addPropertyDisplay: false,
       width: window.innerWidth,
-      collapsedProperties: {}
-
     }
     this.updateDimensions = this.updateDimensions.bind(this);
-    this.mapPropertiesToState = this.mapPropertiesToState.bind(this)
-    this.collapseProperty = this.collapseProperty.bind(this)
     this.viewProperty = this.viewProperty.bind(this)
   }
   componentWillUpdate(nextProps){
     if(this.props.data.user !== nextProps.data.user){
       this.setState({ addPropertyDisplay: false })
-      this.mapPropertiesToState()
     }
   }
 
   componentDidMount() {
     window.addEventListener("resize", this.updateDimensions);
-    if(this.props.data.user.company.properties){
-      this.mapPropertiesToState()
-    }
-  }
-
-  mapPropertiesToState(){
-    const properties = {}
-    this.props.data.user.company.properties.forEach(prop =>{
-      properties[prop.propertyName] = false
-    })
-    this.setState({ collapsedProperties: properties })
-  }
-
-  collapseProperty(property){
-    let collapsedProperties = this.state.collapsedProperties
-    collapsedProperties[property] = !collapsedProperties[property]
-    this.setState({ collapsedProperties: collapsedProperties })
   }
 
   updateDimensions() {
@@ -102,7 +79,6 @@ class Properties extends Component {
                     </div>
                     <i className='material-icons'>home</i>
                   </div>
-
                 </div>
 
                 <div className='col-6 text-center'>
@@ -116,8 +92,6 @@ class Properties extends Component {
                 className='view-property-button'>
                 View Property
               </button>
-
-
             </div>
           </div>
         })
@@ -133,14 +107,14 @@ class Properties extends Component {
             add_circle_outline
           </i>
           <div
-            //id='collapse-content'
             style={{ position: 'relative',
             width: '100%',
             transition: 'all ease-in-out .15s',
-            height:`${ this.state.addPropertyDisplay ? (this.state.width < 768 ? '220px' : '130px') : '0px' }`,
+            height:`${ this.state.addPropertyDisplay ? (this.state.width < 768 ? '245px' : '158px') : '0px' }`,
             overflow: `${this.state.addPropertyDisplay ? (()=>{setTimeout(function(){return ''}), 100}) : 'hidden'}`
            }}
             >
+            <hr style={{color: 'grey'}}/>
             <div >
               <AddPropertyForm
                 companyId={user ? this.props.data.user.company.id : ''}
@@ -148,16 +122,14 @@ class Properties extends Component {
             </div>
           </div>
         </div>
-        <div className=''>
-          <div className='row gutter-2'>
+        {/* <div className=''> */}
+          <div className='row '>
             {properties}
           </div>
-
-        </div>
-
+        {/* </div> */}
       </div>
     )
   }
 }
 
-export default graphql(query)(Properties)
+export default Properties

@@ -57,20 +57,12 @@ class AddPropertyForm extends Component {
                 placeholder="Enter address" />
             </div>
           </div>
-
-
         </form>
-        {/* <div > */}
+
           <button
             onClick={this.onSubmit.bind(this)}
             className="btn btn-primary">Submit
           </button>
-
-          {/* <div style={{color: 'red', marginBottom: '7px'}} className=''>
-            {this.state.errors.map(error => <div key={error}>{error}</div>)}
-          </div> */}
-        {/* </div> */}
-
 
       </div>
 

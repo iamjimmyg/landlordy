@@ -59,24 +59,31 @@ class Dashboard extends Component {
   }
 
   checkMount(){
-    if(this.props.location.pathname === '/dashboard/overview' || this.props.location.pathname === '/dashboard'){
-      this.setState({ selectedComponent: <Overview {...this.props}/>, selected: 'overview' })
-    }else if(this.props.location.pathname === '/dashboard/properties'){
-      this.setState({ selectedComponent: <Properties viewProperty={this.viewProperty.bind(this)} mediumView={this.state.mediumView} {...this.props}/>, selected: 'properties' })
-    }else if(this.props.location.pathname === '/dashboard/tenants'){
-      this.setState({ selectedComponent: <Tenants {...this.props}/>, selected: 'tenants' })
-    }else {
-      let path = this.props.location.pathname.split('/')
-      if(this.props.location.pathname.includes('properties')){
-        this.setState({ selectedComponent: <Property propertyId={path[3]} {...this.props}/>, selected: 'properties' })
+    const { loading, user } = this.props.data
+    if(!loading){
+      if(this.props.location.pathname === '/dashboard/overview' || this.props.location.pathname === '/dashboard'){
+        this.setState({ selectedComponent: <Overview {...this.props}/>, selected: 'overview' })
+      }else if(this.props.location.pathname === '/dashboard/properties'){
+        this.setState({ selectedComponent: <Properties viewProperty={this.viewProperty.bind(this)} mediumView={this.state.mediumView} {...this.props}/>, selected: 'properties' })
+      }else if(this.props.location.pathname === '/dashboard/tenants'){
+        this.setState({ selectedComponent: <Tenants {...this.props}/>, selected: 'tenants' })
+      }else {
+        let path = this.props.location.pathname.split('/')
+        let property = this.props.data.user.company.properties.filter(prop => {
+          if(prop.id === path[0]) console.log('ohhh sheet')
+        })
+        if(this.props.location.pathname.includes('properties')){
+          this.setState({ selectedComponent: <Property propertyId={path[3]} {...this.props}/>, selected: 'properties' })
+        }
       }
     }
+
   }
 
   viewProperty(property){
-    this.setState({ selectedComponent: <Property propertyId={property.id} {...this.props} /> })
+    console.log(property)
+    this.setState({ selectedComponent: <Property propertyId={property.id} property={property} {...this.props} /> })
     this.props.router.push(`/dashboard/properties/${property.id}`)
-    //console.log('property yooo', property)
   }
 
 
@@ -170,10 +177,7 @@ class Dashboard extends Component {
           { !user ? <div>
             loading
           </div> :  <div>
-            {/* <BrowserRouter> */}
-              {this.state.selectedComponent}
-            {/* </BrowserRouter> */}
-
+            {this.state.selectedComponent}
           </div>  }
         </main>
       </div>
