@@ -20,6 +20,7 @@ export default gql`
             cellNumber
             email
             rentAmount
+            currency
             dueDate
             paidStatus
           }

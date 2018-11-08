@@ -82,8 +82,8 @@ function deleteProperty({ companyId, propertyId }){
     })
 }
 
-function addUnit({ propertyId, tenantName, cellNumber, email, rentAmount, dueDate, paidStatus, companyId }){
-  let newUnit = { tenantName, cellNumber, email, rentAmount, dueDate, paidStatus }
+function addUnit({ propertyId, tenantName, cellNumber, email, rentAmount, currency, dueDate, paidStatus, companyId }){
+  let newUnit = { tenantName, cellNumber, email, rentAmount, currency, dueDate, paidStatus: false }
   return Company.findById(companyId)
     .then(company => {
       company.properties.forEach(property => {
@@ -109,7 +109,7 @@ function addUnit({ propertyId, tenantName, cellNumber, email, rentAmount, dueDat
     })
 }
 
-function updateUnit({ unitId, propertyId, tenantName, cellNumber, email, rentAmount, dueDate, paidStatus, companyId }){
+function updateUnit({ unitId, propertyId, tenantName, cellNumber, email, rentAmount, currency, dueDate, paidStatus, companyId }){
   return Company.findById(companyId)
     .then(company => {
       company.properties.forEach(property => {
@@ -120,6 +120,7 @@ function updateUnit({ unitId, propertyId, tenantName, cellNumber, email, rentAmo
               unit.cellNumber = cellNumber === undefined ? unit.cellNumber : cellNumber
               unit.email      = email === undefined ? unit.email : email
               unit.rentAmount = rentAmount === undefined ? unit.rentAmount : rentAmount
+              unit.currency = currency === undefined ? unit.currency : currency
               unit.dueDate    = dueDate === undefined ? unit.dueDate : dueDate
               unit.paidStatus = paidStatus === undefined ? unit.paidStatus : paidStatus
             }

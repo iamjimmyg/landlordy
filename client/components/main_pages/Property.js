@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import AddUnitForm from '../forms/AddUnitForm'
 import EditUnitForm from '../forms/EditUnitForm'
 
+import { Link } from 'react-router'
 
 class Property extends Component {
   constructor(props){
@@ -41,7 +42,6 @@ class Property extends Component {
     }
     if(nextProps.data.user.company.properties !== this.props.data.user.company.properties){
       this.setState({ addUnitDisplay: false })
-      console.log('oh hiiiii')
     }
   }
 
@@ -63,8 +63,12 @@ class Property extends Component {
   }
 
   render(){
+    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const { loading, user } = this.props.data
-
+    let date = new Date()
+    let currentMonth = date.getMonth()
+    let currentDay = date.getDate()
+    let currentYear = date.getFullYear()
     let units
     let property
     if(loading){
@@ -74,10 +78,30 @@ class Property extends Component {
       property = user.company.properties.filter(prop => {
         if(prop.id === this.props.propertyId) return prop
       })
-      units = property[0].units.map(unit => {
-        return <div key={unit.id} className='col-lg-6 col-xl-4'>
+
+
+      units = property[0].units.map((unit, i) => {
+        let overDue = false
+        let monthDue
+        let yearDue = currentYear
+        if(unit.dueDate < currentDay && unit.paidStatus === false){
+          monthDue = currentMonth
+          overDue = true
+        }else if(unit.dueDate > currentDay && unit.paidStatus === false){
+          monthDue = currentMonth
+        }else if(unit.dueDate > currentDay && unit.paidStatus === true){
+          if(currentMonth === 11){
+            monthDue = 0
+            yearDue = yearDue + 1
+          }
+          monthDue = currentMonth + 1
+        }
+        return <div key={unit.id} className='col-xl-6'>
           <div className='unit-section '>
-            <i className="material-icons float-right"
+
+            <h5>Unit {i + 1}</h5>
+            {overDue ? <span className="badge badge-danger">Over Due!</span> : ''}
+            <i className="material-icons edit-unit-icon"
               onClick={()=>{
                 this.setState({ editUnitSelect: unit })
               }}
@@ -102,16 +126,31 @@ class Property extends Component {
               </div>
             </div>
 
+            <table className='property-table'>
+              <tbody>
+                <tr>
+                  <td>Tenant: </td>
+                  <td>{unit.tenantName}</td>
+                </tr>
+                <tr>
+                  <td>Cell Number: </td>
+                  <td>{unit.cellNumber}</td>
+                </tr>
+                <tr>
+                  <td>Email: </td>
+                  <td>{unit.email}</td>
+                </tr>
+                <tr>
+                  <td>Rent Due: </td>
+                  <td>{months[monthDue]} {unit.dueDate}, {yearDue}</td>
+                </tr>
+                <tr>
+                  <td>Rent Amount: </td>
+                  <td>{unit.currency === 'Dollars' ? '$' : '₡'}{unit.rentAmount.toLocaleString()}</td>
+                </tr>
+              </tbody>
 
-            {unit.tenantName}
-            <br/>
-            {unit.cellNumber}
-            <br/>
-            {unit.email}
-            <br/>
-            {unit.dueDate}
-            <br/>
-            {unit.rentAmount}
+            </table>
           </div>
 
         </div>
@@ -122,8 +161,19 @@ class Property extends Component {
     return (
       <div id='property' className='container-fluid'>
         <div className='title-section'>
-          <h4>{this.state.propertyName}</h4>
-          <div className='small-text'>{this.state.address}</div>
+          <div className='row'>
+            <div>
+              <Link to='/dashboard/properties'><i className="material-icons back-button">
+                keyboard_backspace
+              </i></Link>
+
+            </div>
+            <div style={{marginLeft: '15px'}}>
+              <h4>{this.state.propertyName}</h4>
+              <div className='small-text'>{this.state.address}</div>
+            </div>
+          </div>
+
           <i className="material-icons float-right add-unit-icon"
             onClick={this.addUnitDisplay.bind(this)}
             >
@@ -133,7 +183,7 @@ class Property extends Component {
             style={{ position: 'relative',
             width: '100%',
             transition: 'all ease-in-out .15s',
-            maxHeight:`${ this.state.addUnitDisplay ? (this.state.width < 768 ? '550px' : '360px') : '0px' }`,
+            maxHeight:`${ this.state.addUnitDisplay ? (this.state.width < 768 ? '620px' : '360px') : '0px' }`,
             overflow: `${this.state.addUnitDisplay ? (()=>{setTimeout(function(){return ''}), 100}) : 'hidden'}`
            }}
             >

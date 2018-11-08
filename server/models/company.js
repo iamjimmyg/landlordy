@@ -13,6 +13,7 @@ const CompanySchema = new Schema({
       email: String,
       rentAmount: Number,
       dueDate: Number,
+      currency: String,
       paidStatus: Boolean,
     }]
   }]

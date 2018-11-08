@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import AddPropertyForm from '../forms/AddPropertyForm'
-
+import EditPropertyForm from '../forms/EditPropertyForm'
 // import { graphql } from 'react-apollo'
 // import query from '../../queries/CurrentUser'
 
@@ -8,6 +8,7 @@ class Properties extends Component {
   constructor(props){
     super(props)
     this.state = {
+      editPropertySelect: '',
       addPropertyDisplay: false,
       width: window.innerWidth,
     }
@@ -48,11 +49,17 @@ class Properties extends Component {
       if(user.company.properties === undefined || user.company.properties.length === 0){
         properties = <div>No properties yet</div>
       }else if(user.company.properties.length !== 0){
-
+        let companyId = user.company.id
         properties = user.company.properties.map(property => {
-          let propertyTotal = 0
+          let propertyTotalColones = 0
+          let propertyTotalDollars = 0
           let units = property.units.map(unit => {
-            propertyTotal = propertyTotal + unit.rentAmount
+            if(unit.currency === 'Colones'){
+              propertyTotalColones = propertyTotalColones + unit.rentAmount
+            }else if(unit.currency === 'Dollars'){
+              propertyTotalDollars = propertyTotalDollars + unit.rentAmount
+            }
+
             return <div key={unit.id} className=''>
               {unit.tenantName}
             </div>
@@ -60,16 +67,43 @@ class Properties extends Component {
 
           return <div key={property.id} className='col-lg-6 col-xl-4'>
             <div  className='property-section'>
-              <div className='row no-gutters'>
+              <div className='row'>
                 <div className='col-12'>
+
+                  <i className="material-icons float-right"
+                    onClick={()=>{
+                      this.setState({ editPropertySelect: property })
+                    }}
+                    data-toggle="modal"
+                    data-target="#ModalCenter">edit
+                  </i>
+
+                  <div className="modal fade" id="ModalCenter" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div className="modal-dialog modal-dialog-centered" role="document">
+                      <div className="modal-content">
+                        <div className="modal-header">
+                          <h5 className="modal-title" id="exampleModalCenterTitle">Edit Unit</h5>
+                          <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div className="modal-body">
+                          <EditPropertyForm property={this.state.editPropertySelect} />
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+
                   <h5>{property.propertyName}</h5>
-                  {property.address}
+
+                  <div className='small-text'>{property.address}</div>
                 </div>
               </div>
 
               <hr />
               <div className='row no-gutters'>
-                <div className='col-3 text-center'>
+                <div className='col-4 text-center'>
                   <div className='small-text'>Units</div>
 
 
@@ -81,9 +115,14 @@ class Properties extends Component {
                   </div>
                 </div>
 
-                <div className='col-6 text-center'>
-                  <div className='small-text'>Possible Monthly Total</div>
-                  <h4 className='align-top'>₡{propertyTotal.toLocaleString()}</h4>
+                <div className='col-4 text-center'>
+                  <div className='small-text'>Colones Total</div>
+                  <h4 className='align-top'>₡{propertyTotalColones.toLocaleString()}</h4>
+                </div>
+
+                <div className='col-4 text-center'>
+                  <div className='small-text'>Dollars Total</div>
+                  <h4 className='align-top'>${propertyTotalDollars.toLocaleString()}</h4>
                 </div>
 
               </div>

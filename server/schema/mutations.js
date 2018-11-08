@@ -116,11 +116,12 @@ const mutation = new GraphQLObjectType({
         cellNumber: { type: GraphQLString },
         email: { type: GraphQLString },
         rentAmount: { type: GraphQLInt },
+        currency: { type: GraphQLString },
         dueDate:{ type: GraphQLInt },
         paidStatus: { type: GraphQLBoolean },
       },
-      resolve(parent, { propertyId, tenantName, cellNumber, email, rentAmount, dueDate, paidStatus }, req){
-        return Helper.addUnit({ propertyId, tenantName, cellNumber, email, rentAmount, dueDate, paidStatus, companyId: req.user.companyId })
+      resolve(parent, { propertyId, tenantName, cellNumber, email, rentAmount, currency, dueDate, paidStatus }, req){
+        return Helper.addUnit({ propertyId, tenantName, cellNumber, email, rentAmount, currency, dueDate, paidStatus, companyId: req.user.companyId })
       }
     },
     updateUnit: {
@@ -132,11 +133,12 @@ const mutation = new GraphQLObjectType({
         cellNumber: { type: GraphQLString },
         email: { type: GraphQLString },
         rentAmount: { type: GraphQLInt },
+        currency: { type: GraphQLString },
         dueDate:{ type: GraphQLInt },
         paidStatus: { type: GraphQLBoolean },
       },
-      resolve(parent, { unitId, propertyId, tenantName, cellNumber, email, rentAmount, dueDate, paidStatus }, req){
-        return Helper.updateUnit({ unitId, propertyId, tenantName, cellNumber, email, rentAmount, dueDate, paidStatus, companyId: req.user.companyId })
+      resolve(parent, { unitId, propertyId, tenantName, cellNumber, email, rentAmount, currency, dueDate, paidStatus }, req){
+        return Helper.updateUnit({ unitId, propertyId, tenantName, cellNumber, email, rentAmount, currency, dueDate, paidStatus, companyId: req.user.companyId })
       }
     },
     deleteUnit: {

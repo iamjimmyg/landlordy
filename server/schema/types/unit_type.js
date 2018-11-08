@@ -16,6 +16,7 @@ const UnitType = new GraphQLObjectType({
     email: { type: GraphQLString },
     rentAmount: { type: GraphQLInt },
     dueDate: { type: GraphQLInt },
+    currency: { type: GraphQLString },
     paidStatus: { type: GraphQLBoolean },
   })
 });
