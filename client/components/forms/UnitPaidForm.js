@@ -41,12 +41,12 @@ class UnitPaidForm extends Component {
 
     return (
       <div className='unit-paid-buttons'>
-        <form>
+        <form >
           <div className="btn-group btn-group-toggle" data-toggle="buttons" >
             <label className={`overdue btn btn-secondary ${this.state.paidStatus ? '' : 'active'}`}
               onClick={()=>{this.onSelect(false)}}>
               Over Due
-              <input type="radio" />
+              <input type="radio"/>
             </label>
             <label className={`paid btn btn-secondary ${this.state.paidStatus ? 'active' : ''}`}
               onClick={()=>{this.onSelect(true)}}>

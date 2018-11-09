@@ -165,8 +165,9 @@ class Property extends Component {
               </tbody>
 
             </table>
+            {this.props.data.user.isAdmin ? <UnitPaidForm unit={unit} propertyId={this.props.propertyId} isAdmin={this.props.data.user.isAdmin}/> : ''}
 
-            <UnitPaidForm unit={unit} propertyId={this.props.propertyId}/>
+
           </div>
 
         </div>
