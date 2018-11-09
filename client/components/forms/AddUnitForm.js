@@ -82,7 +82,7 @@ class AddUnitForm extends Component {
                 onChange={e => this.setState({ currency: e.target.value })}
                 placeholder="Select currency"
                 id="currency">
-                <option selected>Select Currency</option>
+                <option defaultValue>Select Currency</option>
                 <option>Colones</option>
                 <option>Dollars</option>
               </select>

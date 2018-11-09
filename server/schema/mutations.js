@@ -151,6 +151,17 @@ const mutation = new GraphQLObjectType({
         return Helper.deleteUnit({ unitId, propertyId, companyId: req.user.companyId })
       }
     },
+    unitPaid: {
+      type: UnitType,
+      args: {
+        unitId: { type: GraphQLString },
+        propertyId: { type: GraphQLString },
+        paidStatus: { type: GraphQLBoolean },
+      },
+      resolve(parent, { unitId, propertyId, paidStatus }, req){
+        return Helper.unitPaid({ unitId, propertyId, paidStatus, companyId: req.user.companyId })
+      }
+    }
   }
 });
 

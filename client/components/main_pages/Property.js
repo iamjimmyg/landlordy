@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import AddUnitForm from '../forms/AddUnitForm'
 import EditUnitForm from '../forms/EditUnitForm'
+import UnitPaidForm from '../forms/UnitPaidForm'
 
 import { Link } from 'react-router'
 
@@ -71,31 +72,44 @@ class Property extends Component {
     let currentYear = date.getFullYear()
     let units
     let property
+
     if(loading){
       units = <div>loading...</div>
-    }
-    else if(user) {
+    }else if(user) {
       property = user.company.properties.filter(prop => {
         if(prop.id === this.props.propertyId) return prop
       })
 
-
       units = property[0].units.map((unit, i) => {
+
+        //TODO: separate from this file, unit paid logic
+
         let overDue = false
         let monthDue
         let yearDue = currentYear
         if(unit.dueDate < currentDay && unit.paidStatus === false){
           monthDue = currentMonth
           overDue = true
-        }else if(unit.dueDate > currentDay && unit.paidStatus === false){
-          monthDue = currentMonth
-        }else if(unit.dueDate > currentDay && unit.paidStatus === true){
+        }else if(unit.dueDate > currentDay){
+          if(unit.paidStatus === false){
+            monthDue = currentMonth - 1
+            overDue = true
+          }else if(unit.paidStatus === true){
+            if(currentMonth === 11){
+              monthDue = 0
+              yearDue = yearDue + 1
+            }
+            monthDue = currentMonth
+          }
+
+        }else if(unit.dueDate < currentDay && unit.paidStatus === true){
           if(currentMonth === 11){
             monthDue = 0
             yearDue = yearDue + 1
           }
           monthDue = currentMonth + 1
         }
+
         return <div key={unit.id} className='col-xl-6'>
           <div className='unit-section '>
 
@@ -128,7 +142,7 @@ class Property extends Component {
 
             <table className='property-table'>
               <tbody>
-                <tr>
+                <tr className=''>
                   <td>Tenant: </td>
                   <td>{unit.tenantName}</td>
                 </tr>
@@ -151,6 +165,8 @@ class Property extends Component {
               </tbody>
 
             </table>
+
+            <UnitPaidForm unit={unit} propertyId={this.props.propertyId}/>
           </div>
 
         </div>

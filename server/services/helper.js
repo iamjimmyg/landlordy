@@ -166,4 +166,21 @@ function deleteUnit({ unitId, propertyId, companyId }){
     })
 }
 
-module.exports = { addCompany, addProperty, updateProperty, deleteProperty, addUnit, updateUnit, deleteUnit };
+function unitPaid({ unitId, propertyId, paidStatus, companyId }){
+  return Company.findById(companyId)
+    .then(company => {
+      let unitIndex
+      company.properties.forEach(property => {
+        if(property.id === propertyId){
+          property.units.forEach((unit, i) => {
+            if(unit.id === unitId){
+              unit.paidStatus = paidStatus
+            }
+          })
+        }
+      })
+      company.save()
+    })
+}
+
+module.exports = { addCompany, addProperty, updateProperty, deleteProperty, addUnit, updateUnit, deleteUnit, unitPaid };

@@ -65,7 +65,7 @@ class Properties extends Component {
             </div>
           })
 
-          return <div key={property.id} className='col-lg-6 col-xl-4'>
+          return <div key={property.id} className='col-xl-6'>
             <div  className='property-section'>
               <div className='row'>
                 <div className='col-12'>

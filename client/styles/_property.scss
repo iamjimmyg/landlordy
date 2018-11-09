@@ -1,6 +1,7 @@
 @import 'default_colors';
 
 #property {
+  padding-bottom: 15px;
   .title-section {
     background: white;
     margin-top: 15px;
@@ -24,6 +25,9 @@
     border: 1px solid lightgrey;
     border-radius: 5px;
     padding: 20px;
+    .unit-paid-buttons {
+      padding-top: 10px;
+    }
     .badge-danger {
       position: absolute;
       top: 38px;
@@ -38,6 +42,7 @@
         }
       }
       td {
+        width: 50%;
         padding: 5px;
 
       }
