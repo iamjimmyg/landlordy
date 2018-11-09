@@ -14,11 +14,9 @@ class UnitPaidForm extends Component {
   }
 
   componentWillMount(){
-    // if(nextProps.unit !== this.props.unit){
-      this.setState({
-        paidStatus: this.props.unit.paidStatus,
-      })
-    // }
+    this.setState({
+      paidStatus: this.props.unit.paidStatus,
+    })
   }
 
   onSelect(boolean){
@@ -27,11 +25,10 @@ class UnitPaidForm extends Component {
     const propertyId = this.props.propertyId
     const paidStatus = boolean
 
-    console.log('event')
     this.props.mutate({
       variables: { unitId, propertyId, paidStatus },
       refetchQueries: [{query}]
-    }).then(res=>{
+    }).then(res => {
       this.setState({ paidStatus: paidStatus, errors: [] })
     }).catch(res => {
       const errors = res.graphQLErrors.map(error => error.message)
@@ -46,12 +43,12 @@ class UnitPaidForm extends Component {
       <div className='unit-paid-buttons'>
         <form>
           <div className="btn-group btn-group-toggle" data-toggle="buttons" >
-            <label className={`btn btn-secondary ${this.state.paidStatus ? '' : 'active'}`}
+            <label className={`overdue btn btn-secondary ${this.state.paidStatus ? '' : 'active'}`}
               onClick={()=>{this.onSelect(false)}}>
               Over Due
               <input type="radio" />
             </label>
-            <label className={`btn btn-secondary ${this.state.paidStatus ? 'active' : ''}`}
+            <label className={`paid btn btn-secondary ${this.state.paidStatus ? 'active' : ''}`}
               onClick={()=>{this.onSelect(true)}}>
               Paid
               <input type="radio" />
