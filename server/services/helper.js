@@ -83,7 +83,7 @@ function deleteProperty({ companyId, propertyId }){
 }
 
 function addUnit({ propertyId, tenantName, cellNumber, email, rentAmount, currency, dueDate, paidStatus, companyId }){
-  let newUnit = { tenantName, cellNumber, email, rentAmount, currency, dueDate, paidStatus: false }
+  let newUnit = { tenantName, cellNumber, email, rentAmount, currency, dueDate, paidStatus: false, amountOwed: rentAmount }
   return Company.findById(companyId)
     .then(company => {
       company.properties.forEach(property => {
@@ -169,18 +169,47 @@ function deleteUnit({ unitId, propertyId, companyId }){
 function unitPaid({ unitId, propertyId, paidStatus, companyId }){
   return Company.findById(companyId)
     .then(company => {
-      let unitIndex
+      let returnUnit;
       company.properties.forEach(property => {
         if(property.id === propertyId){
           property.units.forEach((unit, i) => {
             if(unit.id === unitId){
-              unit.paidStatus = paidStatus
+              returnUnit = unit
+              if(paidStatus === false) {
+                unit.paidStatus = paidStatus
+                unit.amountOwed = unit.rentAmount
+              }else if(paidStatus === true){
+                unit.paidStatus = paidStatus
+                unit.amountOwed = 0
+              }
             }
           })
         }
       })
       company.save()
+      return returnUnit
     })
 }
 
-module.exports = { addCompany, addProperty, updateProperty, deleteProperty, addUnit, updateUnit, deleteUnit, unitPaid };
+function changeAmountOwed({ unitId, propertyId, paidStatus, amountOwed, companyId }){
+  return Company.findById(companyId)
+    .then(company => {
+      let returnUnit;
+      company.properties.forEach(property => {
+        if(property.id === propertyId){
+          property.units.forEach((unit, i) => {
+            if(unit.id === unitId){
+              returnUnit = unit
+              unit.paidStatus = paidStatus
+              unit.amountOwed = amountOwed
+              console.log(unit)
+            }
+          })
+        }
+      })
+      company.save()
+      return returnUnit
+    })
+}
+
+module.exports = { addCompany, addProperty, updateProperty, deleteProperty, addUnit, updateUnit, deleteUnit, unitPaid, changeAmountOwed };

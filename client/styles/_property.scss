@@ -27,7 +27,14 @@
     padding: 20px;
     .unit-paid-buttons {
       padding-top: 10px;
+      .unit-paid-button {
+        text-align: right;
+        top: 255px;
+        position: absolute;
+        right: 35px;
+      }
     }
+
     .badge-danger {
       position: absolute;
       top: 38px;

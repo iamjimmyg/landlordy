@@ -18,6 +18,7 @@ const UnitType = new GraphQLObjectType({
     dueDate: { type: GraphQLInt },
     currency: { type: GraphQLString },
     paidStatus: { type: GraphQLBoolean },
+    amountOwed: { type: GraphQLInt },
   })
 });
 

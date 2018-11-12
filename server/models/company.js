@@ -15,6 +15,7 @@ const CompanySchema = new Schema({
       dueDate: Number,
       currency: String,
       paidStatus: Boolean,
+      amountOwed: Number,
     }]
   }]
 }, {usePushEach: true});

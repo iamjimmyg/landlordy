@@ -161,6 +161,18 @@ const mutation = new GraphQLObjectType({
       resolve(parent, { unitId, propertyId, paidStatus }, req){
         return Helper.unitPaid({ unitId, propertyId, paidStatus, companyId: req.user.companyId })
       }
+    },
+    changeAmountOwed: {
+      type: UnitType,
+      args: {
+        unitId: { type: GraphQLString },
+        propertyId: { type: GraphQLString },
+        paidStatus: { type: GraphQLBoolean },
+        amountOwed: { type: GraphQLInt },
+      },
+      resolve(parent, {  unitId, propertyId, paidStatus, amountOwed }, req){
+        return Helper.changeAmountOwed({ unitId, propertyId, paidStatus, amountOwed, companyId: req.user.companyId })
+      }
     }
   }
 });

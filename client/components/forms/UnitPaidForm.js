@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import mutation from '../../mutations/unitPaid'
+import unitPaid from '../../mutations/unitPaid'
+import changeAmountOwed from '../../mutations/changeAmountOwed'
 
 import { graphql } from 'react-apollo'
 import query from '../../queries/CurrentUser'
@@ -8,7 +9,7 @@ class UnitPaidForm extends Component {
   constructor(props){
     super(props)
     this.state = {
-      paidStatus: ''
+      paidStatus: '',
     }
     this.onSelect = this.onSelect.bind(this)
   }
@@ -25,8 +26,8 @@ class UnitPaidForm extends Component {
     const propertyId = this.props.propertyId
     const paidStatus = boolean
 
-    this.props.mutate({
-      variables: { unitId, propertyId, paidStatus },
+    this.props.unitPaid({
+      variables: { unitId, propertyId, paidStatus, },
       refetchQueries: [{query}]
     }).then(res => {
       this.setState({ paidStatus: paidStatus, errors: [] })
@@ -41,7 +42,11 @@ class UnitPaidForm extends Component {
 
     return (
       <div className='unit-paid-buttons'>
-        <form >
+        <button className="btn btn-primary" type="button" data-toggle="collapse" data-target={`#${this.props.collapseId}`} aria-expanded="false">
+          Change Total Amount Owed
+        </button>
+
+        <form className='unit-paid-button'>
           <div className="btn-group btn-group-toggle" data-toggle="buttons" >
             <label className={`overdue btn btn-secondary ${this.state.paidStatus ? '' : 'active'}`}
               onClick={()=>{this.onSelect(false)}}>
@@ -54,8 +59,18 @@ class UnitPaidForm extends Component {
               <input type="radio" />
             </label>
           </div>
-
         </form>
+
+
+        <div className="collapse" id={this.props.collapseId}>
+          <div className="card card-body">
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+          </div>
+        </div>
+
+
+
+
 
       </div>
 
@@ -63,6 +78,9 @@ class UnitPaidForm extends Component {
   }
 }
 
-export default graphql(query)(
-  graphql(mutation)(UnitPaidForm)
+
+const ComponentWithMutations = graphql(unitPaid, { name: 'unitPaid' })(
+  graphql(changeAmountOwed, {name: 'changeAmountOwed'})(UnitPaidForm)
 )
+
+export default ComponentWithMutations

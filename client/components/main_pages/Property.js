@@ -114,7 +114,7 @@ class Property extends Component {
           <div className='unit-section '>
 
             <h5>Unit {i + 1}</h5>
-            {overDue ? <span className="badge badge-danger">Over Due!</span> : ''}
+            {overDue ? <span className="badge badge-danger">{unit.currency === 'Dollars' ? '$' : '₡'}{unit.amountOwed.toLocaleString()} Over Due!</span> : ''}
             <i className="material-icons edit-unit-icon"
               onClick={()=>{
                 this.setState({ editUnitSelect: unit })
@@ -163,11 +163,8 @@ class Property extends Component {
                   <td>{unit.currency === 'Dollars' ? '$' : '₡'}{unit.rentAmount.toLocaleString()}</td>
                 </tr>
               </tbody>
-
             </table>
-            {this.props.data.user.isAdmin ? <UnitPaidForm unit={unit} propertyId={this.props.propertyId} isAdmin={this.props.data.user.isAdmin}/> : ''}
-
-
+            {this.props.data.user.isAdmin ? <UnitPaidForm collapseId={`collapseUnit-${i}`} unit={unit} propertyId={this.props.propertyId} isAdmin={this.props.data.user.isAdmin}/> : ''}
           </div>
 
         </div>
