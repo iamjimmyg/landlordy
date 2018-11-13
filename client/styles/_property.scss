@@ -25,6 +25,24 @@
     border: 1px solid lightgrey;
     border-radius: 5px;
     padding: 20px;
+    .card {
+      margin-top: 15px;
+      .btn {
+        border: 1px solid lightgrey;
+        margin-left: 10px;
+        height: 38px;
+      }
+      .form-control {
+        position: relative;
+        top: 0px;
+      }
+      .currency {
+        position: relative;
+        font-size: 20px;
+        top: 4px;
+        margin-right: 5px;
+      }
+    }
     .unit-paid-buttons {
       padding-top: 10px;
       .unit-paid-button {

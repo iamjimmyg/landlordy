@@ -166,7 +166,7 @@ function deleteUnit({ unitId, propertyId, companyId }){
     })
 }
 
-function unitPaid({ unitId, propertyId, paidStatus, companyId }){
+function unitPaid({ unitId, propertyId, paidStatus, amountOwed, companyId }){
   return Company.findById(companyId)
     .then(company => {
       let returnUnit;
@@ -174,18 +174,19 @@ function unitPaid({ unitId, propertyId, paidStatus, companyId }){
         if(property.id === propertyId){
           property.units.forEach((unit, i) => {
             if(unit.id === unitId){
-              returnUnit = unit
               if(paidStatus === false) {
                 unit.paidStatus = paidStatus
-                unit.amountOwed = unit.rentAmount
+                unit.amountOwed = amountOwed
               }else if(paidStatus === true){
                 unit.paidStatus = paidStatus
-                unit.amountOwed = 0
+                unit.amountOwed = amountOwed
               }
+              returnUnit = unit
             }
           })
         }
       })
+      console.log(returnUnit)
       company.save()
       return returnUnit
     })

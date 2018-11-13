@@ -10,27 +10,47 @@ class UnitPaidForm extends Component {
     super(props)
     this.state = {
       paidStatus: '',
+      amountOwed: '',
     }
     this.onSelect = this.onSelect.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
   }
 
   componentWillMount(){
     this.setState({
       paidStatus: this.props.unit.paidStatus,
+      amountOwed: this.props.unit.amountOwed,
     })
   }
 
   onSelect(boolean){
-    event.preventDefault()
     const unitId = this.props.unit.id
     const propertyId = this.props.propertyId
     const paidStatus = boolean
+    const amountOwed = paidStatus === true ? 0 : this.props.unit.rentAmount
 
     this.props.unitPaid({
-      variables: { unitId, propertyId, paidStatus, },
+      variables: { unitId, propertyId, paidStatus, amountOwed },
       refetchQueries: [{query}]
     }).then(res => {
-      this.setState({ paidStatus: paidStatus, errors: [] })
+      this.setState({ paidStatus: paidStatus, amountOwed: amountOwed, errors: [] })
+    }).catch(res => {
+      const errors = res.graphQLErrors.map(error => error.message)
+      alert(errors[0])
+      this.setState({ errors })
+    })
+  }
+
+  onSubmit(amountOwed){
+    const unitId = this.props.unit.id
+    const propertyId = this.props.propertyId
+    const paidStatus = amountOwed === 0 ? true : false
+
+    this.props.unitPaid({
+      variables: { unitId, propertyId, paidStatus, amountOwed },
+      refetchQueries: [{query}]
+    }).then(res => {
+      this.setState({ paidStatus: paidStatus, amountOwed: amountOwed, errors: [] })
     }).catch(res => {
       const errors = res.graphQLErrors.map(error => error.message)
       alert(errors[0])
@@ -39,7 +59,6 @@ class UnitPaidForm extends Component {
   }
 
   render(){
-
     return (
       <div className='unit-paid-buttons'>
         <button className="btn btn-primary" type="button" data-toggle="collapse" data-target={`#${this.props.collapseId}`} aria-expanded="false">
@@ -64,14 +83,23 @@ class UnitPaidForm extends Component {
 
         <div className="collapse" id={this.props.collapseId}>
           <div className="card card-body">
-            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+            <form className='d-inline-flex'>
+
+              <div className='currency'>{this.props.unit.currency === 'Dollars' ? '$' : '₡'}</div>
+              <label>
+                <input className='form-control'
+                  value={this.state.amountOwed}
+                  onChange={e => this.setState({ amountOwed: e.target.value })}
+                  placeholder={this.state.amountOwed.toLocaleString()}/>
+              </label>
+              <button className='btn'
+                onClick={()=>{this.onSubmit(this.state.amountOwed)}}
+                >
+                Submit
+              </button>
+            </form>
           </div>
         </div>
-
-
-
-
-
       </div>
 
     )
