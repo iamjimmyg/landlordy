@@ -26,12 +26,17 @@
     border-radius: 5px;
     padding: 20px;
     .change-amount-icon {
-      margin-right: 5px;
-      margin-left: -5px;
+      position: relative;
+      top: -5px;
+      font-size: 35px;
+      margin-right: 0px;
+      margin-left: -15px;
     }
     .card {
       margin-top: 15px;
+
       .btn {
+        position: relative;
         border: 1px solid lightgrey;
         margin-left: 10px;
         height: 38px;
@@ -48,7 +53,10 @@
       }
     }
     .unit-paid-buttons {
-      padding-top: 10px;
+      .change-amount {
+        position: relative;
+        top: 9px;
+      }
       .unit-paid-button {
         text-align: right;
         top: 255px;

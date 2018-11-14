@@ -61,8 +61,8 @@ class UnitPaidForm extends Component {
   render(){
     return (
       <div className='unit-paid-buttons'>
-        <div className='btn d-inline-flex' data-toggle="collapse" data-target={`#${this.props.collapseId}`} aria-expanded="false">
-          <i className="material-icons change-amount-icon">error</i><div>Change Total Amount Owed</div>
+        <div className='btn d-inline-flex change-amount' data-toggle="collapse" data-target={`#${this.props.collapseId}`} aria-expanded="false">
+          <i className="material-icons change-amount-icon">arrow_drop_down</i><div>Change Total Amount Owed</div>
         </div>
 
         <form className='unit-paid-button'>
