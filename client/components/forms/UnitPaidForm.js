@@ -61,10 +61,6 @@ class UnitPaidForm extends Component {
   render(){
     return (
       <div className='unit-paid-buttons'>
-        <div className='btn d-inline-flex change-amount' data-toggle="collapse" data-target={`#${this.props.collapseId}`} aria-expanded="false">
-          <i className="material-icons change-amount-icon">arrow_drop_down</i><div>Change Total Amount Owed</div>
-        </div>
-
         <form className='unit-paid-button'>
           <div className="btn-group btn-group-toggle" data-toggle="buttons" >
             <label className={`overdue btn btn-secondary ${this.state.paidStatus ? '' : 'active'}`}
@@ -79,10 +75,14 @@ class UnitPaidForm extends Component {
             </label>
           </div>
         </form>
+        <div className='btn d-inline-flex change-amount' data-toggle="collapse" data-target={`#${this.props.collapseId}`} aria-expanded="false">
+          <i className="material-icons change-amount-icon">arrow_drop_down</i><div className='small-text   3'>Change Total Amount Owed</div>
+        </div>
 
 
-        <div className="collapse" id={this.props.collapseId}>
-          <div className="card card-body">
+
+        <div className="collapse collapsed-amount-owed" id={this.props.collapseId}>
+          {/* <div className="card card-body"> */}
             <form className='d-inline-flex'>
 
               <div className='currency'>{this.props.unit.currency === 'Dollars' ? '$' : '₡'}</div>
@@ -98,7 +98,7 @@ class UnitPaidForm extends Component {
                 Submit
               </button>
             </form>
-          </div>
+          {/* </div> */}
         </div>
       </div>
 

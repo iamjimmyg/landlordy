@@ -3,6 +3,8 @@ import AddUnitForm from '../forms/AddUnitForm'
 import EditUnitForm from '../forms/EditUnitForm'
 import UnitPaidForm from '../forms/UnitPaidForm'
 
+import { dateAndDueInfo } from '../../helpers/DateHelper'
+
 import { Link } from 'react-router'
 
 class Property extends Component {
@@ -64,12 +66,8 @@ class Property extends Component {
   }
 
   render(){
-    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const { loading, user } = this.props.data
-    let date = new Date()
-    let currentMonth = date.getMonth()
-    let currentDay = date.getDate()
-    let currentYear = date.getFullYear()
+    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     let units
     let property
 
@@ -81,40 +79,13 @@ class Property extends Component {
       })
 
       units = property[0].units.map((unit, i) => {
+        let dateAndOverDue = dateAndDueInfo(unit)
 
-        //TODO: separate from this file, unit paid logic
-
-        let overDue = false
-        let monthDue
-        let yearDue = currentYear
-        if(unit.dueDate < currentDay && unit.paidStatus === false){
-          monthDue = currentMonth
-          overDue = true
-        }else if(unit.dueDate > currentDay){
-          if(unit.paidStatus === false){
-            monthDue = currentMonth - 1
-            overDue = true
-          }else if(unit.paidStatus === true){
-            if(currentMonth === 11){
-              monthDue = 0
-              yearDue = yearDue + 1
-            }
-            monthDue = currentMonth
-          }
-
-        }else if(unit.dueDate < currentDay && unit.paidStatus === true){
-          if(currentMonth === 11){
-            monthDue = 0
-            yearDue = yearDue + 1
-          }
-          monthDue = currentMonth + 1
-        }
-
-        return <div key={unit.id} className='col-xl-6'>
+        return <div key={unit.id} className='col-xl-4 col-md-6'>
           <div className='unit-section '>
 
             <h5>Unit {i + 1}</h5>
-            {overDue ? <span className="badge badge-danger">{unit.currency === 'Dollars' ? '$' : '₡'}{unit.amountOwed.toLocaleString()} Over Due!</span> : ''}
+            {dateAndOverDue.overDue ? <span className="badge badge-danger">{unit.currency === 'Dollars' ? '$' : '₡'}{unit.amountOwed.toLocaleString()} Over Due!</span> : ''}
             <i className="material-icons edit-unit-icon"
               onClick={()=>{
                 this.setState({ editUnitSelect: unit })
@@ -140,30 +111,40 @@ class Property extends Component {
               </div>
             </div>
 
-            <table className='property-table'>
-              <tbody>
-                <tr className=''>
-                  <td>Tenant: </td>
-                  <td>{unit.tenantName}</td>
-                </tr>
-                <tr>
-                  <td>Cell Number: </td>
-                  <td>{unit.cellNumber}</td>
-                </tr>
-                <tr>
-                  <td>Email: </td>
-                  <td>{unit.email}</td>
-                </tr>
-                <tr>
-                  <td>Rent Due: </td>
-                  <td>{months[monthDue]} {unit.dueDate}, {yearDue}</td>
-                </tr>
-                <tr>
-                  <td>Rent Amount: </td>
-                  <td>{unit.currency === 'Dollars' ? '$' : '₡'}{unit.rentAmount.toLocaleString()}</td>
-                </tr>
-              </tbody>
-            </table>
+            <div className='property-table'>
+                <div className='property-info'>
+                  <div className='small-text'>Tenant: </div>
+                  <div>{unit.tenantName}</div>
+                </div>
+                <div className='btn d-inline-flex show-info' data-toggle="collapse" data-target={`#collapsed-${i}`} aria-expanded="false">
+                  <i className="material-icons change-amount-icon">arrow_drop_down</i><div className='small-text'></div>
+                </div>
+
+
+
+                <div className="collapse" id={`collapsed-${i}`}>
+                  <div className="">
+                    <div className='property-info'>
+                      <div className='small-text'>Cell Number: </div>
+                      <div>{unit.cellNumber}</div>
+                    </div>
+                    <div className='property-info'>
+                      <div className='small-text'>Email: </div>
+                      <div>{unit.email}</div>
+                    </div>
+                    <div className='property-info'>
+                      <div className='small-text'>Rent Due: </div>
+                      <div>{months[dateAndOverDue.monthDue]} {unit.dueDate}, {dateAndOverDue.yearDue}</div>
+                    </div>
+                    <div className='property-info'>
+                      <div className='small-text'>Rent Amount: </div>
+                      <div>{unit.currency === 'Dollars' ? '$' : '₡'}{unit.rentAmount.toLocaleString()}</div>
+                    </div>
+                  </div>
+                </div>
+
+            </div>
+
             {this.props.data.user.isAdmin ? <UnitPaidForm collapseId={`collapseUnit-${i}`} unit={unit} propertyId={this.props.propertyId} isAdmin={this.props.data.user.isAdmin}/> : ''}
           </div>
 

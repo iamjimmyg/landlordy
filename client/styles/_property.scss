@@ -25,46 +25,6 @@
     border: 1px solid lightgrey;
     border-radius: 5px;
     padding: 20px;
-    .change-amount-icon {
-      position: relative;
-      top: -5px;
-      font-size: 35px;
-      margin-right: 0px;
-      margin-left: -15px;
-    }
-    .card {
-      margin-top: 15px;
-
-      .btn {
-        position: relative;
-        border: 1px solid lightgrey;
-        margin-left: 10px;
-        height: 38px;
-      }
-      .form-control {
-        position: relative;
-        top: 0px;
-      }
-      .currency {
-        position: relative;
-        font-size: 20px;
-        top: 4px;
-        margin-right: 5px;
-      }
-    }
-    .unit-paid-buttons {
-      .change-amount {
-        position: relative;
-        top: 9px;
-      }
-      .unit-paid-button {
-        text-align: right;
-        top: 255px;
-        position: absolute;
-        right: 35px;
-      }
-    }
-
     .badge-danger {
       position: absolute;
       top: 38px;
@@ -73,16 +33,13 @@
     }
     .property-table {
       width: 100%;
-      border: 1px solid lightgrey;
-      tr {
-        &:not(:first-child){
-          border-top: 1px solid lightgrey;
-        }
+      .show-info {
+        position: absolute;
+        top: 85px;
+        right: 25px;
       }
-      td {
-        width: 50%;
-        padding: 5px;
-
+      .property-info {
+        padding: 5px 0px 5px 0px;
       }
     }
     .edit-unit-icon {
@@ -95,22 +52,7 @@
         cursor: pointer;
       }
     }
-    .overdue {
-      background: $grey;
-      border: $red;
-    }
-    .overdue.active {
-      background: $red;
-      border: $grey;
-    }
-    .paid {
-      background: $grey;
-      border: $green;
-    }
-    .paid.active {
-      background: $green;
-      border: $grey;
-    }
+
   }
   .back-button {
     color: $primary;

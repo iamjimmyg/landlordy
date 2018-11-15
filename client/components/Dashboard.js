@@ -35,7 +35,7 @@ class Dashboard extends Component {
       }else if(nextProps.location.pathname === '/dashboard/properties'){
         this.setState({ selectedComponent: <Properties viewProperty={this.viewProperty.bind(this)} mediumView={this.state.mediumView} {...nextProps}/>, selected: 'properties' })
       }else if(nextProps.location.pathname === '/dashboard/tenants'){
-        this.setState({ selectedComponent: <Tenants {...nextProps}/>, selected: 'tenants' })
+        this.setState({ selectedComponent: <Tenants viewProperty={this.viewProperty.bind(this)} {...nextProps}/>, selected: 'tenants' })
       }else {
         let path = nextProps.location.pathname.split('/')
         if(nextProps.location.pathname.includes('properties')){
@@ -66,7 +66,7 @@ class Dashboard extends Component {
       }else if(this.props.location.pathname === '/dashboard/properties'){
         this.setState({ selectedComponent: <Properties viewProperty={this.viewProperty.bind(this)} mediumView={this.state.mediumView} {...this.props}/>, selected: 'properties' })
       }else if(this.props.location.pathname === '/dashboard/tenants'){
-        this.setState({ selectedComponent: <Tenants {...this.props}/>, selected: 'tenants' })
+        this.setState({ selectedComponent: <Tenants viewProperty={this.viewProperty.bind(this)} {...this.props}/>, selected: 'tenants' })
       }else {
         let path = this.props.location.pathname.split('/')
         let property = this.props.data.user.company.properties.filter(prop => {
@@ -92,7 +92,7 @@ class Dashboard extends Component {
     if(!loading){
       if(selected === 'overview') this.setState({ selectedComponent: <Overview {...this.props}/> })
       if(selected === 'properties') this.setState({ selectedComponent: <Properties viewProperty={this.viewProperty.bind(this)} {...this.props} mediumView={this.state.mediumView}/> })
-      if(selected === 'tenants') this.setState({ selectedComponent: <Tenants {...this.props}/> })
+      if(selected === 'tenants') this.setState({ selectedComponent: <Tenants viewProperty={this.viewProperty.bind(this)} {...this.props}/> })
     }
   }
 

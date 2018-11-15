@@ -1,0 +1,41 @@
+@import 'default_colors';
+
+.unit-paid-buttons {
+  .change-amount-icon {
+    color: grey;
+    position: relative;
+    top: -4px;
+    font-size: 25px;
+    margin-right: 0px;
+    margin-left: -15px;
+  }
+  .unit-paid-button {
+    margin-top: 10px;
+  }
+  .overdue.active {
+    background: $red !important;
+  }
+
+  .paid.active {
+    background: $green !important;
+  }
+  .collapsed-amount-owed {
+    .btn {
+      position: relative;
+      border: 1px solid lightgrey;
+      margin-left: 10px;
+      height: 38px;
+    }
+  //   .form-control {
+  //     position: relative;
+  //     top: 0px;
+  //   }
+    .currency {
+      position: relative;
+      font-size: 25px;
+      // top: 4px;
+      margin-right: 5px;
+    }
+  }
+
+}

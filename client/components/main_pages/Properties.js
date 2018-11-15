@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import AddPropertyForm from '../forms/AddPropertyForm'
 import EditPropertyForm from '../forms/EditPropertyForm'
-// import { graphql } from 'react-apollo'
-// import query from '../../queries/CurrentUser'
 
 class Properties extends Component {
   constructor(props){
@@ -65,7 +63,7 @@ class Properties extends Component {
             </div>
           })
 
-          return <div key={property.id} className='col-xl-6'>
+          return <div key={property.id} className='col-xl-4 col-md-6'>
             <div  className='property-section'>
               <div className='row'>
                 <div className='col-12'>
@@ -161,11 +159,9 @@ class Properties extends Component {
             </div>
           </div>
         </div>
-        {/* <div className=''> */}
-          <div className='row '>
-            {properties}
-          </div>
-        {/* </div> */}
+        <div className='row '>
+          {properties}
+        </div>
       </div>
     )
   }
