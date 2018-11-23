@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import AddPropertyForm from '../forms/AddPropertyForm'
 import EditPropertyForm from '../forms/EditPropertyForm'
 
+import { dateAndDueInfo } from '../../helpers/DateHelper'
+
 class Properties extends Component {
   constructor(props){
     super(props)
@@ -48,27 +50,40 @@ class Properties extends Component {
         properties = <div>No properties yet</div>
       }else if(user.company.properties.length !== 0){
         let companyId = user.company.id
-        properties = user.company.properties.map(property => {
+        properties = user.company.properties.map((property, i) => {
           let propertyTotalColones = 0
+          let propertyTotalOwedColones = 0
           let propertyTotalDollars = 0
-          let units = property.units.map(unit => {
-            if(unit.currency === 'Colones'){
-              propertyTotalColones = propertyTotalColones + unit.rentAmount
-            }else if(unit.currency === 'Dollars'){
-              propertyTotalDollars = propertyTotalDollars + unit.rentAmount
-            }
+          let propertyTotalOwedDollars = 0
+          let units
+          if(property.units.length === 0){
+            console.log('ukmmmm hello')
+          }else {
+            units = property.units.map((unit, j) => {
 
-            return <div key={unit.id} className=''>
-              {unit.tenantName}
-            </div>
-          })
+              let dateAndOverDue = dateAndDueInfo(unit)
+              if(unit.currency === 'Colones'){
+                propertyTotalColones = propertyTotalColones + unit.rentAmount
+                propertyTotalOwedColones = propertyTotalOwedColones + unit.amountOwed
+              }else if(unit.currency === 'Dollars'){
+                propertyTotalDollars = propertyTotalDollars + unit.rentAmount
+                propertyTotalOwedDollars = propertyTotalOwedDollars + unit.amountOwed
+              }
+
+              return <div key={unit.id} className='tenants'>
+                {unit.tenantName}
+                {dateAndOverDue.overDue ? <span className="badge badge-danger overdue">-{unit.currency === 'Dollars' ? '$' : '₡'}{unit.amountOwed.toLocaleString()}</span> : ''}
+              </div>
+            })
+          }
+
 
           return <div key={property.id} className='col-xl-4 col-md-6'>
             <div  className='property-section'>
               <div className='row'>
                 <div className='col-12'>
 
-                  <i className="material-icons float-right"
+                  <i className="material-icons float-right edit-property-icon"
                     onClick={()=>{
                       this.setState({ editPropertySelect: property })
                     }}
@@ -93,42 +108,74 @@ class Properties extends Component {
                     </div>
                   </div>
 
-                  <h5>{property.propertyName}</h5>
+                  <div className='row no-gutters'>
+                    <h5 onClick={()=>{this.viewProperty(property)}}>{property.propertyName}</h5>
+                    <div className='small-text unit-amount'>({property.units.length} Units)</div>
+                  </div>
 
                   <div className='small-text'>{property.address}</div>
                 </div>
               </div>
 
               <hr />
-              <div className='row no-gutters'>
-                <div className='col-4 text-center'>
-                  <div className='small-text'>Units</div>
+
+              <div className='small-text text-center' style={{ marginBottom: '10px' }}>Income this month: </div>
+
+              <div className='row progress-bars'>
+                {propertyTotalColones === 0 ? <div className='no-properties col-12'>No Colones income</div> : <div className='col-12'>
+                  <div className=''>Colones:  ‎</div>
+
+                  <div className='float-right'
+                    style={{position: 'absolute', right: '16px', top: '0px'}}>
+                    ‎₡{(propertyTotalColones - propertyTotalOwedColones).toLocaleString()}/{(propertyTotalColones).toLocaleString()}</div>
+                  <div className="progress" style={{width: '100%', height: '20px'}}>
+                    <div className="progress-bar small-text"
+                      role="progressbar"
+                      style={{ width: `${((propertyTotalColones - propertyTotalOwedColones) / propertyTotalColones ) * 100}%`, color: 'white' }}
+                      aria-valuemin="0" aria-valuemax="100">{((propertyTotalColones - propertyTotalOwedColones) / propertyTotalColones ) * 100}%</div>
+                  </div>
+
+                </div>}
+
+                {propertyTotalDollars === 0 ? <div className='no-properties col-12'>No Dollar income<br/> </div>: <div className='col-12'>
+                  <div className=''>Dollars: </div>
+                  <div className='float-right'
+                    style={{position: 'absolute', right: '16px', top: '0px'}}>
+                    ‎${(propertyTotalDollars - propertyTotalOwedDollars).toLocaleString()}/{(propertyTotalDollars).toLocaleString()}</div>
+                  <div className="progress" style={{width: '100%', height: '20px'}}>
+                    <div className="progress-bar small-text"
+                      role="progressbar"
+                      style={{ width: `${((propertyTotalDollars - propertyTotalOwedDollars) / propertyTotalDollars ) * 100}%`, color: 'white' }}
+                      aria-valuemin="0" aria-valuemax="100">{((propertyTotalDollars - propertyTotalOwedDollars) / propertyTotalDollars ) * 100}%</div>
+                  </div>
+                </div>}
 
 
-                  <div className='units-icon rounded-circle'>
-                    <div className='icon-count rounded-circle'>
-                      <div className='number'>{property.units.length}</div>
-                    </div>
-                    <i className='material-icons'>home</i>
+              </div>
+
+              <hr />
+
+              <div className='row no-gutters tenants-dropdown'>
+                <div className='col-12'>
+                  <div style={{fontWeight: 'bold' }}>
+                    Tenants:
+                  </div>
+                  <div className='btn show-info' data-toggle="collapse" data-target={`#collapsed-${i}`} aria-expanded="false">
+                    <i className="material-icons">arrow_drop_down</i><div className='small-text'></div>
                   </div>
                 </div>
 
-                <div className='col-4 text-center'>
-                  <div className='small-text'>Colones Total</div>
-                  <h4 className='align-top'>₡{propertyTotalColones.toLocaleString()}</h4>
-                </div>
-
-                <div className='col-4 text-center'>
-                  <div className='small-text'>Dollars Total</div>
-                  <h4 className='align-top'>${propertyTotalDollars.toLocaleString()}</h4>
-                </div>
-
               </div>
-              <button type="button"
+
+              <div className="collapse" id={`collapsed-${i}`}>
+                {units}
+              </div>
+
+              {/* <button type="button"
                 onClick={()=>{this.viewProperty(property)}}
                 className='view-property-button'>
                 View Property
-              </button>
+              </button> */}
             </div>
           </div>
         })
