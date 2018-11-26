@@ -23,6 +23,12 @@ class EditPropertyForm extends Component {
       })
     }
   }
+  // componentDidMount(){
+  //   this.setState({
+  //     propertyName: this.props.property.propertyName,
+  //     address: this.props.property.address
+  //   })
+  // }
 
   deleteProperty(event){
     event.preventDefault()
@@ -61,6 +67,7 @@ class EditPropertyForm extends Component {
   }
 
   render(){
+  
     return (
       <div className=''>
         <form>

@@ -34,7 +34,7 @@ class AddPropertyForm extends Component {
 
   render(){
     return (
-      <div className=''>
+      <div className='add-property-form'>
         <form>
           <div className='row'>
             <div className="form-group col-md-6">

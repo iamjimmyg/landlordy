@@ -2,12 +2,29 @@
 
 #properties {
   padding-bottom: 15px;
+  .select-view-button {
+
+  }
+  .add-property-form {
+    .btn {
+      // padding: 10px 10px 10px 10px;
+      color: white;
+      background: $primary;
+      border: 1px solid $primary;
+    }
+  }
   .title-section {
     background: white;
     margin-top: 15px;
     border: 1px solid lightgrey;
     border-radius: 5px;
     padding: 20px;
+    .select-view-button {
+      margin-left: 15px;
+      .btn-group {
+        height: 38px;
+      }
+    }
     .add-property-icon {
       color: $red;
       font-size: 32px;
@@ -36,11 +53,7 @@
         cursor: pointer;
       }
     }
-    .unit-amount {
-      font-weight: bold;
-      margin-left: 5px;
-      top: 4px;
-    }
+
     .tenants-dropdown {
       .show-info {
         position: absolute;
@@ -60,43 +73,75 @@
       }
     }
 
-    // .units-icon {
-    //   margin-left: auto;
-    //   margin-right: auto;
-    //   width: 50px;
-    //   height: 50px;
-    //   background: grey;
-    //   padding: 3px;
-    //   i {
-    //     position: relative;
-    //     top: -21px;
-    //     left: 0px;
-    //     font-size: 40px;
-    //     color: white;
-    //   }
-    // }
-    // .icon-count {
-    //   position: relative;
-    //   left: 34px;
-    //   text-align: center;
-    //   width: 25px;
-    //   background: $primary;
-    //   .number {
-    //     text-align: center;
-    //     color: white;
-    //     font-weight: bold;
-    //   }
-    // }
-    .view-property-button {
+
+    .progress-bars {
+      .progress {
+        .progress-bar {
+          background: $primary;
+        }
+      }
+
+    }
+  }
+  .view-property-button {
+    background: white;
+    padding: 0 10 0 10;
+    margin-right: 7px;
+    margin-bottom: 7px;
+    border-radius: 2px;
+    border: 1px solid grey;
+    &:hover {
+      cursor: pointer;
       background: $primary;
-      margin-top: 10px;
-      padding: 5px;
-      color: white;
-      width: 100%;
-      border-radius: 5px;
       border: 1px solid $primary;
+      color: white;
+      transition: .15s ease-in-out;
+    }
+  }
+  .unit-amount {
+    font-weight: bold;
+    margin-left: 5px;
+    top: 4px;
+  }
+  .property-list-view {
+    padding: 20px;
+    background: white;
+    border-radius: 4px;
+    margin-top: 15px;
+    margin-left: 15px;
+    margin-right: 15px;
+    width: 100%;
+    border: 1px solid lightgrey;
+    .edit-property-icon {
+      color: $primary;
+      float: right;
+      font-size: 20px;
       &:hover {
         cursor: pointer;
+      }
+    }
+    .btn {
+      padding: 0px 5px 0px 5px;
+    }
+    .input-group-sm>.form-control, .input-group-sm>.input-group-append>.btn, .input-group-sm>.input-group-append>.input-group-text, .input-group-sm>.input-group-prepend>.btn, .input-group-sm>.input-group-prepend>.input-group-text {
+      height: 28px;
+    }
+    .paid.active {
+      background: $primary;
+      border: 1px solid $primary
+    }
+    .overdue.active {
+      background: $red;
+      border: 1px solid $red;
+    }
+    table {
+      width: 100%;
+      tr:not(:first-child) {
+        border-top: 1px solid lightgrey;
+      }
+      td {
+        padding-top: 5px;
+        padding-bottom: 5px;
       }
     }
   }

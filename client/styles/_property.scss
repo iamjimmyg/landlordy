@@ -18,6 +18,10 @@
         cursor: pointer;
       }
     }
+    .btn {
+      background: $primary;
+      border: 1px solid $primary;
+    }
   }
   .unit-section {
     background: white;
@@ -56,6 +60,6 @@
   }
   .back-button {
     color: $primary;
-    font-size: 49px;
+    font-size: 35px;
   }
 }
