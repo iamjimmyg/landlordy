@@ -67,6 +67,7 @@
       border-top: 1px solid $lightgrey;
       padding-top: 5px;
       .overdue {
+        background: $red;
         position: relative;
         top: 3px;
         float: right;

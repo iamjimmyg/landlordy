@@ -60,7 +60,7 @@ class PropertiesListView extends Component {
         propertyTotalDollars = propertyTotalDollars + unit.rentAmount
         propertyTotalOwedDollars = propertyTotalOwedDollars + unit.amountOwed
       }
-      
+
       return <tr className='row no-gutters' key={j}>
         <td className='col-1 d-none d-sm-block'>{j + 1}</td>
         <td className='col'>{unit.tenantName}</td>
@@ -68,26 +68,21 @@ class PropertiesListView extends Component {
         <td className='col d-none d-lg-block'>{unit.cellNumber}</td>
         <td className='col d-none d-lg-block'>{months[dateAndOverDue.monthDue]} {unit.dueDate}, {dateAndOverDue.yearDue}</td>
         <td className='col'>
-          <div className="btn-group" role="group" aria-label="Basic example">
+          {this.props.data.user.isAdmin ? <div className="btn-group" role="group" aria-label="Basic example">
             <button type="button" className={`overdue btn btn-secondary ${unit.paidStatus ? '' : 'active'}`}
               onClick={()=>{this.onSelect(false, j)}}
               >Due</button>
             <button type="button" className={`paid btn btn-secondary ${unit.paidStatus ? 'active' : ''}`}
               onClick={()=>{this.onSelect(true, j)}}
               >Paid</button>
-          </div>
+          </div> : (unit.paidStatus ? 'Paid' : 'Due')}
+
         </td>
         <td className='col'>
-          <AmountOwedForm propertyId={property.id} unit={unit}/>
-          {/* <div className="input-group input-group-sm">
-            <div className="input-group-prepend">
-              <span className="input-group-text" id="inputGroup-sizing-sm">{unit.currency === 'Dollars' ? '$' : '₡'}</span>
-            </div>
-            <input onChange={e => this.setState({ amountOwed: e.target.value })} type="text" className="form-control" placeholder={unit.amountOwed.toLocaleString()} />
-            <div className="input-group-append">
-              <button onClick={()=>{console.log()}} className="btn btn-outline-secondary" type="button"><i className="material-icons">check</i></button>
-            </div>
-          </div> */}
+          {this.props.data.user.isAdmin ? <AmountOwedForm propertyId={property.id} unit={unit}/> :
+            <div>{unit.currency === 'Dollars' ? '$' : '₡'}{unit.amountOwed.toLocaleString()}</div>
+          }
+
         </td>
       </tr>
     })
