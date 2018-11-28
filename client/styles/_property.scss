@@ -56,7 +56,20 @@
         cursor: pointer;
       }
     }
-
+    .btn {
+      padding: 0px 5px 0px 5px;
+    }
+    .input-group-sm>.form-control, .input-group-sm>.input-group-append>.btn, .input-group-sm>.input-group-append>.input-group-text, .input-group-sm>.input-group-prepend>.btn, .input-group-sm>.input-group-prepend>.input-group-text {
+      height: 28px;
+    }
+    .paid.active {
+      background: $primary !important;
+      border: 1px solid $primary;
+    }
+    .overdue.active {
+      background: $red;
+      border: 1px solid $red;
+    }
   }
   .back-button {
     color: $primary;

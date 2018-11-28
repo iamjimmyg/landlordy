@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import unitPaid from '../../mutations/unitPaid'
 import changeAmountOwed from '../../mutations/changeAmountOwed'
+import AmountOwedForm from './AmountOwedForm'
 
 import { graphql } from 'react-apollo'
 import query from '../../queries/CurrentUser'
@@ -60,46 +61,19 @@ class UnitPaidForm extends Component {
 
   render(){
     return (
-      <div className='unit-paid-buttons'>
-        <form className='unit-paid-button'>
-          <div className="btn-group btn-group-toggle" data-toggle="buttons" >
-            <label className={`overdue btn btn-secondary ${this.state.paidStatus ? '' : 'active'}`}
-              onClick={()=>{this.onSelect(false)}}>
-              Over Due
-              <input type="radio"/>
-            </label>
-            <label className={`paid btn btn-secondary ${this.state.paidStatus ? 'active' : ''}`}
-              onClick={()=>{this.onSelect(true)}}>
-              Paid
-              <input type="radio" />
-            </label>
-          </div>
-        </form>
-        <div className='btn d-inline-flex change-amount' data-toggle="collapse" data-target={`#${this.props.collapseId}`} aria-expanded="false">
-          <i className="material-icons change-amount-icon">arrow_drop_down</i><div className='small-text   3'>Change Total Amount Owed</div>
+      <div className='unit-paid-buttons row no-gutters'>
+        <div className="btn-group col" role="group" aria-label="Basic example">
+          <button type="button" className={`overdue btn btn-secondary ${this.props.unit.paidStatus ? '' : 'active'}`}
+            onClick={()=>{this.onSelect(false)}}
+            >Due</button>
+          <button type="button" className={`paid btn btn-secondary ${this.props.unit.paidStatus ? 'active' : ''}`}
+            onClick={()=>{this.onSelect(true)}}
+            >Paid</button>
+        </div>
+        <div className='col'>
+          <AmountOwedForm propertyId={this.props.propertyId} unit={this.props.unit}/>
         </div>
 
-
-
-        <div className="collapse collapsed-amount-owed" id={this.props.collapseId}>
-          {/* <div className="card card-body"> */}
-            <form className='d-inline-flex'>
-
-              <div className='currency'>{this.props.unit.currency === 'Dollars' ? '$' : '₡'}</div>
-              <label>
-                <input className='form-control'
-                  value={this.state.amountOwed}
-                  onChange={e => this.setState({ amountOwed: e.target.value })}
-                  placeholder={this.state.amountOwed.toLocaleString()}/>
-              </label>
-              <button className='btn'
-                onClick={()=>{this.onSubmit(this.state.amountOwed)}}
-                >
-                Submit
-              </button>
-            </form>
-          {/* </div> */}
-        </div>
       </div>
 
     )

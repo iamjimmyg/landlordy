@@ -104,8 +104,12 @@ class Tenants extends Component {
             </div>
 
 
-            {this.props.data.user.isAdmin ? <UnitPaidForm collapseId={`collapseUnit-${i}`} unit={unit} propertyId={properties[i].id} isAdmin={this.props.data.user.isAdmin}/> : ''}
-
+            {/* {this.props.data.user.isAdmin ? <UnitPaidForm collapseId={`collapseUnit-${i}`} unit={unit} propertyId={properties[i].id} isAdmin={this.props.data.user.isAdmin}/> : ''} */}
+            {this.props.data.user.isAdmin ? <div>
+                <hr style={{marginTop: '8px'}}/>
+                <UnitPaidForm collapseId={`collapseUnit-${i}`} unit={unit} propertyId={properties[i].id} isAdmin={this.props.data.user.isAdmin}/>
+              </div> : ''
+            }
           </div>
         </div>
       })

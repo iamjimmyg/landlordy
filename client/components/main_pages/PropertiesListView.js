@@ -52,7 +52,7 @@ class PropertiesListView extends Component {
     let propertyTotalOwedDollars = 0
     let units = property.units.map((unit, j) => {
 
-        let dateAndOverDue = dateAndDueInfo(unit)
+      let dateAndOverDue = dateAndDueInfo(unit)
       if(unit.currency === 'Colones'){
         propertyTotalColones = propertyTotalColones + unit.rentAmount
         propertyTotalOwedColones = propertyTotalOwedColones + unit.amountOwed
@@ -60,7 +60,7 @@ class PropertiesListView extends Component {
         propertyTotalDollars = propertyTotalDollars + unit.rentAmount
         propertyTotalOwedDollars = propertyTotalOwedDollars + unit.amountOwed
       }
-
+      
       return <tr className='row no-gutters' key={j}>
         <td className='col-1 d-none d-sm-block'>{j + 1}</td>
         <td className='col'>{unit.tenantName}</td>

@@ -15,6 +15,20 @@
     border: 1px solid lightgrey;
     border-radius: 5px;
     padding: 20px;
+    .btn {
+      padding: 0px 5px 0px 5px;
+    }
+    .input-group-sm>.form-control, .input-group-sm>.input-group-append>.btn, .input-group-sm>.input-group-append>.input-group-text, .input-group-sm>.input-group-prepend>.btn, .input-group-sm>.input-group-prepend>.input-group-text {
+      height: 28px;
+    }
+    .paid.active {
+      background: $primary !important;
+      border: 1px solid $primary;
+    }
+    .overdue.active {
+      background: $red;
+      border: 1px solid $red;
+    }
     .edit-tenant-icon {
       color: $primary;
       float: right;
@@ -28,6 +42,7 @@
       height: 18px;
       margin-bottom: 18px;
       .overdue {
+        background: $red;
         margin-top: 3px;
         margin-left: 10px;
         height: 18px;
@@ -48,13 +63,6 @@
       right: 25px;
     }
     .view-property-button {
-      //background: $primary;
-      //margin-top: 10px;
-      //padding: 5px;
-      //color: white;
-      //width: 50%;
-      // border-radius: 5px;
-      // border: 1px solid $primary;
       &:hover {
         cursor: pointer;
       }

@@ -22,10 +22,22 @@ class AmountOwedForm extends Component {
     })
   }
 
+  componentWillUpdate(nextProps){
+    if(nextProps !== this.props){
+      this.setState({
+        paidStatus: this.props.unit.paidStatus,
+        amountOwed: this.props.unit.amountOwed,
+      })
+    }
+  }
+
   onSubmit(amount){
 
     const unitId = this.props.unit.id
     const propertyId = this.props.propertyId
+
+    amount = amount.split(',').join()
+    console.log(amount)
     const paidStatus = amount > 0 ? false : true
     const amountOwed = amount
 
@@ -47,7 +59,7 @@ class AmountOwedForm extends Component {
         <div className="input-group-prepend">
           <span className="input-group-text" id="inputGroup-sizing-sm">{this.props.unit.currency === 'Dollars' ? '$' : '₡'}</span>
         </div>
-        <input onChange={e => this.setState({ amountOwed: e.target.value })} type="text" className="form-control" placeholder={this.props.unit.amountOwed.toLocaleString()} />
+        <input onChange={e => this.setState({ amountOwed: e.target.value })} type="text" className="form-control" value={this.state.amountOwed} />
         <div className="input-group-append">
           <button onClick={()=>{this.onSubmit(this.state.amountOwed)}} className="btn btn-outline-secondary" type="button"><i className="material-icons">check</i></button>
         </div>
