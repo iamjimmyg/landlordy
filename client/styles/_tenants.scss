@@ -8,6 +8,51 @@
     border: 1px solid lightgrey;
     border-radius: 5px;
     padding: 20px;
+    .select-view-button {
+      margin-left: 15px;
+      .btn-group {
+        height: 38px;
+      }
+    }
+  }
+  .list-view {
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    padding: 20px;
+    background: white;
+    margin-top: 15px;
+    .view-property-button {
+      &:hover {
+        cursor: pointer;
+        color: $primary;
+        text-decoration: underline;
+        transition: .15s ease-in-out;
+      }
+    }
+    table {
+      width: 100%;
+      tr:not(:first-child) {
+        border-top: 1px solid lightgrey;
+      }
+      td {
+        padding-top: 5px;
+        padding-bottom: 5px;
+      }
+    }
+    .btn {
+      padding: 0px 5px 0px 5px;
+    }
+    .input-group-sm>.form-control, .input-group-sm>.input-group-append>.btn, .input-group-sm>.input-group-append>.input-group-text, .input-group-sm>.input-group-prepend>.btn, .input-group-sm>.input-group-prepend>.input-group-text {
+      height: 28px;
+    }
+    .paid.active {
+      background: $primary;
+      border: 1px solid $primary
+    }
+    .overdue.active {
+      background: $red;
+      border: 1px solid $red;
+    }
   }
   .tenant-section {
     background: white;

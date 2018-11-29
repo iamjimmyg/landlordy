@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-import UnitPaidForm from '../forms/UnitPaidForm'
-import EditUnitForm from '../forms/EditUnitForm'
+//import UnitPaidForm from '../forms/UnitPaidForm'
+// import EditUnitForm from '../forms/EditUnitForm'
+import TenantsBoxedView from './TenantsBoxedView'
+import TenantsListView from './TenantsListView'
 
 import { Link, Redirect } from 'react-router'
 import { dateAndDueInfo } from '../../helpers/DateHelper'
@@ -10,13 +12,19 @@ class Tenants extends Component {
     super(props)
     this.state = {
       editTenantSelect: '',
+      view: 'list',
     }
-    this.viewProperty = this.viewProperty.bind(this)
+    //this.viewProperty = this.viewProperty.bind(this)
+    this.editTenantSelect = this.editTenantSelect.bind(this)
   }
 
-  viewProperty(property){
-    this.props.viewProperty(property)
+  editTenantSelect(unit){
+    this.setState({ editTenantSelect: unit })
   }
+
+  // viewProperty(property){
+  //   this.props.viewProperty(property)
+  // }
 
   render(){
     var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
@@ -40,94 +48,53 @@ class Tenants extends Component {
       })
       tenants = units.map((unit, i) => {
         let dateAndOverDue = dateAndDueInfo(unit)
+        return <TenantsBoxedView
+          editTenantSelect={this.editTenantSelect}
+          selectEditTenant={this.state.editTenantSelect}
+          key={unit.id} unit={unit}
+          dateAndOverDue={dateAndOverDue}
+          //viewProperty={this.props.viewProperty}
+          property={properties[i]}
+          isAdmin={user.isAdmin}
+        />
 
-        return <div className='col-xl-4 col-md-6 ' key={unit.id}>
-          <div className='tenant-section'>
-
-
-            <i className="material-icons edit-tenant-icon"
-              onClick={()=>{
-                this.setState({ editTenantSelect: unit })
-              }}
-              data-toggle="modal"
-              data-target="#ModalCenter">edit
-            </i>
-
-            <div className="modal fade" id="ModalCenter" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-              <div className="modal-dialog modal-dialog-centered" role="document">
-                <div className="modal-content">
-                  <div className="modal-header">
-                    <h5 className="modal-title" id="exampleModalCenterTitle">Edit Tenant/Unit</h5>
-                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div className="modal-body">
-                    <EditUnitForm unit={this.state.editTenantSelect} propertyId={properties[i].id} />
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-            <div className='title'>
-              <h5>{unit.tenantName}</h5>
-              {dateAndOverDue.overDue ? <span className="badge badge-danger overdue">-{unit.currency === 'Dollars' ? '$' : '₡'}{unit.amountOwed.toLocaleString()}</span> : ''}
-            </div>
-            <div className='small-text'>
-              Property:
-            </div>
-            <div className='view-property-button' onClick={()=>{this.viewProperty(properties[i])}}>{properties[i].propertyName}</div>
-            <div className='btn show-info' data-toggle="collapse" data-target={`#collapsed-${i}`} aria-expanded="false">
-              <i className="material-icons">arrow_drop_down</i><div className='small-text'></div>
-            </div>
-            <div className="collapse" id={`collapsed-${i}`}>
-              <div>
-                <div className='tenant-info'>
-                  <div className='small-text'>Cell Number: </div>
-                  <div>{unit.cellNumber}</div>
-                </div>
-                <div className='tenant-info'>
-                  <div className='small-text'>Email: </div>
-                  <div>{unit.email}</div>
-                </div>
-                <div className='tenant-info'>
-                  <div className='small-text'>Rent Due: </div>
-                  <div>{months[dateAndOverDue.monthDue]} {unit.dueDate}, {dateAndOverDue.yearDue}</div>
-                </div>
-                <div className='tenant-info'>
-                  <div className='small-text'>Rent Amount: </div>
-                  <div>{unit.currency === 'Dollars' ? '$' : '₡'}{unit.rentAmount.toLocaleString()}</div>
-                </div>
-              </div>
-
-            </div>
-
-
-            {/* {this.props.data.user.isAdmin ? <UnitPaidForm collapseId={`collapseUnit-${i}`} unit={unit} propertyId={properties[i].id} isAdmin={this.props.data.user.isAdmin}/> : ''} */}
-            {this.props.data.user.isAdmin ? <div>
-                <hr style={{marginTop: '8px'}}/>
-                <UnitPaidForm collapseId={`collapseUnit-${i}`} unit={unit} propertyId={properties[i].id} isAdmin={this.props.data.user.isAdmin}/>
-              </div> : ''
-            }
-          </div>
-        </div>
       })
     }
 
     return (
       <div id='tenants' className='container-fluid'>
         <div className='title-section'>
-          <div className='row'>
-            <div style={{marginLeft: '15px'}}>
+          <div className='row no-gutters'>
+            <div className=''>
               <h4>Tenants</h4>
             </div>
+            <form className='select-view-button'>
+              <div className="btn-group btn-group-toggle" data-toggle="buttons" >
+                <label className={`btn btn-secondary ${this.state.view === 'list' ? 'active' : ''}`}
+                  onClick={()=>{this.setState({ view: 'list' })}}>
+                  <i className="material-icons">list</i>
+                  <input type="radio"/>
+                </label>
+                <label className={`btn btn-secondary ${this.state.view === 'module' ? 'active' : ''}`}
+                  onClick={()=>{this.setState({ view: 'module' })}}>
+                  <i className="material-icons">view_module</i>
+                  <input type="radio" />
+                </label>
+              </div>
+            </form>
           </div>
         </div>
 
-        <div className='row'>
-          {tenants}
-        </div>
+        {this.state.view === 'list' ? <TenantsListView
+            {...this.props}
+          /> : <div className='row'>
+            {tenants}
+          </div>
+        }
+
+
+
+
 
       </div>
     )

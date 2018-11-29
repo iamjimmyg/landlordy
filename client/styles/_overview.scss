@@ -1,0 +1,25 @@
+@import 'default_colors';
+
+.title-section {
+  background: white;
+  margin-top: 15px;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  padding: 20px;
+  .select-view-button {
+    margin-left: 15px;
+    .btn-group {
+      height: 38px;
+    }
+  }
+  .add-property-icon {
+    color: $red;
+    font-size: 32px;
+    position: absolute;
+    top: 37px;
+    right: 34px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

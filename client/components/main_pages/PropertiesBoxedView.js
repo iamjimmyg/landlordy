@@ -104,7 +104,7 @@ class PropertiesBoxedView extends Component {
                 <div className="progress-bar small-text"
                   role="progressbar"
                   style={{ width: `${((propertyTotalColones - propertyTotalOwedColones) / propertyTotalColones ) * 100}%`, color: 'white' }}
-                  aria-valuemin="0" aria-valuemax="100">{((propertyTotalColones - propertyTotalOwedColones) / propertyTotalColones ) * 100}%</div>
+                  aria-valuemin="0" aria-valuemax="100">{Math.round(((propertyTotalColones - propertyTotalOwedColones) / propertyTotalColones ) * 100)}%</div>
               </div>
 
             </div>}
@@ -118,7 +118,7 @@ class PropertiesBoxedView extends Component {
                 <div className="progress-bar small-text"
                   role="progressbar"
                   style={{ width: `${((propertyTotalDollars - propertyTotalOwedDollars) / propertyTotalDollars ) * 100}%`, color: 'white' }}
-                  aria-valuemin="0" aria-valuemax="100">{((propertyTotalDollars - propertyTotalOwedDollars) / propertyTotalDollars ) * 100}%</div>
+                  aria-valuemin="0" aria-valuemax="100">{Math.round(((propertyTotalDollars - propertyTotalOwedDollars) / propertyTotalDollars ) * 100)}%</div>
               </div>
             </div>}
 

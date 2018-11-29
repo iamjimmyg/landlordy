@@ -23,12 +23,6 @@ class EditPropertyForm extends Component {
       })
     }
   }
-  // componentDidMount(){
-  //   this.setState({
-  //     propertyName: this.props.property.propertyName,
-  //     address: this.props.property.address
-  //   })
-  // }
 
   deleteProperty(event){
     event.preventDefault()
@@ -67,9 +61,9 @@ class EditPropertyForm extends Component {
   }
 
   render(){
-  
+
     return (
-      <div className=''>
+      <div className='delete-save'>
         <form>
           <div className='row'>
             <div className="form-group col-md-6">

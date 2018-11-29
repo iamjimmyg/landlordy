@@ -2,12 +2,11 @@
 
 #properties {
   padding-bottom: 15px;
-  .select-view-button {
-
-  }
+  // .select-view-button {
+  //
+  // }
   .add-property-form {
     .btn {
-      // padding: 10px 10px 10px 10px;
       color: white;
       background: $primary;
       border: 1px solid $primary;
@@ -113,6 +112,16 @@
     margin-right: 15px;
     width: 100%;
     border: 1px solid lightgrey;
+    .delete-save {
+      .btn-danger {
+        background: $red;
+        border: 1px solid $red;
+      }
+      .btn-primary {
+        background: $primary;
+        border: 1px solid $primary;
+      }
+    }
     .edit-property-icon {
       color: $primary;
       float: right;

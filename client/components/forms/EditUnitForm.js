@@ -33,6 +33,16 @@ class EditUnitForm extends Component {
       })
     }
   }
+  // componentDidMount(){
+  //     this.setState({
+  //       tenantName: this.props.unit.tenantName,
+  //       cellNumber: this.props.unit.cellNumber,
+  //       email: this.props.unit.email,
+  //       currency: this.props.unit.currency,
+  //       rentAmount: this.props.unit.rentAmount,
+  //       dueDate: this.props.unit.dueDate,
+  //     })
+  // }
 
   deleteUnit(event){
     event.preventDefault()
@@ -77,6 +87,7 @@ class EditUnitForm extends Component {
   }
 
   render(){
+    console.log(this.props)
     return (
       <div className=''>
         <form>
