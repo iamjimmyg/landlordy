@@ -63,11 +63,11 @@ class TenantsListView extends Component {
       return <tr className='row no-gutters' key={unit.id}>
         <td className='col'>{unit.tenantName}</td>
         <td className='col d-none d-sm-block'>
-          <div type=""
+          <button type=""
             onClick={()=>{this.viewProperty(properties[i])}}
             className='view-property-button'>
             {properties[i].propertyName}
-          </div>
+          </button>
         </td>
         <td className='col d-none d-lg-block'>{unit.cellNumber}</td>
         <td className='col-3 d-none d-xl-block'>{unit.email}</td>

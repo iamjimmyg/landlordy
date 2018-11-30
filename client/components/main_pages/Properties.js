@@ -12,7 +12,7 @@ class Properties extends Component {
       addPropertyDisplay: false,
       width: window.innerWidth,
     }
-    this.updateDimensions = this.updateDimensions.bind(this)
+    // this.updateDimensions = this.updateDimensions.bind(this)
     this.editPropertySelect = this.editPropertySelect.bind(this)
   }
   componentWillUpdate(nextProps){
@@ -21,15 +21,15 @@ class Properties extends Component {
     }
   }
 
-  componentDidMount() {
-    window.addEventListener("resize", this.updateDimensions);
-  }
+  // componentDidMount() {
+  //   window.addEventListener("resize", this.updateDimensions);
+  // }
 
-  updateDimensions() {
-    this.setState({
-      width: window.innerWidth
-    });
-  }
+  // updateDimensions() {
+  //   this.setState({
+  //     width: window.innerWidth
+  //   });
+  // }
 
   addPropertyDisplay(){
     this.setState({ addPropertyDisplay: !this.state.addPropertyDisplay })
@@ -110,7 +110,7 @@ class Properties extends Component {
             style={{ position: 'relative',
             width: '100%',
             transition: 'all ease-in-out .15s',
-            height:`${ this.state.addPropertyDisplay ? (this.state.width < 768 ? '245px' : '158px') : '0px' }`,
+            height:`${ this.state.addPropertyDisplay ? (window.innerWidth < 768 ? '245px' : '158px') : '0px' }`,
             overflow: `${this.state.addPropertyDisplay ? (()=>{setTimeout(function(){return ''}), 100}) : 'hidden'}`
            }}
             >

@@ -11,6 +11,8 @@ import Properties from './main_pages/Properties'
 import Property from './main_pages/Property'
 import Tenants from './main_pages/Tenants'
 
+import axios from 'axios'
+
 class Dashboard extends Component {
   constructor(props){
     super(props)
@@ -31,7 +33,7 @@ class Dashboard extends Component {
   componentWillUpdate(nextProps){
     if(nextProps !== this.props) {
       if(nextProps.location.pathname === '/dashboard/overview' || nextProps.location.pathname === '/dashboard'){
-        this.setState({ selectedComponent: <Overview {...nextProps}/>, selected: 'overview' })
+        this.setState({ selectedComponent: <Overview {...nextProps} conversionRate={this.state.conversionRate}/>, selected: 'overview' })
       }else if(nextProps.location.pathname === '/dashboard/properties'){
         this.setState({ selectedComponent: <Properties viewProperty={this.viewProperty.bind(this)} mediumView={this.state.mediumView} {...nextProps}/>, selected: 'properties' })
       }else if(nextProps.location.pathname === '/dashboard/tenants'){
@@ -56,13 +58,19 @@ class Dashboard extends Component {
       checkWindow()
     }
     this.checkMount()
+
+    const request = axios.get('http://free.currencyconverterapi.com/api/v6/convert?q=USD_CRC,CRC_USD&compact=ultra')
+      .then(res => {
+        this.setState({ conversionRate: res.data })
+      })
+
   }
 
   checkMount(){
     const { loading, user } = this.props.data
     if(!loading){
       if(this.props.location.pathname === '/dashboard/overview' || this.props.location.pathname === '/dashboard'){
-        this.setState({ selectedComponent: <Overview {...this.props}/>, selected: 'overview' })
+        this.setState({ selectedComponent: <Overview {...this.props} conversionRate={this.state.conversionRate}/>, selected: 'overview' })
       }else if(this.props.location.pathname === '/dashboard/properties'){
         this.setState({ selectedComponent: <Properties viewProperty={this.viewProperty.bind(this)} mediumView={this.state.mediumView} {...this.props}/>, selected: 'properties' })
       }else if(this.props.location.pathname === '/dashboard/tenants'){
@@ -90,7 +98,7 @@ class Dashboard extends Component {
   mountComponent(selected){
     const { loading, user } = this.props.data
     if(!loading){
-      if(selected === 'overview') this.setState({ selectedComponent: <Overview {...this.props}/> })
+      if(selected === 'overview') this.setState({ selectedComponent: <Overview {...this.props} conversionRate={this.state.conversionRate}/> })
       if(selected === 'properties') this.setState({ selectedComponent: <Properties viewProperty={this.viewProperty.bind(this)} {...this.props} mediumView={this.state.mediumView}/> })
       if(selected === 'tenants') this.setState({ selectedComponent: <Tenants viewProperty={this.viewProperty.bind(this)} {...this.props}/> })
     }

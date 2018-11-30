@@ -22,6 +22,8 @@
     background: white;
     margin-top: 15px;
     .view-property-button {
+      border: none;
+      padding: 0px;
       &:hover {
         cursor: pointer;
         color: $primary;
