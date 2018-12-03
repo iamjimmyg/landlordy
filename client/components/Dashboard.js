@@ -59,6 +59,7 @@ class Dashboard extends Component {
     }
     this.checkMount()
 
+    //// NOTE: find current exchange rate for dollars and colones
     const request = axios.get('http://free.currencyconverterapi.com/api/v6/convert?q=USD_CRC,CRC_USD&compact=ultra')
       .then(res => {
         this.setState({ conversionRate: res.data })

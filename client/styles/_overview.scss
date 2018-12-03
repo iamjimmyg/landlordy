@@ -1,6 +1,7 @@
 @import 'default_colors';
 
 #overview {
+  margin-bottom: 15px;
   .title-section {
     background: white;
     margin-top: 15px;
@@ -26,6 +27,7 @@
     }
   }
   .overdue-section{
+    width: 100%;
     background: white;
     border: 1px solid lightgrey;
     border-radius: 5px;
@@ -42,10 +44,11 @@
     }
   }
   .properties-overview-section {
+    width: 100%;
     background: white;
     border: 1px solid lightgrey;
     border-radius: 5px;
     padding: 20px;
-    margin-bottom: 15px;
+    //margin-bottom: 15px;
   }
 }

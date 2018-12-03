@@ -33,22 +33,25 @@ class OverDueTenants extends Component {
     })
 
     return (
-      <div className='overdue-section'>
-        <h5 className=''>Overdue Tenants</h5>
-        <table>
-          <thead>
-            <tr className='row no-gutters'>
-              <td className='small-text col'>Tenant: </td>
-              <td className='small-text col'>Property: </td>
-              <td className='small-text col d-none d-sm-block'>Due Date: </td>
-              <td className='small-text col'>Amount Owed: </td>
-            </tr>
-          </thead>
-          <tbody>
-            {overDueTenants}
-          </tbody>
-        </table>
+      <div className='col-xl-6'>
+        <div className='overdue-section'>
+          <h5 className=''>Overdue Tenants</h5>
+          <table>
+            <thead>
+              <tr className='row no-gutters'>
+                <td className='small-text col'>Tenant: </td>
+                <td className='small-text col'>Property: </td>
+                <td className='small-text col d-none d-sm-block'>Due Date: </td>
+                <td className='small-text col'>Amount Owed: </td>
+              </tr>
+            </thead>
+            <tbody>
+              {overDueTenants}
+            </tbody>
+          </table>
+        </div>
       </div>
+
     )
   }
 }

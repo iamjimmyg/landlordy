@@ -12,7 +12,6 @@ class Properties extends Component {
       addPropertyDisplay: false,
       width: window.innerWidth,
     }
-    // this.updateDimensions = this.updateDimensions.bind(this)
     this.editPropertySelect = this.editPropertySelect.bind(this)
   }
   componentWillUpdate(nextProps){
@@ -20,16 +19,6 @@ class Properties extends Component {
       this.setState({ addPropertyDisplay: false })
     }
   }
-
-  // componentDidMount() {
-  //   window.addEventListener("resize", this.updateDimensions);
-  // }
-
-  // updateDimensions() {
-  //   this.setState({
-  //     width: window.innerWidth
-  //   });
-  // }
 
   addPropertyDisplay(){
     this.setState({ addPropertyDisplay: !this.state.addPropertyDisplay })
@@ -70,8 +59,6 @@ class Properties extends Component {
               viewProperty={this.props.viewProperty}
             />
           }
-
-
         })
       }
     }
@@ -98,9 +85,6 @@ class Properties extends Component {
               </div>
             </form>
           </div>
-
-
-
 
           <i className="material-icons float-right add-property-icon"
             onClick={this.addPropertyDisplay.bind(this)}>

@@ -8,7 +8,7 @@ import currentUserQuery from '../../queries/CurrentUser'
 class Overview extends Component {
 
   render(){
-
+    console.log(this.props)
     return (
       <div id='overview' className='container-fluid'>
         <div className='title-section'>
@@ -19,9 +19,11 @@ class Overview extends Component {
           </div>
         </div>
 
-        <PropertiesOverviewChart {...this.props}/>
+        <div className='row'>
+          <PropertiesOverviewChart  {...this.props}/>
 
-        <OverDueTenants {...this.props}/>
+          <OverDueTenants  {...this.props}/>
+        </div>
 
 
       </div>
