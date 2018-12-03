@@ -6,11 +6,6 @@ class PropertiesOverview extends Component {
   constructor(props){
     super(props)
     this.state = {}
-    this.switchCurrency = this.switchCurrency.bind(this)
-  }
-
-  switchCurrency(){
-
   }
 
   render(){
@@ -19,7 +14,6 @@ class PropertiesOverview extends Component {
     let propertyAmounts = []
     user.company.properties.forEach(property => {
       propertyNames.push(property.propertyName)
-      let totalDollarsToColonesConversion = 0
 
       let propertyTotalColones = 0
       let propertyTotalDollars = 0
@@ -47,7 +41,6 @@ class PropertiesOverview extends Component {
       })
     })
 
-    console.log(propertyAmounts)
 
     let dollars = []
     let colones = []
@@ -62,8 +55,6 @@ class PropertiesOverview extends Component {
         else if(k === 'owedDollars') dollarsOwed.push(Math.round(amounts[k] * this.props.conversionRate.USD_CRC))
       }
     })
-
-    console.log([dollars, colones, colonesOwed, dollarsOwed])
 
 
     let data = {
@@ -100,7 +91,7 @@ class PropertiesOverview extends Component {
 
       ],
     }
-
+    var that = this
     return (
       <div className='col-xl-6'>
         <div className='properties-overview-section'>
@@ -109,11 +100,34 @@ class PropertiesOverview extends Component {
             data={data}
             type='horizontalBar'
             options={{
+              tooltips: {
+                callbacks: {
+                  label: function(tooltipItem, data) {
+                    console.log(tooltipItem)
+                    if(tooltipItem.datasetIndex === 0){
+                      return '₡' + tooltipItem.xLabel.toLocaleString() + ' ($' + ((tooltipItem.xLabel * that.props.conversionRate.CRC_USD).toLocaleString()) + ')'
+                    }
+                    if(tooltipItem.datasetIndex === 1){
+                      return '₡' + tooltipItem.xLabel.toLocaleString() + ' ($' + ((tooltipItem.xLabel * that.props.conversionRate.CRC_USD).toLocaleString()) + ')'
+                    }
+                    if(tooltipItem.datasetIndex === 2){
+                      return '₡' + tooltipItem.xLabel.toLocaleString() + ' ($' + ((tooltipItem.xLabel * that.props.conversionRate.CRC_USD).toLocaleString()) + ')'
+                    }
+                    if(tooltipItem.datasetIndex === 3){
+                      return '₡' + tooltipItem.xLabel.toLocaleString() + ' ($' + ((tooltipItem.xLabel * that.props.conversionRate.CRC_USD).toLocaleString()) + ')'
+                    }
+
+                  }
+                }
+              },
               scales: {
                 yAxes: [{
                   stacked: true,
                 }],
                 xAxes: [{
+                  ticks: {
+                    callback: function(value){return '₡' + value.toLocaleString()}
+                  },
                   stacked: true
                 }]
               }
