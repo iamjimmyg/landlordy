@@ -59,11 +59,17 @@ class Dashboard extends Component {
     }
     this.checkMount()
 
-    //// NOTE: find current exchange rate for dollars and colones
-    const request = axios.get('http://free.currencyconverterapi.com/api/v6/convert?q=USD_CRC,CRC_USD&compact=ultra')
-      .then(res => {
-        this.setState({ conversionRate: res.data })
-      })
+    //// NOTE: find current exchange rate for dollars and colones and save to local storage
+    const cachedConversionRate = localStorage.getItem('conversionRate')
+    if(!cachedConversionRate) {
+      const request = axios.get('http://free.currencyconverterapi.com/api/v6/convert?q=USD_CRC,CRC_USD&compact=ultra')
+        .then(res => {
+          this.setState({ conversionRate: res.data })
+        })
+    }else {
+      this.setState({ conversionRate: cachedConversionRate })
+    }
+
 
   }
 
@@ -90,7 +96,6 @@ class Dashboard extends Component {
   }
 
   viewProperty(property){
-    console.log(property)
     this.setState({ selectedComponent: <Property propertyId={property.id} property={property} {...this.props} /> })
     this.props.router.push(`/dashboard/properties/${property.id}`)
   }

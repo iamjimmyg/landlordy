@@ -9,22 +9,23 @@
     border: 1px solid lightgrey;
     border-radius: 5px;
     padding: 20px;
-    .select-view-button {
-      margin-left: 15px;
-      .btn-group {
-        height: 38px;
-      }
-    }
-    .add-property-icon {
-      color: $red;
-      font-size: 32px;
+
+    .currency-conversion {
       position: absolute;
-      top: 37px;
-      right: 34px;
-      &:hover {
-        cursor: pointer;
+      right: 40px;
+      .right-arrow {
+        font-size: 40px;
+        color: $primary;
       }
     }
+  }
+  .properties-overview-section {
+    width: 100%;
+    background: white;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 15px;
   }
   .overdue-section{
     width: 100%;
@@ -43,12 +44,5 @@
       }
     }
   }
-  .properties-overview-section {
-    width: 100%;
-    background: white;
-    border: 1px solid lightgrey;
-    border-radius: 5px;
-    padding: 20px;
-    //margin-bottom: 15px;
-  }
+
 }
