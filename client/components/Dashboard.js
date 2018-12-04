@@ -67,13 +67,15 @@ class Dashboard extends Component {
       const request = axios.get('http://free.currencyconverterapi.com/api/v6/convert?q=USD_CRC,CRC_USD&compact=ultra')
         .then(res => {
           localStorage.setItem('conversionRate', JSON.stringify(res.data))
-          this.setState({ conversionRate: res.data })
-          console.log('lets get this to work',this.state)
+          this.setState({ conversionRate: res.data }, function(){
+            this.checkMount()
+          })
+          //console.log('lets get this to work',this.state)
          })
     }
     else {
       this.setState({ conversionRate: JSON.parse(cachedConversionRate) }, function(){
-        console.log('dashboard-componentDidMount-else',this.state)
+        //console.log('dashboard-componentDidMount-else',this.state)
         this.checkMount()
       })
 

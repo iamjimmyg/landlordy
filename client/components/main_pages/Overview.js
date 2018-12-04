@@ -42,7 +42,8 @@ class Overview extends Component {
         </div>
 
         <div className='row'>
-          <PropertiesOverviewChart conversionRate={conversionRate} {...this.props}/>
+          {conversionRate ? <PropertiesOverviewChart conversionRate={conversionRate} {...this.props}/> : <div>loading</div>}
+
           <OverDueTenants  {...this.props}/>
         </div>
 

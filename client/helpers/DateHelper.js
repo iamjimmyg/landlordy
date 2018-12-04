@@ -6,38 +6,35 @@ export function dateAndDueInfo(unit){
   let currentYear = date.getFullYear()
 
   let overDue = false
-  let monthDue
+  let monthDue = currentMonth
   let yearDue = currentYear
-  if(unit.dueDate < currentDay && unit.paidStatus === false){
-    monthDue = currentMonth
-    overDue = true
-  }else if(unit.dueDate >= currentDay){
 
-    if(unit.paidStatus === false){
-      if(unit.dueDate === currentDay){
-        monthDue = currentMonth
-      }else {
-        monthDue = currentMonth - 1
-      }
-      overDue = true
-    }else if(unit.paidStatus === true){
-      if(currentMonth === 11){
+  if(unit.dueDate === currentDay){
+    if(unit.paidStatus === true){
+      monthDue = monthDue + 1
+      if(monthDue === 12){
         monthDue = 0
         yearDue = yearDue + 1
       }
-      if(unit.dueDate === currentDay){
-        monthDue = currentMonth + 1
-      }else {
-        monthDue = currentMonth
+    }
+  }else if(unit.dueDate < currentDay){
+    if(unit.paidStatus === true){
+      monthDue = monthDue + 1
+      if(monthDue === 12){
+        monthDue = 0
+        yearDue = yearDue + 1
       }
     }
-  }else if(unit.dueDate < currentDay && unit.paidStatus === true){
-    if(currentMonth === 11){
-      monthDue = 0
-      yearDue = yearDue + 1
-    }
-    monthDue = currentMonth + 1
-  }
+  }else if(unit.dueDate > currentDay){
+    if(unit.paidStatus === false){
+      if(monthDue === 0){
+        currentYear = currentYear - 1
+        monthDue = 11
+      }else {
+        monthDue = monthDue - 1
+      }
 
+    }
+  }
   return { overDue: overDue, yearDue: yearDue, monthDue: monthDue }
 }

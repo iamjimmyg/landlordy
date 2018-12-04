@@ -9,7 +9,6 @@ class PropertiesOverview extends Component {
   }
 
   render(){
-    console.log(this.props.conversionRate)
     const conversionRate = this.props.conversionRate ? this.props.conversionRate.USD_CRC.toFixed(2) : ''
     const { loading, user } = this.props.data
     let propertyNames = []
@@ -23,12 +22,8 @@ class PropertiesOverview extends Component {
       let propertyOwedDollars = 0
       property.units.forEach(unit => {
         if(unit.currency === 'Dollars'){
-
-
           propertyTotalDollars = propertyTotalDollars + unit.rentAmount
           propertyOwedDollars = propertyOwedDollars + unit.amountOwed
-
-          //totalDollarsToColonesConversion = propertyOwedDollars * this.props.conversionRate.USD_CRC
         }else {
           propertyTotalColones = propertyTotalColones + unit.rentAmount
           propertyOwedColones = propertyOwedColones + unit.amountOwed
@@ -43,7 +38,6 @@ class PropertiesOverview extends Component {
       })
     })
 
-
     let dollars = []
     let colones = []
     let colonesOwed = []
@@ -57,7 +51,6 @@ class PropertiesOverview extends Component {
         else if(k === 'owedDollars') dollarsOwed.push(Math.round(amounts[k] * conversionRate))
       }
     })
-
 
     let data = {
       labels: propertyNames,
@@ -90,7 +83,6 @@ class PropertiesOverview extends Component {
           borderColor: 'rgba(155,99,107, 1)',
           borderWidth: 1,
         },
-
       ],
     }
     var that = this
@@ -117,7 +109,6 @@ class PropertiesOverview extends Component {
                     if(tooltipItem.datasetIndex === 3){
                       return '₡' + tooltipItem.xLabel.toLocaleString() + ' ($' + ((tooltipItem.xLabel * that.props.conversionRate.CRC_USD).toLocaleString()) + ')'
                     }
-
                   }
                 }
               },
