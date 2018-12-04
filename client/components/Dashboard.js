@@ -21,7 +21,8 @@ class Dashboard extends Component {
       expanded: mql.matches,
       selected: 'overview',
       hamburgerMenu: false,
-      mediumView: mqlMed.matches
+      mediumView: mqlMed.matches,
+      //conversionRate: {USD_CRC: 500}
     }
     this.hamburgerClick = this.hamburgerClick.bind(this)
     this.onToggle = this.onToggle.bind(this)
@@ -57,23 +58,31 @@ class Dashboard extends Component {
     window.onresize=()=>{
       checkWindow()
     }
-    this.checkMount()
+
 
     //// NOTE: find current exchange rate for dollars and colones and save to local storage
     const cachedConversionRate = localStorage.getItem('conversionRate')
+
     if(!cachedConversionRate) {
       const request = axios.get('http://free.currencyconverterapi.com/api/v6/convert?q=USD_CRC,CRC_USD&compact=ultra')
         .then(res => {
+          localStorage.setItem('conversionRate', JSON.stringify(res.data))
           this.setState({ conversionRate: res.data })
-        })
-    }else {
-      this.setState({ conversionRate: cachedConversionRate })
+          console.log('lets get this to work',this.state)
+         })
     }
+    else {
+      this.setState({ conversionRate: JSON.parse(cachedConversionRate) }, function(){
+        console.log('dashboard-componentDidMount-else',this.state)
+        this.checkMount()
+      })
 
+    }
 
   }
 
   checkMount(){
+
     const { loading, user } = this.props.data
     if(!loading){
       if(this.props.location.pathname === '/dashboard/overview' || this.props.location.pathname === '/dashboard'){
@@ -132,6 +141,7 @@ class Dashboard extends Component {
 
   render(){
     const { loading, user } = this.props.data
+    // console.log(this.state)
     return (
       <div className=''>
         <button onClick={this.hamburgerClick} className="navbar-toggler sidebar-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded='false' aria-label="Toggle navigation">

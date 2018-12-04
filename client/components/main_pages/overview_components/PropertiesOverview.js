@@ -9,6 +9,8 @@ class PropertiesOverview extends Component {
   }
 
   render(){
+    console.log(this.props.conversionRate)
+    const conversionRate = this.props.conversionRate ? this.props.conversionRate.USD_CRC.toFixed(2) : ''
     const { loading, user } = this.props.data
     let propertyNames = []
     let propertyAmounts = []
@@ -50,9 +52,9 @@ class PropertiesOverview extends Component {
     propertyAmounts.forEach((amounts, i) => {
       for(var k in amounts){
         if(k === 'totalColones') colones.push(amounts[k])
-        else if(k === 'totalDollars') dollars.push(Math.round(amounts[k] * this.props.conversionRate.USD_CRC))
+        else if(k === 'totalDollars') dollars.push(Math.round(amounts[k] * conversionRate))
         else if(k === 'owedColones') colonesOwed.push(amounts[k])
-        else if(k === 'owedDollars') dollarsOwed.push(Math.round(amounts[k] * this.props.conversionRate.USD_CRC))
+        else if(k === 'owedDollars') dollarsOwed.push(Math.round(amounts[k] * conversionRate))
       }
     })
 
@@ -103,7 +105,6 @@ class PropertiesOverview extends Component {
               tooltips: {
                 callbacks: {
                   label: function(tooltipItem, data) {
-                    console.log(tooltipItem)
                     if(tooltipItem.datasetIndex === 0){
                       return '₡' + tooltipItem.xLabel.toLocaleString() + ' ($' + ((tooltipItem.xLabel * that.props.conversionRate.CRC_USD).toLocaleString()) + ')'
                     }

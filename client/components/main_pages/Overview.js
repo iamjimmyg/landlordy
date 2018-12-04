@@ -13,6 +13,8 @@ class Overview extends Component {
 
   render(){
 
+    const conversionRate = this.props.conversionRate ? this.props.conversionRate.USD_CRC.toFixed(2) : ''
+
     return (
       <div id='overview' className='container-fluid'>
         <div className='title-section'>
@@ -29,7 +31,10 @@ class Overview extends Component {
                 <i className="material-icons right-arrow">arrow_right_alt</i>
                 <div className="input-group-prepend">
                   <span className="input-group-text">₡</span>
-                  <span className="input-group-text">{this.props.conversionRate.USD_CRC.toFixed(2)}</span>
+                  <span className="input-group-text">
+
+                    {conversionRate}
+                  </span>
                 </div>
               </div>
             </div>
@@ -37,7 +42,7 @@ class Overview extends Component {
         </div>
 
         <div className='row'>
-          <PropertiesOverviewChart  {...this.props}/>
+          <PropertiesOverviewChart conversionRate={conversionRate} {...this.props}/>
           <OverDueTenants  {...this.props}/>
         </div>
 
