@@ -12,7 +12,7 @@ class Overview extends Component {
   }
 
   render(){
-
+    
     const conversionRate = this.props.conversionRate ? this.props.conversionRate.USD_CRC.toFixed(2) : ''
 
     return (
@@ -32,7 +32,6 @@ class Overview extends Component {
                 <div className="input-group-prepend">
                   <span className="input-group-text">₡</span>
                   <span className="input-group-text">
-
                     {conversionRate}
                   </span>
                 </div>

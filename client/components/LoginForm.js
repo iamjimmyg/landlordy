@@ -32,12 +32,16 @@ class LoginForm extends Component {
 
   render(){
     return (
-      <div>
-        <h5>Login</h5>
-        <AuthForm
-          errors={this.state.errors}
-          onSubmit={this.onSubmit.bind(this)}
-        />
+      <div className='container'>
+        <div className='login-form'>
+          <h5 className='text-center'>Login</h5>
+          <AuthForm
+            form='login'
+            errors={this.state.errors}
+            onSubmit={this.onSubmit.bind(this)}
+          />
+        </div>
+
       </div>
     )
   }

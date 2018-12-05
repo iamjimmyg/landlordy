@@ -12,6 +12,7 @@ class SignupForm extends Component {
       errors: [],
       fullName: '',
       email: '',
+      companyName: '',
       password: '',
     }
   }
@@ -26,10 +27,11 @@ class SignupForm extends Component {
   onSubmit(event){
     let fullName = this.state.fullName
     let email = this.state.email
+    let companyName = this.state.companyName
     let password = this.state.password
 
     this.props.mutate({
-      variables: { fullName, email, password },
+      variables: { fullName, email, companyName, password },
       refetchQueries: [{query}]
     }).catch(res => {
       const errors = res.graphQLErrors.map(error => error.message)
@@ -41,43 +43,51 @@ class SignupForm extends Component {
 
   render(){
     return(
-      <div>
-        <h5>Sign Up</h5>
-        {/* <AuthForm
-          errors={this.state.errors}
-          onSubmit={this.onSubmit.bind(this)}
-        /> */}
-        <div className='row'>
-          <form onSubmit={this.onSubmit.bind(this)} className='col s4'>
-            <div className='input-field'>
-              <input
-                placeholder='Full Name'
-                value={this.state.fullName}
-                onChange={e => this.setState({ fullName: e.target.value })}
-              />
-            </div>
-            <div className='input-field'>
-              <input
-                placeholder='Email'
-                value={this.state.email}
-                onChange={e => this.setState({ email: e.target.value })}
-              />
-            </div>
-            <div className='input-field'>
-              <input
-                placeholder='Password'
-                type='password'
-                value={this.state.password}
-                onChange={e => this.setState({ password: e.target.value })}
-              />
-            </div>
-            <div style={{color: 'red', marginBottom: '7px'}}>
-              {this.state.errors.map(error => <div key={error}>{error}</div>)}
-            </div>
+      <div className='container'>
+        <div className='signup-form'>
+          <h5>Sign Up</h5>
 
-            <button className='btn'>Submit</button>
-          </form>
+          <div className='row'>
+            <form onSubmit={this.onSubmit.bind(this)} className='col s4'>
+              <div className='input-field'>
+                <input className='form-control'
+                  placeholder='Full Name'
+                  value={this.state.fullName}
+                  onChange={e => this.setState({ fullName: e.target.value })}
+                />
+              </div>
+              <div className='input-field'>
+                <input className='form-control'
+                  placeholder='Email or user ID'
+                  value={this.state.email}
+                  onChange={e => this.setState({ email: e.target.value })}
+                />
+              </div>
+              <div className='input-field'>
+                <input className='form-control'
+                  placeholder='Company Name'
+                  value={this.state.companyName}
+                  onChange={e => this.setState({ companyName: e.target.value })}
+                />
+              </div>
+              <div className='input-field'>
+                <input className='form-control'
+                  placeholder='Password'
+                  type='password'
+                  value={this.state.password}
+                  onChange={e => this.setState({ password: e.target.value })}
+                />
+              </div>
+              <div style={{color: 'red', marginBottom: '7px'}}>
+                {this.state.errors.map(error => <div key={error}>{error}</div>)}
+              </div>
+
+              <button className='btn'>Submit</button>
+            </form>
+          </div>
+
         </div>
+
       </div>
     )
   }
