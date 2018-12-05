@@ -10,6 +10,9 @@ import Overview from './main_pages/Overview'
 import Properties from './main_pages/Properties'
 import Property from './main_pages/Property'
 import Tenants from './main_pages/Tenants'
+import Admin from './main_pages/Admin'
+
+import Loader from './Loader'
 
 import axios from 'axios'
 
@@ -143,8 +146,10 @@ class Dashboard extends Component {
 
   render(){
     const { loading, user } = this.props.data
-    // console.log(this.state)
-    return (
+    console.log(user)
+
+    if(loading) return <Loader />
+    else return (
       <div className=''>
         <button onClick={this.hamburgerClick} className="navbar-toggler sidebar-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded='false' aria-label="Toggle navigation">
           <div
@@ -189,6 +194,15 @@ class Dashboard extends Component {
                   TENANTS
                 </NavText>
               </NavItem>
+              {user.isAdmin ? <NavItem eventKey="admin">
+                <NavIcon>
+                  <i className="material-icons" style={{ fontSize: '1.75em', top: '8px', position: 'relative' }} >settings</i>
+                </NavIcon>
+                <NavText>
+                  ADMIN
+                </NavText>
+              </NavItem> : ''}
+
           </SideNav.Nav>
         </SideNav>
 
