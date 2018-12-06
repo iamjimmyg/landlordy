@@ -25,7 +25,6 @@ class Dashboard extends Component {
       selected: 'overview',
       hamburgerMenu: false,
       mediumView: mqlMed.matches,
-      //conversionRate: {USD_CRC: 500}
     }
     this.hamburgerClick = this.hamburgerClick.bind(this)
     this.onToggle = this.onToggle.bind(this)
@@ -42,6 +41,8 @@ class Dashboard extends Component {
         this.setState({ selectedComponent: <Properties viewProperty={this.viewProperty.bind(this)} mediumView={this.state.mediumView} {...nextProps}/>, selected: 'properties' })
       }else if(nextProps.location.pathname === '/dashboard/tenants'){
         this.setState({ selectedComponent: <Tenants viewProperty={this.viewProperty.bind(this)} {...nextProps}/>, selected: 'tenants' })
+      }else if(nextProps.location.pathname === '/dashboard/admin'){
+        this.setState({ selectedComponent: <Admin {...nextProps}/>, selected: 'admin' })
       }else {
         let path = nextProps.location.pathname.split('/')
         if(nextProps.location.pathname.includes('properties')){
@@ -73,12 +74,10 @@ class Dashboard extends Component {
           this.setState({ conversionRate: res.data }, function(){
             this.checkMount()
           })
-          //console.log('lets get this to work',this.state)
          })
     }
     else {
       this.setState({ conversionRate: JSON.parse(cachedConversionRate) }, function(){
-        //console.log('dashboard-componentDidMount-else',this.state)
         this.checkMount()
       })
 
@@ -96,6 +95,8 @@ class Dashboard extends Component {
         this.setState({ selectedComponent: <Properties viewProperty={this.viewProperty.bind(this)} mediumView={this.state.mediumView} {...this.props}/>, selected: 'properties' })
       }else if(this.props.location.pathname === '/dashboard/tenants'){
         this.setState({ selectedComponent: <Tenants viewProperty={this.viewProperty.bind(this)} {...this.props}/>, selected: 'tenants' })
+      }else if(this.props.location.pathname === '/dashboard/admin'){
+        this.setState({ selectedComponent: <Admin {...this.props}/>, selected: 'admin' })
       }else {
         let path = this.props.location.pathname.split('/')
         let property = this.props.data.user.company.properties.filter(prop => {
@@ -121,6 +122,7 @@ class Dashboard extends Component {
       if(selected === 'overview') this.setState({ selectedComponent: <Overview {...this.props} conversionRate={this.state.conversionRate}/> })
       if(selected === 'properties') this.setState({ selectedComponent: <Properties viewProperty={this.viewProperty.bind(this)} {...this.props} mediumView={this.state.mediumView}/> })
       if(selected === 'tenants') this.setState({ selectedComponent: <Tenants viewProperty={this.viewProperty.bind(this)} {...this.props}/> })
+      if(selected === 'admin') this.setState({ selectedComponent: <Admin {...this.props}/> })
     }
   }
 
@@ -146,7 +148,6 @@ class Dashboard extends Component {
 
   render(){
     const { loading, user } = this.props.data
-    console.log(user)
 
     if(loading) return <Loader />
     else return (

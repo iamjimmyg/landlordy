@@ -14,6 +14,8 @@
       position: absolute;
       right: 40px;
       .right-arrow {
+        width: 40px;
+        position: relative;
         font-size: 40px;
         color: $primary;
       }

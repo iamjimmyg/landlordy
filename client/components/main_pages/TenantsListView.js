@@ -40,16 +40,7 @@ class TenantsListView extends Component {
   }
 
   render(){
-    //var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-    // let tenant = this.props.unit
-    // let dateAndOverDue = this.props.dateAndOverDue
-    // let property = this.props.property
-    // const { loading, user } = this.props.data
-    // if(loading){
-    //   properties = <div>loading...</div>
-    // }else if(user) {
-    //   console.log('loaded')
-    // }
+
     let units = []
     let properties =[]
     this.props.data.user.company.properties.forEach(property => {

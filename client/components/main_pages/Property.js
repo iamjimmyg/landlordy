@@ -34,7 +34,6 @@ class Property extends Component {
   }
 
   componentDidMount(){
-    console.log(this.state)
     this.mountProperty()
     window.addEventListener("resize", this.updateDimensions);
   }

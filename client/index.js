@@ -35,6 +35,7 @@ const Root = () => {
             <Route path='/dashboard/properties' component={requireAuth(Dashboard)} />
             <Route path='/dashboard/properties/:id' component={requireAuth(Dashboard)} />
             <Route path='/dashboard/tenants' component={requireAuth(Dashboard)} />
+            <Route path='/dashboard/admin' component={requireAuth(Dashboard)} />
           </Route>
         </Route>
       </Router>
