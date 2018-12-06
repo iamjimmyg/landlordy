@@ -22,11 +22,12 @@ class PropertiesOverview extends Component {
       let propertyOwedDollars = 0
       property.units.forEach(unit => {
         if(unit.currency === 'Dollars'){
-          propertyTotalDollars = propertyTotalDollars + unit.rentAmount
           propertyOwedDollars = propertyOwedDollars + unit.amountOwed
+          propertyTotalDollars = propertyTotalDollars + (unit.rentAmount - unit.amountOwed)
         }else {
-          propertyTotalColones = propertyTotalColones + unit.rentAmount
           propertyOwedColones = propertyOwedColones + unit.amountOwed
+          propertyTotalColones = propertyTotalColones + (unit.rentAmount - unit.amountOwed)
+
         }
       })
 
