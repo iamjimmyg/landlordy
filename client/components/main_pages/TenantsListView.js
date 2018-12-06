@@ -40,7 +40,7 @@ class TenantsListView extends Component {
   }
 
   render(){
-
+    var months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"]
     let units = []
     let properties =[]
     this.props.data.user.company.properties.forEach(property => {
@@ -51,6 +51,7 @@ class TenantsListView extends Component {
     })
 
     let tenants = units.map((unit, i) => {
+      let dateAndOverDue = dateAndDueInfo(unit)
       return <tr className='row no-gutters' key={unit.id}>
         <td className='col'>{unit.tenantName}</td>
         <td className='col d-none d-sm-block'>
@@ -60,8 +61,8 @@ class TenantsListView extends Component {
             {properties[i].propertyName}
           </button>
         </td>
-        <td className='col d-none d-lg-block'>{unit.cellNumber}</td>
-        <td className='col-3 d-none d-xl-block'>{unit.email}</td>
+        <td className='col-3 d-none d-xl-block'>{unit.cellNumber}</td>
+        <td className='col d-none d-lg-block'>{months[dateAndOverDue.monthDue]} {unit.dueDate}, {dateAndOverDue.yearDue}</td>
         <td className='col d-none d-lg-block'>{unit.currency === 'Dollars'?'$':'₡'}{unit.rentAmount.toLocaleString()}</td>
         <td className='col'>
           {this.props.data.user.isAdmin ? <div className="btn-group" role="group" aria-label="Basic example">
@@ -89,8 +90,8 @@ class TenantsListView extends Component {
             <tr className='row no-gutters'>
               <td className='small-text col'>Tenant: </td>
               <td className='small-text col d-none d-sm-block'>Property: </td>
-              <td className='small-text col d-none d-lg-block'>Cell Number: </td>
-              <td className='small-text col-3 d-none d-xl-block'>Email: </td>
+              <td className='small-text col-3 d-none d-xl-block'>Cell Number: </td>
+              <td className='small-text col d-none d-lg-block'>Due Date: </td>
               <td className='small-text col d-none d-lg-block'>Rent Amount: </td>
               <td className='small-text col'>Status: </td>
               <td className='small-text col'>Amount Owed: </td>

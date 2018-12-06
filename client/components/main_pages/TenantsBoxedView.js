@@ -17,7 +17,6 @@ class TenantsBoxedView extends Component {
     let unit = this.props.unit
     let dateAndOverDue = this.props.dateAndOverDue
     let property = this.props.property
-
     return (
       <div className='col-xl-4 col-md-6 ' key={unit.id}>
         <div className='tenant-section'>
@@ -50,7 +49,7 @@ class TenantsBoxedView extends Component {
 
           <div className='title'>
             <h5>{unit.tenantName}</h5>
-            {dateAndOverDue.overDue ? <span className="badge badge-danger overdue">-{unit.currency === 'Dollars' ? '$' : '₡'}{unit.amountOwed.toLocaleString()}</span> : ''}
+            {unit.amountOwed !== 0 ? <span className="badge badge-danger overdue">-{unit.currency === 'Dollars' ? '$' : '₡'}{unit.amountOwed.toLocaleString()}</span> : ''}
           </div>
           <div className='small-text'>
             Property:

@@ -64,9 +64,9 @@ class PropertiesListView extends Component {
       return <tr className='row no-gutters' key={j}>
         <td className='col-1 d-none d-sm-block'>{j + 1}</td>
         <td className='col'>{unit.tenantName}</td>
-        <td className='col-3 d-none d-xl-block'>{unit.email}</td>
-        <td className='col d-none d-lg-block'>{unit.cellNumber}</td>
+        <td className='col d-none d-xl-block'>{unit.cellNumber}</td>
         <td className='col d-none d-lg-block'>{months[dateAndOverDue.monthDue]} {unit.dueDate}, {dateAndOverDue.yearDue}</td>
+        <td className='col d-none d-lg-block'>{unit.currency === 'Dollars' ? '$' : '₡'}{unit.rentAmount.toLocaleString()}</td>
         <td className='col'>
           {this.props.data.user.isAdmin ? <div className="btn-group" role="group" aria-label="Basic example">
             <button type="button" className={`overdue btn btn-secondary ${unit.paidStatus ? '' : 'active'}`}
@@ -76,13 +76,11 @@ class PropertiesListView extends Component {
               onClick={()=>{this.onSelect(true, j)}}
               >Paid</button>
           </div> : (unit.paidStatus ? 'Paid' : 'Due')}
-
         </td>
         <td className='col'>
           {this.props.data.user.isAdmin ? <AmountOwedForm propertyId={property.id} unit={unit}/> :
             <div>{unit.currency === 'Dollars' ? '$' : '₡'}{unit.amountOwed.toLocaleString()}</div>
           }
-
         </td>
       </tr>
     })
@@ -127,9 +125,9 @@ class PropertiesListView extends Component {
             <tr className='row no-gutters'>
               <td className='small-text col-1 d-none d-sm-block'>Unit:</td>
               <td className='small-text col'>Tenant:</td>
-              <td className='small-text col-3 d-none d-xl-block'>Email:</td>
-              <td className='small-text col d-none d-lg-block'>Cell Number:</td>
+              <td className='small-text col d-none d-xl-block '>Cell Number:</td>
               <td className='small-text col d-none d-lg-block'>Due Date:</td>
+              <td className='small-text col d-none d-lg-block'>Rent Amount:</td>
               <td className='small-text col'>Status:</td>
               <td className='small-text col'>Amount Owed:</td>
             </tr>
