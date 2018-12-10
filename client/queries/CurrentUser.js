@@ -10,6 +10,7 @@ export default gql`
       company {
         id
         companyName
+        users
         properties{
           id
           propertyName

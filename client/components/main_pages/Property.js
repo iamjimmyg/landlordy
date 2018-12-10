@@ -85,7 +85,7 @@ class Property extends Component {
           <div className='unit-section '>
 
             <h5>Unit {i + 1}</h5>
-            {dateAndOverDue.overDue ? <span className="badge badge-danger">{unit.currency === 'Dollars' ? '$' : '₡'}{unit.amountOwed.toLocaleString()} Over Due!</span> : ''}
+            {unit.amountOwed !== 0 ? <span className="badge badge-danger">-{unit.currency === 'Dollars' ? '$' : '₡'}{unit.amountOwed.toLocaleString()}</span> : ''}
             <i className="material-icons edit-unit-icon"
               onClick={()=>{
                 this.setState({ editUnitSelect: unit })
@@ -112,39 +112,35 @@ class Property extends Component {
             </div>
 
             <div className='property-table'>
-                <div className='property-info'>
-                  <div className='small-text'>Tenant: </div>
-                  <div>{unit.tenantName}</div>
-                </div>
-                <div className='btn d-inline-flex show-info' data-toggle="collapse" data-target={`#collapsed-${i}`} aria-expanded="false">
-                  <i className="material-icons change-amount-icon">arrow_drop_down</i><div className='small-text'></div>
-                </div>
+              <div className='property-info'>
+                <div className='small-text'>Tenant: </div>
+                <div>{unit.tenantName}</div>
+              </div>
+              <div className='btn d-inline-flex show-info' data-toggle="collapse" data-target={`#collapsed-${i}`} aria-expanded="false">
+                <i className="material-icons change-amount-icon">arrow_drop_down</i><div className='small-text'></div>
+              </div>
 
-
-
-                <div className="collapse" id={`collapsed-${i}`}>
-                  <div className="">
-                    <div className='property-info'>
-                      <div className='small-text'>Cell Number: </div>
-                      <div>{unit.cellNumber}</div>
-                    </div>
-                    <div className='property-info'>
-                      <div className='small-text'>Email: </div>
-                      <div>{unit.email}</div>
-                    </div>
-                    <div className='property-info'>
-                      <div className='small-text'>Rent Due: </div>
-                      <div>{months[dateAndOverDue.monthDue]} {unit.dueDate}, {dateAndOverDue.yearDue}</div>
-                    </div>
-                    <div className='property-info'>
-                      <div className='small-text'>Rent Amount: </div>
-                      <div>{unit.currency === 'Dollars' ? '$' : '₡'}{unit.rentAmount.toLocaleString()}</div>
-                    </div>
+              <div className="collapse" id={`collapsed-${i}`}>
+                <div className="">
+                  <div className='property-info'>
+                    <div className='small-text'>Cell Number: </div>
+                    <div>{unit.cellNumber}</div>
+                  </div>
+                  <div className='property-info'>
+                    <div className='small-text'>Email: </div>
+                    <div>{unit.email}</div>
+                  </div>
+                  <div className='property-info'>
+                    <div className='small-text'>Rent Due: </div>
+                    <div>{months[dateAndOverDue.monthDue]} {unit.dueDate}, {dateAndOverDue.yearDue}</div>
+                  </div>
+                  <div className='property-info'>
+                    <div className='small-text'>Rent Amount: </div>
+                    <div>{unit.currency === 'Dollars' ? '$' : '₡'}{unit.rentAmount.toLocaleString()}</div>
                   </div>
                 </div>
-
+              </div>
             </div>
-
 
             {this.props.data.user.isAdmin ? <div>
                 <hr style={{marginTop: '8px'}}/>

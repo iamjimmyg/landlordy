@@ -11,5 +11,17 @@
     padding: 20px;
 
   }
-
+  .signup-assistant {
+    h5 {
+      margin-bottom: 20px;
+    }
+    padding: 20px;
+    border: 1px solid lightgrey;
+    background: white;
+    border-radius: 4px;
+    button {
+      background: $primary;
+      border: 1px solid $primary;
+    }
+  }
 }

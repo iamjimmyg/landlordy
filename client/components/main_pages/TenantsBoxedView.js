@@ -18,7 +18,7 @@ class TenantsBoxedView extends Component {
     let dateAndOverDue = this.props.dateAndOverDue
     let property = this.props.property
     return (
-      <div className='col-xl-4 col-md-6 ' key={unit.id}>
+      <div className='col-xl-3 col-lg-4 col-md-6 ' key={unit.id}>
         <div className='tenant-section'>
 
 

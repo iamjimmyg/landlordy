@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import SignUpAssistant from '../forms/SignUpAssistant'
 
 class Admin extends Component {
 
@@ -17,7 +18,7 @@ class Admin extends Component {
         </div>
 
         <div>
-
+          <SignUpAssistant {...this.props}/>
         </div>
 
 

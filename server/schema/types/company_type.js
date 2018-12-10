@@ -17,7 +17,7 @@ const CompanyType = new GraphQLObjectType({
       type: GraphQLID,
       resolve(parent, args, req){
         console.log('company type -> users resolve', parent)
-        return parent.userId
+        return parent.users
       }
     },
     properties: {
