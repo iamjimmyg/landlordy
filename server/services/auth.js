@@ -41,11 +41,12 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, (email, password, don
   });
 }));
 
-function updateCompany(companyId, userId){
+function updateCompany(companyId, userId, fullName){
   return Company.findById(companyId)
     .then(company => {
-      console.log([company, userId])
+      console.log('please work',[company, userId, fullName])
       company.users.push(userId)
+      company.assistants.push(fullName)
       company.save()
     })
 }
@@ -87,7 +88,8 @@ function signupAssistant({ fullName, email, password, companyId, req }) {
       if(existingUser) { throw new Error('Email in use') }
       user.companyId = companyId
       user.isAdmin = false
-      updateCompany(companyId, user.id)
+      console.log(user)
+      updateCompany(companyId, user.id, user.fullName)
       console.log('oh snap new assistant acount created!')
       return user.save()
     })

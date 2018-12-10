@@ -11,6 +11,7 @@ export default gql`
         id
         companyName
         users
+        assistants
         properties{
           id
           propertyName
