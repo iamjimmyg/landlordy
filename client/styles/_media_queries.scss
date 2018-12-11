@@ -1,5 +1,5 @@
 
-@media (max-width: 500px) {
+@media (max-width: 700px) {
   .sidenav---sidenav---_2tBP{
     left: -240px;
     position: 'relative';
@@ -20,12 +20,18 @@
   .brand-logo {
     display: none !important;
   }
+
   .currency-conversion {
     transform: scale(.8,.8);
-    right: 11px;
-    top: 32px;
+    // position: relative;
+    // left: -10px;
+    right: 18px !important;
   }
-  // main {
-  //   margin-left: 15px !important;
-  // }
+
+
 }
+
+// @media (max-width: 700px) {
+
+//
+// }

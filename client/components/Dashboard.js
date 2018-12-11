@@ -53,31 +53,45 @@ class Dashboard extends Component {
   }
 
   componentDidMount(){
+
     const checkWindow = () =>{
       if(window.innerWidth < 1200) this.setState({ expanded: false, mobileView: false })
       else this.setState({ expanded: true, mobileView: false })
-      if(window.innerWidth < 502) this.setState({ hamburgerMenu: false, expanded: true, mobileView: true })
+      if(window.innerWidth < 700) this.setState({ hamburgerMenu: false, expanded: true, mobileView: true })
     }
     checkWindow()
     window.onresize=()=>{
       checkWindow()
     }
 
-
     //// NOTE: find current exchange rate for dollars and colones and save to local storage
+    // and update cache every hour
     const cachedConversionRate = localStorage.getItem('conversionRate')
+    const cachedHour = JSON.parse(localStorage.getItem('cacheHour'))
+    const cachedDay = JSON.parse(localStorage.getItem('cacheDay'))
+    const date = new Date()
 
-    if(!cachedConversionRate) {
+    const currentDay = date.getDate()
+    const currentHour = date.getHours()
+
+    const shouldCacheUpdate = currentDay !== cachedDay || currentHour !== cachedHour ? true : false
+    if(!cachedConversionRate || shouldCacheUpdate) {
       const request = axios.get('http://free.currencyconverterapi.com/api/v6/convert?q=USD_CRC,CRC_USD&compact=ultra')
+
         .then(res => {
+          let date = new Date()
+          let hour = date.getHours()
+          let day = date.getDate()
+          localStorage.setItem('cacheHour', JSON.stringify(hour))
+          localStorage.setItem('cacheDay', JSON.stringify(day))
           localStorage.setItem('conversionRate', JSON.stringify(res.data))
-          this.setState({ conversionRate: res.data }, function(){
+          this.setState({ conversionRate: res.data, cacheHour: hour, cacheDay: day }, function(){
             this.checkMount()
           })
+
          })
-    }
-    else {
-      this.setState({ conversionRate: JSON.parse(cachedConversionRate) }, function(){
+    }else {
+      this.setState({ conversionRate: JSON.parse(cachedConversionRate), cacheHour: cachedHour, cacheDay: cachedDay }, function(){
         this.checkMount()
       })
 

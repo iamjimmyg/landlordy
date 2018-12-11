@@ -17,7 +17,7 @@ class Overview extends Component {
     return (
       <div id='overview' className='container-fluid'>
         <div className='title-section'>
-          <div className='row no-gutters'>
+          <div className=''>
             <div className=''>
               <h4>Overview</h4>
             </div>
