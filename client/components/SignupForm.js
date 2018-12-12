@@ -45,7 +45,7 @@ class SignupForm extends Component {
     return(
       <div className='container'>
         <div className='signup-form'>
-          <h5>Sign Up</h5>
+          <h5 className='text-center'>Sign Up</h5>
 
           <div className='row'>
             <form onSubmit={this.onSubmit.bind(this)} className='col s4'>

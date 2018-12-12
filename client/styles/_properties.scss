@@ -22,6 +22,9 @@
       margin-left: 15px;
       .btn-group {
         height: 38px;
+        .material-icons {
+          max-width: 20px;
+        }
       }
     }
     .add-property-icon {

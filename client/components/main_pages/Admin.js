@@ -14,6 +14,7 @@ class Admin extends Component {
           <div className='row no-gutters'>
             <div className=''>
               <h4>{companyName.toUpperCase()} Admin</h4>
+              Assistants are able to edit tenant info with the exception of adjusting money owed.
             </div>
           </div>
         </div>

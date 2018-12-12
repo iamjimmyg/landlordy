@@ -60,6 +60,7 @@ class AddPropertyForm extends Component {
         </form>
 
           <button
+            data-dismiss="modal"
             onClick={this.onSubmit.bind(this)}
             className="btn btn-primary">Submit
           </button>

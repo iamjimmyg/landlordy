@@ -18,7 +18,12 @@ class Header extends Component {
 
     if(user) {
       return (
-        <li className='nav-item'><a href='#' className='nav-link' onClick={this.onLogoutClick.bind(this)}>Logout</a></li>
+        <div className='nav'>
+          <li className='nav-item'>
+            <Link to='/dashboard' className='nav-link'>Dashboard</Link>
+          </li>
+          <li className='nav-item'><a href='#' className='nav-link' onClick={this.onLogoutClick.bind(this)}>Logout</a></li>
+        </div>
       )
     }else {
       return (

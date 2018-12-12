@@ -21,7 +21,7 @@ class Properties extends Component {
   }
 
   addPropertyDisplay(){
-    this.setState({ addPropertyDisplay: !this.state.addPropertyDisplay })
+    this.setState({ addPropertyDisplay: !this.state.addPropertyDisplay, })
   }
 
   editPropertySelect(property){
@@ -71,6 +71,7 @@ class Properties extends Component {
               <h4>Properties</h4>
             </div>
             <form className='select-view-button'>
+
               <div className="btn-group btn-group-toggle" data-toggle="buttons" >
                 <label className={`btn btn-secondary ${this.state.view === 'list' ? 'active' : ''}`}
                   onClick={()=>{this.setState({ view: 'list' })}}>
@@ -87,6 +88,32 @@ class Properties extends Component {
           </div>
 
           <i className="material-icons float-right add-property-icon"
+            onClick={() => {this.addPropertyDisplay.bind(this)}}
+            data-toggle="modal"
+            data-target="#AddProperty">add_circle_outline
+          </i>
+
+
+          <div className="modal fade" id="AddProperty" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div className="modal-dialog modal-dialog-centered" role="document">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title" id="exampleModalCenterTitle">Add Property</h5>
+                  <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div className="modal-body">
+                  <AddPropertyForm
+                    companyId={user ? this.props.data.user.company.id : ''}
+                  />
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          {/* <i className="material-icons float-right add-property-icon"
             onClick={this.addPropertyDisplay.bind(this)}>
             add_circle_outline
           </i>
@@ -104,7 +131,9 @@ class Properties extends Component {
                 companyId={user ? this.props.data.user.company.id : ''}
               />
             </div>
-          </div>
+          </div> */}
+
+
         </div>
         <div className='row '>
           {properties}
