@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { dateAndDueInfo } from '../../../helpers/DateHelper'
-import { HorizontalBar } from 'react-chartjs-2'
+import { Bar, HorizontalBar } from 'react-chartjs-2'
 
 class PropertiesOverview extends Component {
   constructor(props){
@@ -87,13 +87,14 @@ class PropertiesOverview extends Component {
       ],
     }
     var that = this
+
     return (
-      <div className='col-xl-6'>
+      <div className='col-12'>
         <div className='properties-overview-section'>
           <h5 className='text-center'>Properties Overview</h5>
+
           <HorizontalBar
             data={data}
-            type='horizontalBar'
             options={{
               tooltips: {
                 callbacks: {
@@ -118,6 +119,7 @@ class PropertiesOverview extends Component {
                   stacked: true,
                 }],
                 xAxes: [{
+
                   ticks: {
                     callback: function(value){return '₡' + value.toLocaleString()}
                   },

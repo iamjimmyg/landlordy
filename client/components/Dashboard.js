@@ -187,7 +187,7 @@ class Dashboard extends Component {
           <SideNav.Nav selected={this.state.selected}>
               <NavItem eventKey="overview" >
                 <NavIcon>
-                  <i className="material-icons" style={{ fontSize: '1.75em', top: '8px', position: 'relative' }} >desktop_windows</i>
+                  <i className="material-icons" style={{ color: 'white', fontSize: '1.75em', top: '8px', position: 'relative' }} >desktop_windows</i>
                 </NavIcon>
                 <NavText>
                   OVERVIEW
@@ -195,7 +195,7 @@ class Dashboard extends Component {
               </NavItem>
               <NavItem eventKey="properties">
                 <NavIcon>
-                  <i className="material-icons" style={{ fontSize: '1.75em', top: '8px', position: 'relative' }} >store_mall_directory</i>
+                  <i className="material-icons" style={{ color: 'white', fontSize: '1.75em', top: '8px', position: 'relative' }} >store_mall_directory</i>
                 </NavIcon>
                 <NavText>
                   PROPERTIES
@@ -203,7 +203,7 @@ class Dashboard extends Component {
               </NavItem>
               <NavItem eventKey="tenants">
                 <NavIcon>
-                  <i className="material-icons" style={{ fontSize: '1.75em', top: '8px', position: 'relative' }} >group</i>
+                  <i className="material-icons" style={{ color: 'white', fontSize: '1.75em', top: '8px', position: 'relative' }} >group</i>
                 </NavIcon>
                 <NavText>
                   TENANTS
@@ -211,7 +211,7 @@ class Dashboard extends Component {
               </NavItem>
               {user.isAdmin ? <NavItem eventKey="admin">
                 <NavIcon>
-                  <i className="material-icons" style={{ fontSize: '1.75em', top: '8px', position: 'relative' }} >settings</i>
+                  <i className="material-icons" style={{ color: 'white', fontSize: '1.75em', top: '8px', position: 'relative' }} >settings</i>
                 </NavIcon>
                 <NavText>
                   ADMIN

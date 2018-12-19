@@ -54,15 +54,15 @@ class PropertiesBoxedView extends Component {
               <i className="material-icons float-right edit-property-icon"
                 onClick={() => {this.props.editPropertySelect(property)}}
                 data-toggle="modal"
-                data-target="#ModalCenter">edit
+                data-target="#editProperty">edit
               </i>
 
 
-              <div className="modal fade" id="ModalCenter" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div className="modal fade" id="editProperty" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered" role="document">
                   <div className="modal-content">
                     <div className="modal-header">
-                      <h5 className="modal-title" id="exampleModalCenterTitle">Edit Unit</h5>
+                      <h5 className="modal-title" id="exampleModalCenterTitle">Edit Property</h5>
                       <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>

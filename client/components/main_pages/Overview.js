@@ -13,7 +13,7 @@ class Overview extends Component {
 
   render(){
     const conversionRate = this.props.conversionRate ? this.props.conversionRate.USD_CRC.toFixed(2) : ''
-
+    console.log(this.props)
     return (
       <div id='overview' className='container-fluid'>
         <div className='title-section'>
@@ -40,7 +40,8 @@ class Overview extends Component {
         </div>
 
         <div className='row'>
-          {conversionRate ? <PropertiesOverviewChart conversionRate={conversionRate} {...this.props}/> : <div>loading</div>}
+          
+          {conversionRate && this.props.data.loading !== true ? <PropertiesOverviewChart conversionRate={conversionRate} {...this.props}/> : <div>loading</div>}
 
           <OverDueTenants  {...this.props}/>
         </div>

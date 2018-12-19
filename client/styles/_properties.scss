@@ -47,6 +47,16 @@
     .no-properties {
       margin-bottom: 20px;
     }
+    .delete-save {
+      .btn-danger {
+        background: $red;
+        border: 1px solid $red;
+      }
+      .btn-primary {
+        background: $primary;
+        border: 1px solid $primary;
+      }
+    }
     .edit-property-icon {
       color: $primary;
       float: right;
@@ -116,6 +126,9 @@
     width: 100%;
     border: 1px solid lightgrey;
     .delete-save {
+      .btn {
+        padding: 5px 10px 5px 10px;
+      }
       .btn-danger {
         background: $red;
         border: 1px solid $red;
