@@ -11,7 +11,7 @@
     padding: 20px;
 
     .currency-conversion {
-      top: 35px;
+      top: 20px;
       position: absolute;
       right: 40px;
       .right-arrow {
@@ -29,13 +29,17 @@
     border-radius: 5px;
     padding: 20px;
     margin-bottom: 15px;
+    min-height: 400px;
+
   }
   .overdue-section{
+
     width: 100%;
     background: white;
     border: 1px solid lightgrey;
     border-radius: 5px;
     padding: 20px;
+    min-height: 400px;
     table {
       width: 100%;
       tr:not(:first-child) {

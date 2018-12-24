@@ -87,29 +87,31 @@ class PropertiesOverview extends Component {
       ],
     }
     var that = this
-
+    
     return (
-      <div className='col-12'>
-        <div className='properties-overview-section'>
-          <h5 className='text-center'>Properties Overview</h5>
 
           <HorizontalBar
             data={data}
             options={{
+              animation: {
+                onProgress: function(animation) {
+                  //console.log(animation)
+                }
+              },
               tooltips: {
                 callbacks: {
                   label: function(tooltipItem, data) {
                     if(tooltipItem.datasetIndex === 0){
-                      return '₡' + tooltipItem.xLabel.toLocaleString() + ' ($' + ((tooltipItem.xLabel * that.props.conversionRate.CRC_USD).toLocaleString()) + ')'
+                      return '$' + (Math.round(tooltipItem.xLabel * that.props.conversionRate.CRC_USD).toLocaleString())
                     }
                     if(tooltipItem.datasetIndex === 1){
-                      return '₡' + tooltipItem.xLabel.toLocaleString() + ' ($' + ((tooltipItem.xLabel * that.props.conversionRate.CRC_USD).toLocaleString()) + ')'
+                      return '₡' + Math.round(tooltipItem.xLabel).toLocaleString()
                     }
                     if(tooltipItem.datasetIndex === 2){
-                      return '₡' + tooltipItem.xLabel.toLocaleString() + ' ($' + ((tooltipItem.xLabel * that.props.conversionRate.CRC_USD).toLocaleString()) + ')'
+                      return '$' + (Math.round(tooltipItem.xLabel * that.props.conversionRate.CRC_USD).toLocaleString())
                     }
                     if(tooltipItem.datasetIndex === 3){
-                      return '₡' + tooltipItem.xLabel.toLocaleString() + ' ($' + ((tooltipItem.xLabel * that.props.conversionRate.CRC_USD).toLocaleString()) + ')'
+                      return '₡' + Math.round(tooltipItem.xLabel).toLocaleString()
                     }
                   }
                 }
@@ -128,9 +130,6 @@ class PropertiesOverview extends Component {
               }
             }}
           />
-        </div>
-      </div>
-
     )
   }
 }
