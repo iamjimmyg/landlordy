@@ -12,17 +12,6 @@ class Overview extends Component {
   constructor(props){
     super(props)
     this.state={}
-    this.handleOverDue = this.handleOverDue.bind(this)
-  }
-
-  handleOverDue(){
-    setTimeout(() => {
-      this.setState({ overDue: <Motion defaultStyle={{x: -35, o: 0}} style={{x: spring(0), o: spring(1, {stiffness: 30})}}>
-        {value => <div className="intro" style={{left: value.x, opacity: value.o, position: 'relative'}}>
-            {this.props.data.loading !== true ? <OverDueTenants  {...this.props}/> : <Loader />}
-          </div>}
-      </Motion> })
-    },200)
   }
 
   render(){

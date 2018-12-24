@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-//import UnitPaidForm from '../forms/UnitPaidForm'
-// import EditUnitForm from '../forms/EditUnitForm'
 import TenantsBoxedView from './TenantsBoxedView'
 import TenantsListView from './TenantsListView'
 
 import { Link, Redirect } from 'react-router'
 import { dateAndDueInfo } from '../../helpers/DateHelper'
+
+import {Motion, spring} from 'react-motion';
 
 class Tenants extends Component {
   constructor(props){
@@ -62,41 +62,40 @@ class Tenants extends Component {
     }
 
     return (
-      <div id='tenants' className='container-fluid'>
-        <div className='title-section'>
-          <div className='row no-gutters'>
-            <div className=''>
-              <h4>Tenants</h4>
-            </div>
-            <form className='select-view-button'>
-              <div className="btn-group btn-group-toggle" data-toggle="buttons" >
-                <label className={`btn btn-secondary ${this.state.view === 'list' ? 'active' : ''}`}
-                  onClick={()=>{this.setState({ view: 'list' })}}>
-                  <i className="material-icons">list</i>
-                  <input type="radio"/>
-                </label>
-                <label className={`btn btn-secondary ${this.state.view === 'module' ? 'active' : ''}`}
-                  onClick={()=>{this.setState({ view: 'module' })}}>
-                  <i className="material-icons">view_module</i>
-                  <input type="radio" />
-                </label>
+      <Motion defaultStyle={{x: -25, o: 0}} style={{x: spring(0), o: spring(1, {stiffness: 50})}}>
+        {value => <div className="" style={{top: value.x, opacity: value.o, position: 'relative'}}>
+            <div id='tenants' className='container-fluid'>
+              <div className='title-section'>
+                <div className='row no-gutters'>
+                  <div className=''>
+                    <h4>Tenants</h4>
+                  </div>
+                  <form className='select-view-button'>
+                    <div className="btn-group btn-group-toggle" data-toggle="buttons" >
+                      <label className={`btn btn-secondary ${this.state.view === 'list' ? 'active' : ''}`}
+                        onClick={()=>{this.setState({ view: 'list' })}}>
+                        <i className="material-icons">list</i>
+                        <input type="radio"/>
+                      </label>
+                      <label className={`btn btn-secondary ${this.state.view === 'module' ? 'active' : ''}`}
+                        onClick={()=>{this.setState({ view: 'module' })}}>
+                        <i className="material-icons">view_module</i>
+                        <input type="radio" />
+                      </label>
+                    </div>
+                  </form>
+                </div>
               </div>
-            </form>
-          </div>
-        </div>
 
-        {this.state.view === 'list' ? <TenantsListView
-            {...this.props}
-          /> : <div className='row'>
-            {tenants}
-          </div>
-        }
-
-
-
-
-
-      </div>
+              {this.state.view === 'list' ? <TenantsListView
+                  {...this.props}
+                /> : <div className='row'>
+                  {tenants}
+                </div>
+              }
+            </div>
+          </div>}
+      </Motion>
     )
   }
 }
