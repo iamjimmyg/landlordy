@@ -49,21 +49,20 @@ class Tenants extends Component {
       tenants = units.map((unit, i) => {
         let dateAndOverDue = dateAndDueInfo(unit)
         return <TenantsBoxedView
-          editTenantSelect={this.editTenantSelect}
-          selectEditTenant={this.state.editTenantSelect}
-          key={unit.id} unit={unit}
-          dateAndOverDue={dateAndOverDue}
-          //viewProperty={this.props.viewProperty}
-          property={properties[i]}
-          isAdmin={user.isAdmin}
-        />
+            editTenantSelect={this.editTenantSelect}
+            selectEditTenant={this.state.editTenantSelect}
+            key={unit.id} unit={unit}
+            dateAndOverDue={dateAndOverDue}
+            //viewProperty={this.props.viewProperty}
+            property={properties[i]}
+            isAdmin={user.isAdmin}
+          />
+
 
       })
     }
 
     return (
-      <Motion defaultStyle={{x: -25, o: 0}} style={{x: spring(0), o: spring(1, {stiffness: 50})}}>
-        {value => <div className="" style={{top: value.x, opacity: value.o, position: 'relative'}}>
             <div id='tenants' className='container-fluid'>
               <div className='title-section'>
                 <div className='row no-gutters'>
@@ -87,15 +86,18 @@ class Tenants extends Component {
                 </div>
               </div>
 
-              {this.state.view === 'list' ? <TenantsListView
-                  {...this.props}
-                /> : <div className='row'>
-                  {tenants}
-                </div>
-              }
+              <Motion defaultStyle={{x: -25, o: 0}} style={{x: spring(0), o: spring(1, {stiffness: 50})}}>
+                {value => <div className="" style={{top: value.x, opacity: value.o, position: 'relative'}}>
+                    {this.state.view === 'list' ? <TenantsListView
+                        {...this.props}
+                      /> : <div className='row'>
+                        {tenants}
+                      </div>
+                    }
+                  </div>}
+              </Motion>
             </div>
-          </div>}
-      </Motion>
+
     )
   }
 }

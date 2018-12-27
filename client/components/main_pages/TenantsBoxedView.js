@@ -49,7 +49,7 @@ class TenantsBoxedView extends Component {
 
           <div className='title'>
             <h5>{unit.tenantName}</h5>
-            {unit.amountOwed !== 0 ? <span className="badge badge-danger overdue">-{unit.currency === 'Dollars' ? '$' : '₡'}{unit.amountOwed.toLocaleString()}</span> : ''}
+            {/* {unit.amountOwed !== 0 ? <span className="badge badge-danger overdue">-{unit.currency === 'Dollars' ? '$' : '₡'}{unit.amountOwed.toLocaleString()}</span> : ''} */}
           </div>
           <div className='small-text'>
             Property:

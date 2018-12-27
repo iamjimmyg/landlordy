@@ -46,7 +46,7 @@ class PropertiesBoxedView extends Component {
     }
 
     return (
-      <div key={property.id} className='col-xl-4 col-md-6'>
+      <div key={property.id} className=''>
         <div  className='property-section'>
           <div className='row'>
             <div className='col-12'>

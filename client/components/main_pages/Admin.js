@@ -11,8 +11,7 @@ class Admin extends Component {
     const companyName = this.props.data.user.company.companyName
 
     return (
-      <Motion defaultStyle={{x: -25, o: 0}} style={{x: spring(0), o: spring(1, {stiffness: 50})}}>
-        {value => <div className="" style={{top: value.x, opacity: value.o, position: 'relative'}}>
+
           <div id='admin' className='container-fluid'>
             <div className='title-section'>
               <div className='row no-gutters'>
@@ -23,19 +22,21 @@ class Admin extends Component {
               </div>
             </div>
 
-            <div className='row'>
+            <Motion defaultStyle={{x: -25, o: 0}} style={{x: spring(0), o: spring(1, {stiffness: 50})}}>
+              {value => <div className="" style={{top: value.x, opacity: value.o, position: 'relative'}}>
+                <div className='row'>
 
-              <div className='col-md-8'>
-                <SignUpAssistant {...this.props}/>
-              </div>
-              <div className='col-md-4'>
-                <Assistants {...this.props}/>
-              </div>
-            </div>
-
+                  <div className='col-md-8'>
+                    <SignUpAssistant {...this.props}/>
+                  </div>
+                  <div className='col-md-4'>
+                    <Assistants {...this.props}/>
+                  </div>
+                </div>
+              </div>}
+            </Motion>
           </div>
-        </div>}
-      </Motion>
+
     )
   }
 }
