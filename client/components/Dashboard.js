@@ -52,16 +52,22 @@ class Dashboard extends Component {
     }
   }
 
+  componentWillUnmount(){
+    window.onresize = null
+  }
+
   componentDidMount(){
 
     const checkWindow = () =>{
+      console.log(window.innerWidth)
       if(window.innerWidth < 1200) this.setState({ expanded: false, mobileView: false })
       else this.setState({ expanded: true, mobileView: false })
-      if(window.innerWidth < 700) this.setState({ hamburgerMenu: false, expanded: true, mobileView: true })
+      if(window.innerWidth < 750) this.setState({ hamburgerMenu: false, expanded: true, mobileView: true })
     }
     checkWindow()
     window.onresize=()=>{
       checkWindow()
+
     }
 
     //// NOTE: find current exchange rate for dollars and colones and save to local storage

@@ -1,7 +1,7 @@
+
 @import 'properties';
 @import 'sidebar';
 @import 'default_colors';
-@import 'media_queries';
 @import 'header';
 @import 'property';
 @import 'tenants';
@@ -11,6 +11,7 @@
 @import 'signup';
 @import 'admin';
 @import 'home';
+@import 'media_queries';
 
 * {
   font-size: 16px;

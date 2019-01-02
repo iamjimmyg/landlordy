@@ -1,6 +1,12 @@
 import React, { Component } from 'react'
 
 class Home extends Component {
+  componentWillMount(){
+    window.onresize=()=>{
+      console.log(window.innerWidth)
+    }
+  }
+
   render(){
     return (
       <div id='home' className=''>
@@ -9,14 +15,16 @@ class Home extends Component {
         <div className='landing'>
         </div>
 
-        <div className='title-section row'>
-          {/* <div className='col-2'>
+        <div className='title-section'>
+
+          <div className='heading-text d-flex'>
             <i className='material-icons'>home</i>
-          </div> */}
-          <div className='col-10'>
-            <h1>MyProperties.me</h1>
+            <h1 className='title'>MyProperties.me</h1>
+          </div>
+          <div className='description'>
             <h3>MyProperties.me is a property management app for landlords in a digital world.</h3>
           </div>
+
 
         </div>
 

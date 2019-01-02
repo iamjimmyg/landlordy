@@ -17,24 +17,37 @@
   }
   .title-section{
     color: white;
-    //padding-top: 150px;
-    margin-left: auto;
-    margin-right: auto;
+    // margin-left: auto;
+    // margin-right: auto;
     position: absolute;
     z-index: 3;
-    //padding-left: .-50;
-    top: 100px;
-    left: 0;
-    width: 60%;
-    height: 100%;
-
+    top: 58px;
+    width: 100%;
+    min-height: 600px;
+    .heading-text{
+      margin-top: 150px;
+      width: 70%;
+      margin-left: auto;
+      margin-right: auto;
+      .title {
+        font-size: 60px;
+        left: -24px;
+        position: relative;
+        top: 77px;
+      }
+    }
+    .description {
+      width: 66%;
+      margin-left: auto;
+      margin-right: auto;
+    }
     i {
-      font-size: 140px;
-      color: $primary;
+      font-size: 162px;
+      //color: $primary;
     }
   }
   // .background-div {
-  //   opacity: .5;
+  //   opacity: .4;
   //   top: 50;
   //   left: 0;
   //   width: 100%;
@@ -42,6 +55,6 @@
   //   position: absolute;
   //   z-index: 2;
   //   min-height: 600px;
-  //   background: $primary;
+  //   background: grey;
   // }
 }

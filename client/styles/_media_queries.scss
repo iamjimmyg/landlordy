@@ -1,5 +1,5 @@
 
-@media (max-width: 700px) {
+@media (max-width: 750px) {
   .sidenav---sidenav---_2tBP{
     left: -240px;
     position: 'relative';
@@ -24,9 +24,72 @@
     transform: scale(.8,.8);
     right: 18px !important;
   }
+  #home{
+      .title-section {
+        //width: 80%;
+        transform: scale(.8,.8);
+        .heading-text {
+          width: 85%;
+        }
+        .description {
+          width: 85%;
+        }
+      }
+
+    }
+
 }
-
-// @media (max-width: 700px) {
-
 //
-// }
+@media (max-width: 650px) {
+  #home{
+    .title-section {
+      //width: 80%;
+      //transform: scale(.65,.65);
+      .heading-text {
+        width: 100%;
+        .title {
+          font-size: 55px;
+          top: 59px;
+        }
+      }
+      .description {
+        width: 100%;
+      }
+      i {
+        //display: none;
+        font-size: 135px;
+      }
+    }
+
+  }
+
+}
+@media (max-width: 470px) {
+  #home{
+    .landing {
+      min-height: 480px;
+    }
+    .title-section {
+      min-height: 480px;
+      transform: none;
+      .heading-text {
+        width: 85%;
+        .title {
+          font-size: 30px;
+          top: 39px;
+          left: -13px;
+        }
+      }
+      .description {
+        h3 {
+          font-size: 20px;
+        }
+
+        width: 85%;
+      }
+      i {
+        font-size: 83px;
+      }
+    }
+  }
+}
