@@ -34,7 +34,7 @@ class OverDueTenants extends Component {
 
     return (
 
-      <div className='overdue-section'>
+      <div className=''>
         <h5 className='text-center'>Overdue Tenants</h5>
         <table>
           <thead>

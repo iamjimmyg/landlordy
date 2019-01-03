@@ -3,7 +3,7 @@ import AddPropertyForm from '../forms/AddPropertyForm'
 import PropertiesListView from './PropertiesListView'
 import PropertiesBoxedView from './PropertiesBoxedView'
 
-import {Motion, spring} from 'react-motion';
+import {Motion, spring} from 'react-motion'
 
 class Properties extends Component {
   constructor(props){

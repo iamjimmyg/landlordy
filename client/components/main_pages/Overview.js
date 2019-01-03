@@ -35,7 +35,7 @@ class Overview extends Component {
                     <div className="input-group-prepend">
                       <span className="input-group-text">₡</span>
                       <span className="input-group-text">
-                        {conversionRate}
+                        {conversionRate ? conversionRate : <Loader />}
                       </span>
                     </div>
                   </div>
@@ -53,7 +53,8 @@ class Overview extends Component {
                     </div>
                   {/* </div> */}
 
-                  <div className=''>
+                  <div className='overdue-section'>
+
                     {conversionRate && this.props.data.loading !== true ? <OverDueTenants  {...this.props}/> : <Loader />}
                   </div>
 

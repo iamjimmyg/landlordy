@@ -29,6 +29,7 @@
     "express": "^4.14.0",
     "express-graphql": "^0.6.1",
     "express-session": "^1.15.0",
+    "file-loader": "^3.0.1",
     "graphql": "^0.8.2",
     "graphql-tag": "^1.2.4",
     "html-webpack-plugin": "^2.26.0",
@@ -47,6 +48,7 @@
     "react-spinners": "^0.4.7",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.0",
+    "url-loader": "^1.1.2",
     "webpack": "^2.2.1",
     "webpack-dev-middleware": "^1.9.0"
   }
