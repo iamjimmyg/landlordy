@@ -56,7 +56,7 @@ class Properties extends Component {
               </div>}
             </Motion>
           }else if(this.state.view === 'module'){
-            return <Motion key={i} defaultStyle={{x: -25, o: 0}} style={{x: spring(0), o: spring(1, {stiffness: 50})}}>
+            return <Motion key={i} defaultStyle={{x: -25, o: 0}} style={{x: spring(0), o: spring(1)}}>
                 {value => <div className="col-xl-4 col-md-6" style={{top: value.x, opacity: value.o, position: 'relative', width: '100%'}}>
                   <PropertiesBoxedView
                 i={i}

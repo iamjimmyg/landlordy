@@ -87,12 +87,13 @@ class PropertiesOverview extends Component {
       ],
     }
     var that = this
-    
+
     return (
 
-          <HorizontalBar
+          <Bar
             data={data}
             options={{
+              maintainAspectRatio: false,
               animation: {
                 onProgress: function(animation) {
                   //console.log(animation)
@@ -101,26 +102,27 @@ class PropertiesOverview extends Component {
               tooltips: {
                 callbacks: {
                   label: function(tooltipItem, data) {
+                    console.log(tooltipItem)
                     if(tooltipItem.datasetIndex === 0){
-                      return '$' + (Math.round(tooltipItem.xLabel * that.props.conversionRate.CRC_USD).toLocaleString())
+                      return '$' + (Math.round(tooltipItem.yLabel * that.props.conversionRate.CRC_USD).toLocaleString())
                     }
                     if(tooltipItem.datasetIndex === 1){
-                      return '₡' + Math.round(tooltipItem.xLabel).toLocaleString()
+                      return '₡' + Math.round(tooltipItem.yLabel).toLocaleString()
                     }
                     if(tooltipItem.datasetIndex === 2){
-                      return '$' + (Math.round(tooltipItem.xLabel * that.props.conversionRate.CRC_USD).toLocaleString())
+                      return '$' + (Math.round(tooltipItem.yLabel * that.props.conversionRate.CRC_USD).toLocaleString())
                     }
                     if(tooltipItem.datasetIndex === 3){
-                      return '₡' + Math.round(tooltipItem.xLabel).toLocaleString()
+                      return '₡' + Math.round(tooltipItem.yLabel).toLocaleString()
                     }
                   }
                 }
               },
               scales: {
-                yAxes: [{
+                xAxes: [{
                   stacked: true,
                 }],
-                xAxes: [{
+                yAxes: [{
 
                   ticks: {
                     callback: function(value){return '₡' + value.toLocaleString()}

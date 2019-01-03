@@ -43,23 +43,23 @@ class Overview extends Component {
               </div>
             </div>
 
-            <Motion defaultStyle={{x: -25, o: 0}} style={{x: spring(0), o: spring(1, {stiffness: 50})}}>
+            <Motion defaultStyle={{x: -25, o: 0}} style={{x: spring(0), o: spring(1)}}>
               {value => <div className="" style={{top: value.x, opacity: value.o, position: 'relative'}}>
-              <div className='row'>
-                <div className='col-xl-6'>
-                  <div className='properties-overview-section'>
-                    <h5 className='text-center'>Properties Overview</h5>
-                    {conversionRate && this.props.data.loading !== true ? <PropertiesOverviewChart conversionRate={conversionRate} {...this.props}/> : <Loader />}
+                <div className=''>
+                  {/* <div className=''> */}
+                    <div className='properties-overview-section'>
+                      <h5 className='text-center'>Properties Overview</h5>
+                      {conversionRate && this.props.data.loading !== true ? <PropertiesOverviewChart conversionRate={conversionRate} {...this.props}/> : <Loader />}
+                    </div>
+                  {/* </div> */}
+
+                  <div className=''>
+                    {conversionRate && this.props.data.loading !== true ? <OverDueTenants  {...this.props}/> : <Loader />}
                   </div>
-                </div>
 
-                <div className='col-xl-6'>
-                  {conversionRate && this.props.data.loading !== true ? <OverDueTenants  {...this.props}/> : <Loader />}
                 </div>
-
-              </div>
-            </div>}
-        </Motion>
+              </div>}
+            </Motion>
 
           </div>
 

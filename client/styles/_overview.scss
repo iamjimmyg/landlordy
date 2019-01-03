@@ -29,7 +29,11 @@
     border-radius: 5px;
     padding: 20px;
     margin-bottom: 15px;
-    min-height: 400px;
+    //min-height: 430px;
+    height: 600px;
+    canvas {
+      max-height: 520px;
+    }
 
   }
   .overdue-section{
@@ -39,7 +43,7 @@
     border: 1px solid lightgrey;
     border-radius: 5px;
     padding: 20px;
-    min-height: 400px;
+    //min-height: 400px;
     table {
       width: 100%;
       tr:not(:first-child) {
