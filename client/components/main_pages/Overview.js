@@ -35,7 +35,7 @@ class Overview extends Component {
                     <div className="input-group-prepend">
                       <span className="input-group-text">₡</span>
                       <span className="input-group-text">
-                        {conversionRate ? conversionRate : <Loader />}
+                        {conversionRate}
                       </span>
                     </div>
                   </div>

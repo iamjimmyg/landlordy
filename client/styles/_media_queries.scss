@@ -1,3 +1,24 @@
+@media (max-width: 1100px) {
+  #home {
+    .more-info-section {
+      .laptop {
+        margin-left: -50px;
+      }
+    }
+
+  }
+}
+
+@media (max-width: 768px) {
+  #home {
+    .more-info-section {
+      .laptop {
+        margin-left: -87px;
+      }
+    }
+
+  }
+}
 
 @media (max-width: 750px) {
   .sidenav---sidenav---_2tBP{
@@ -25,21 +46,25 @@
     right: 18px !important;
   }
   #home{
-      .title-section {
-        //width: 80%;
-        transform: scale(.8,.8);
-        .heading-text {
-          width: 85%;
-        }
-        .description {
-          width: 85%;
-        }
+    .title-section {
+      //width: 80%;
+      transform: scale(.8,.8);
+      .heading-text {
+        width: 85%;
       }
-
+      .description {
+        width: 85%;
+      }
     }
+    .more-info-section {
+      .laptop {
+        margin-left: -87px;
+      }
+    }
+  }
 
 }
-//
+
 @media (max-width: 650px) {
   #home{
     .title-section {
@@ -57,17 +82,38 @@
         font-size: 135px;
       }
     }
+    .features-and-coming-soon {
+      margin: 0px;
+      padding: 15px 8px 15px 8px;
+    }
+    .more-info-section {
+      margin: 0px;
+      //padding: 15px 8px 15px 8px;
+    }
 
   }
 
 }
-@media (max-width: 470px) {
+
+@media (max-width: 528px) {
   #home{
+
+    .more-info-section {
+      .laptop {
+        margin-left: -50px;
+      }
+    }
+}
+
+@media (max-width: 470px) {
+
+
+
     .landing {
       min-height: 480px;
     }
     .title-section {
-      min-height: 480px;
+      //min-height: 480px;
       transform: none;
       .heading-text {
         width: 85%;
@@ -84,9 +130,9 @@
 
         width: 85%;
       }
-      i {
-        font-size: 83px;
-      }
+      // i {
+      //   font-size: 83px;
+      // }
     }
   }
 }

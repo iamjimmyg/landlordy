@@ -70,7 +70,11 @@
   }
   .more-info-section {
     //background: $lightgrey;
+
     padding: 30px;
+    margin-left: 10%;
+    margin-right: 10%;
+
     // .laptop {
     //   background-image: url('../images/macbook-flat.png');
     //   height: 500px; /* You must set a specified height */
@@ -79,6 +83,9 @@
     //   background-size: contain;
     //
     // }
+    .laptop-container {
+      margin-bottom: 20px;
+    }
     .laptop {
         margin: -7%;
         margin-left: -87px;
@@ -116,16 +123,10 @@
     //
     // }
   }
+  .more-info-text {
+    h4 {
+      color: $primary;
+    }
+  }
 
-  // .background-div {
-  //   opacity: .4;
-  //   top: 50;
-  //   left: 0;
-  //   width: 100%;
-  //   //height: 100%;
-  //   position: absolute;
-  //   z-index: 2;
-  //   min-height: 600px;
-  //   background: grey;
-  // }
 }
