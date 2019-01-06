@@ -75,71 +75,60 @@ class Properties extends Component {
 
     return (
 
-
-
           <div id='properties' className='container-fluid'>
+            <div className='title-section'>
+              <div className='row no-gutters'>
+                <div className=''>
+                  <h4>Properties</h4>
+                </div>
+                <form className='select-view-button'>
 
-            {/* <Motion defaultStyle={{x: -25, o: 0}} style={{x: spring(0), o: spring(1, {stiffness: 50})}}>
-              {value => <div className="" style={{top: value.x, opacity: value.o, position: 'relative'}}> */}
-                <div className='title-section'>
-                  <div className='row no-gutters'>
-                    <div className=''>
-                      <h4>Properties</h4>
-                    </div>
-                    <form className='select-view-button'>
-
-                      <div className="btn-group btn-group-toggle" data-toggle="buttons" >
-                        <label className={`btn btn-secondary ${this.state.view === 'list' ? 'active' : ''}`}
-                          onClick={()=>{this.setState({ view: 'list' })}}>
-                          <i className="material-icons">list</i>
-                          <input type="radio"/>
-                        </label>
-                        <label className={`btn btn-secondary ${this.state.view === 'module' ? 'active' : ''}`}
-                          onClick={()=>{this.setState({ view: 'module' })}}>
-                          <i className="material-icons">view_module</i>
-                          <input type="radio" />
-                        </label>
-                      </div>
-                    </form>
+                  <div className="btn-group btn-group-toggle" data-toggle="buttons" >
+                    <label className={`btn btn-secondary ${this.state.view === 'list' ? 'active' : ''}`}
+                      onClick={()=>{this.setState({ view: 'list' })}}>
+                      <i className="material-icons">list</i>
+                      <input type="radio"/>
+                    </label>
+                    <label className={`btn btn-secondary ${this.state.view === 'module' ? 'active' : ''}`}
+                      onClick={()=>{this.setState({ view: 'module' })}}>
+                      <i className="material-icons">view_module</i>
+                      <input type="radio" />
+                    </label>
                   </div>
+                </form>
+              </div>
 
-                  <i className="material-icons float-right add-property-icon"
-                    onClick={() => {
-                      debugger
-                      this.addPropertyDisplay.bind(this)
-                    }}
-                    data-toggle="modal"
-                    data-target="#AddProperty">add_circle_outline
-                  </i>
+              <i className="material-icons float-right add-property-icon"
+                onClick={() => {
+                  this.addPropertyDisplay.bind(this)
+                }}
+                data-toggle="modal"
+                data-target="#AddProperty">add_circle_outline
+              </i>
 
-
-                  <div className="modal fade" id="AddProperty" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div className="modal-dialog modal-dialog-centered" role="document">
-                      <div className="modal-content">
-                        <div className="modal-header">
-                          <h5 className="modal-title" id="exampleModalCenterTitle">Add Property</h5>
-                          <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div className="modal-body">
-                          <AddPropertyForm
-                            companyId={user ? this.props.data.user.company.id : ''}
-                          />
-                        </div>
-
-                      </div>
+              <div className="modal fade" id="AddProperty" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered" role="document">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h5 className="modal-title" id="exampleModalCenterTitle">Add Property</h5>
+                      <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div className="modal-body">
+                      <AddPropertyForm
+                        companyId={user ? this.props.data.user.company.id : ''}
+                      />
                     </div>
                   </div>
                 </div>
-              {/* </div>}
-          </Motion> */}
+              </div>
+            </div>
 
             <div className='row '>
               {properties}
             </div>
           </div>
-
     )
   }
 }

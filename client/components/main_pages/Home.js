@@ -133,14 +133,13 @@ class Home extends Component {
 
               <div className='col-md-6 order-sm-2 order-md-1 more-info-text'>
                 <h4>Conversion rate analysis</h4>
-                <p>Choose the currency your tenant pays in and get a conversion rate anaylsis with hourly updates on the curreny exchange</p>
+                <p>Choose the currency your tenant pays in and get a conversion rate anaylsis with hourly updates on the curreny exchange.</p>
 
-                <h4></h4>
-                <p></p>
+                <h4>Quick Overview</h4>
+                <p>Get a quick overview on tenants that are overdue as well as income collected.</p>
 
-                <h4>Easily manage properties</h4>
-                <p>Easily edit and manage property/tenant info and payments with the user friendly interface.</p>
-
+                <h4>Signup Assisstant</h4>
+                <p>Signup an assistant with ability to add/edit property information but is restricted on changing amount owed on tenants.</p>
 
               </div>
 
