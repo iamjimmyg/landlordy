@@ -20,7 +20,8 @@ class Header extends Component {
       return (
         <div className='nav'>
           <li className='nav-item'>
-            <Link to='/dashboard' className='nav-link'>Dashboard</Link>
+            {this.props.location.pathname === '/' ? <Link to='/dashboard' className='nav-link'>Dashboard</Link> : <Link to='/' className='nav-link'>Home</Link>}
+
           </li>
           <li className='nav-item'><a href='#' className='nav-link' onClick={this.onLogoutClick.bind(this)}>Logout</a></li>
         </div>
@@ -45,8 +46,9 @@ class Header extends Component {
       <nav className='navbar nav'>
         <div className='container-fluid'>
           <div className='sidebar-div'></div>
-          <Link to='/' className='brand-logo left nav-link'>Home</Link>
-          <div className=''>
+          <div className=''></div>
+          {/* <Link to='/' className='brand-logo left nav-link'>Home</Link> */}
+          <div className='float-right'>
             {this.renderButtons()}
           </div>
         </div>
