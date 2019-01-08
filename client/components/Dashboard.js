@@ -82,7 +82,7 @@ class Dashboard extends Component {
 
     const shouldCacheUpdate = currentDay !== cachedDay || currentHour !== cachedHour ? true : false
     if(!cachedConversionRate || shouldCacheUpdate) {
-      const request = axios.get('http://free.currencyconverterapi.com/api/v6/convert?q=USD_CRC,CRC_USD&compact=ultra')
+      const request = axios.get('https://free.currencyconverterapi.com/api/v6/convert?q=USD_CRC,CRC_USD&compact=ultra')
 
         .then(res => {
           let date = new Date()
