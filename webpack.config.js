@@ -15,20 +15,24 @@ module.exports = {
       {test: /(\.scss)$/, loaders: ['style-loader', 'css-loader', 'sass-loader']},
       {
         test: /\.(jpe?g|png|gif|woff|woff2|eot|ttf|svg)(\?[a-z0-9=.]+)?$/,
-        // loader: 'url-loader?limit=100000'
         use: [{
-                loader: 'url-loader',
-                options: {
-                    limit: 8000, // Convert images < 8kb to base64 strings
-                    name: 'images/[hash]-[name].[ext]'
-                }
-            }]
+          loader: 'url-loader',
+          options: {
+            limit: 8000, // Convert images < 8kb to base64 strings
+            name: 'images/[hash]-[name].[ext]'
+          }
+        }]
       }
-    ]
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: 'build/index.html'
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: { warnings: false },
@@ -36,5 +40,6 @@ module.exports = {
       sourceMap: true,
       minimize: false
     }),
-  ]
+  ],
+
 };
