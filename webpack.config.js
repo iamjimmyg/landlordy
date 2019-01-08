@@ -26,20 +26,20 @@ module.exports = {
     ],
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: 'build/index.html'
-    }),
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('production')
-      }
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: { warnings: false },
-      comments: false,
-      sourceMap: true,
-      minimize: false
-    }),
+    // new HtmlWebpackPlugin({
+    //   template: 'build/index.html'
+    // }),
+    // new webpack.DefinePlugin({
+    //   'process.env': {
+    //     NODE_ENV: JSON.stringify('production')
+    //   }
+    // }),
+    // new webpack.optimize.UglifyJsPlugin({
+    //   compress: { warnings: false },
+    //   comments: false,
+    //   sourceMap: true,
+    //   minimize: false
+    // }),
   ],
 
 };
