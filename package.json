@@ -16,11 +16,6 @@
   "dependencies": {
     "@trendmicro/react-sidenav": "^0.4.5",
     "apollo-client": "^0.8.2",
-    "axios": "^0.15.3",
-    "babel-core": "^6.22.1",
-    "babel-loader": "^6.2.10",
-    "babel-preset-env": "^1.1.8",
-    "babel-preset-react": "^6.22.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.16.0",
     "chart.js": "^2.7.3",
@@ -54,5 +49,12 @@
     "url-loader": "^1.1.2",
     "webpack": "^2.2.1",
     "webpack-dev-middleware": "^1.9.0"
+  },
+  "devDependencies": {
+    "babel-loader": "^6.2.10",
+    "babel-preset-env": "^1.1.8",
+    "babel-preset-react": "^6.22.0",
+    "axios": "^0.15.3",
+    "babel-core": "^6.22.1"
   }
 }
