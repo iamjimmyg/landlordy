@@ -18,7 +18,7 @@ class Home extends Component {
       this.setState({ description: <Motion defaultStyle={{x: -25, o: 0}} style={{x: spring(0), o: spring(1)}}>
         {value => <div className="" style={{top: value.x, opacity: value.o, position: 'relative'}}>
           <div className='description'>
-            <h3>MyProperties.me is a property management app for landlords in a digital world.</h3>
+            <h3>MyProperties.me poop is a property management app for landlords in a digital world.</h3>
           </div>
         </div>}
       </Motion> })
