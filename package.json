@@ -8,7 +8,8 @@
   },
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js --ignore client"
+    "start": "nodemon index.js --ignore client",
+    "build": "webpack"
   },
   "author": "",
   "license": "ISC",

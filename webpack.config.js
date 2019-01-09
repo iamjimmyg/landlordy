@@ -41,12 +41,12 @@ module.exports = {
     //     NODE_ENV: JSON.stringify('production')
     //   }
     // }),
-    // new webpack.optimize.UglifyJsPlugin({
-    //   compress: { warnings: false },
-    //   comments: false,
-    //   sourceMap: true,
-    //   minimize: true
-    // }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: { warnings: false },
+      comments: false,
+      sourceMap: true,
+      minimize: false
+    }),
   ],
 
 };
