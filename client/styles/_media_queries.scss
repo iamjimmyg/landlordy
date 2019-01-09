@@ -79,6 +79,7 @@
         width: 100%;
       }
       i {
+        width: 139px;
         font-size: 135px;
       }
     }
@@ -97,7 +98,21 @@
 
 @media (max-width: 528px) {
   #home{
-
+    .title-section {
+      .heading-text {
+        .title {
+          font-size: 39px;
+          top: 49px;
+        }
+      }
+      .description {
+        width: 100%;
+      }
+      i {
+        width: 113px;
+        font-size: 104px;
+      }
+    }
     .more-info-section {
       .laptop {
         margin-left: -50px;

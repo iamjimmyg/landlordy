@@ -26,6 +26,7 @@ class Home extends Component {
   }
 
   render(){
+
     return (
       <div id='home' className=''>
         {/* <div className='background-div' >
@@ -34,6 +35,7 @@ class Home extends Component {
         </div>
 
         <div className='title-section'>
+
           <Motion defaultStyle={{x: -25, o: 0}} style={{x: spring(0), o: spring(1)}}>
             {value => <div className="" style={{top: value.x, opacity: value.o, position: 'relative'}}>
               <div className='heading-text d-flex'>
