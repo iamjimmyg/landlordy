@@ -33,9 +33,9 @@ module.exports = {
     }),
 
     // new HtmlWebpackPlugin()
-    new HtmlWebpackPlugin({
-      template: 'build/index.html'
-    }),
+    // new HtmlWebpackPlugin({
+    //   template: 'build/index.html'
+    // }),
     new webpack.optimize.UglifyJsPlugin()
     // new webpack.DefinePlugin({
     //   'process.env': {

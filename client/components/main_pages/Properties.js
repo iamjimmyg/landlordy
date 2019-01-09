@@ -39,7 +39,7 @@ class Properties extends Component {
       properties = <div>loading...</div>
     }else if(user) {
       if(user.company.properties === undefined || user.company.properties.length === 0){
-        properties = <div>No properties yet</div>
+        properties = <div className='no-properties-yet'>No properties yet</div>
       }else if(user.company.properties.length !== 0){
         let companyId = user.company.id
         properties = user.company.properties.map((property, i) => {
