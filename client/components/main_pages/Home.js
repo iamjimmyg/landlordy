@@ -129,7 +129,15 @@ class Home extends Component {
         <div style={{borderTop: '1px solid lightgrey', background: 'white', minHeight: '400px'}}>
           <div className=''>
             <div className='row more-info-section'>
-              <div className='col-md-6 order-sm-2 order-md-1 more-info-text'>
+
+
+              <div className='col-md-6 order-md-2 laptop-container'>
+                <div className='laptop'>
+                  <img src={dashboard_view} />
+                </div>
+              </div>
+
+              <div className='col-md-6 order-md-1 more-info-text'>
                 <h4>Conversion rate analysis</h4>
                 <p>Choose the currency your tenant pays in and get a conversion rate anaylsis with hourly updates on the curreny exchange.</p>
 
@@ -138,14 +146,8 @@ class Home extends Component {
 
                 <h4>Signup Assisstant</h4>
                 <p>Signup an assistant with ability to add/edit property information but is restricted on changing amount owed on tenants.</p>
-
               </div>
 
-              <div className='col-md-6 order-sm-1 laptop-container'>
-                <div className='laptop'>
-                  <img src={dashboard_view} />
-                </div>
-              </div>
             </div>
           </div>
         </div>
