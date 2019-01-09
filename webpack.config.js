@@ -31,11 +31,11 @@ module.exports = {
     //     NODE_ENV: JSON.stringify('production')
     //   }
     // }),
-    new webpack.optimize.UglifyJsPlugin()
+    // new webpack.optimize.UglifyJsPlugin()
     // new HtmlWebpackPlugin()
-    // new HtmlWebpackPlugin({
-    //   template: 'build/index.html'
-    // }),
+    new HtmlWebpackPlugin({
+      template: 'build/index.html'
+    }),
     // new webpack.DefinePlugin({
     //   'process.env': {
     //     NODE_ENV: JSON.stringify('production')
