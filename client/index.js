@@ -9,6 +9,7 @@ import SignupForm from './components/SignupForm'
 import Dashboard from './components/Dashboard'
 import requireAuth from './components/requireAuth'
 import './styles/app.scss'
+import './images/favicon.ico'
 
 
 const networkInterface = createNetworkInterface({

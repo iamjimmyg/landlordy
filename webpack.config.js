@@ -34,7 +34,8 @@ module.exports = {
 
     // new HtmlWebpackPlugin()
     // new HtmlWebpackPlugin({
-    //   template: 'build/index.html'
+    //   // template: 'build/index.html'
+    //   favicon: 'client/images/favicon.ico'
     // }),
     new webpack.optimize.UglifyJsPlugin()
     // new webpack.DefinePlugin({
