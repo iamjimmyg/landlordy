@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+let FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 
 module.exports = {
   entry: './client/index.js',
@@ -31,12 +32,12 @@ module.exports = {
         NODE_ENV: JSON.stringify('production')
       }
     }),
-
+    // new FaviconsWebpackPlugin('favicon.ico'),
     // new HtmlWebpackPlugin()
-    // new HtmlWebpackPlugin({
-    //   // template: 'build/index.html'
-    //   favicon: 'client/images/favicon.ico'
-    // }),
+    new HtmlWebpackPlugin({
+      // template: 'build/index.html'
+      favicon: 'client/images/favicon.ico'
+    }),
     new webpack.optimize.UglifyJsPlugin()
     // new webpack.DefinePlugin({
     //   'process.env': {
